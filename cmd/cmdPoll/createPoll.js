@@ -16,12 +16,13 @@ module.exports = {
         if (!message.member.hasPermission("ADMINISTRATOR"))
             return deny(message);
         
-        var filterU = (user) => {
+        var filter = (user) => {
+          console.log(user)
             user.id === message.author.id
         }
 
         message.channel.send("Introduzca el nombre de la colección: ").then(() => {
-            message.channel.awaitMessages(filterU, { time: 300000, errors: ['time'] })
+            message.channel.awaitMessages(filter, { time: 10000, errors: ['time'] })
                 .then(collected => {
                     let pollEmbed1 = new Discord.RichEmbed()
                         .setTitle('Poll ``'+collected+'``')

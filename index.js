@@ -15,6 +15,12 @@ for (const fileSet of commandSet) {
   client.command.set(commandSetting.name, commandSetting);
 }
 
+const commandPoll = fs.readdirSync("./cmd/cmdPoll").filter(f => f.endsWith(".js"));
+
+for (const filePoll of commandPoll) {
+  let commandPolls = require(`./cmd/cmdPoll/${filePoll}`);
+  client.command.set(commandPolls.name, commandPolls)
+}
 
 // Connections
 const botconfig = require("./config.json");
