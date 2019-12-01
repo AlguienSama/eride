@@ -17,13 +17,15 @@ module.exports = {
             return deny(message);
         
         var filter = (user) => {
-          console.log(user)
-            user.id === message.author.id
+          console.log(user.author.id)
+          console.log(message.author.id)
+            user.author.id == message.author.id
         }
 
         message.channel.send("Introduzca el nombre de la colección: ").then(() => {
-            message.channel.awaitMessages(filter, { time: 10000, errors: ['time'] })
+            message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] })
                 .then(collected => {
+              console.log("collected "+collected)
                     let pollEmbed1 = new Discord.RichEmbed()
                         .setTitle('Poll ``'+collected+'``')
                         .setDescription("Selecciona la opción que quieras")
@@ -34,7 +36,7 @@ module.exports = {
                             await m.react(client.emojis.get("650668882994135051"))
                             await m.react(client.emojis.get("650668928275841025"))
 
-                            message.awaitReactions(filterU, { max: 1, time: 6000, errors: ['Time'] })
+                            message.awaitReactions(filter, { max: 1, time: 6000, errors: ['Time'] })
                                 .then(async reaction => {
                                     let pollEmbed = new Discord.RichEmbed()
                                         .setTitle('Poll ``'+collected+'`` creada correctamente')
