@@ -46,7 +46,7 @@ module.exports = {
                         else if (reaction.emoji.id === "650668928275841025") {
                             message.channel.send("Bllue")
                         } else {
-                            message.channel.send
+                            message.channel.send("F")
                         }
                     })
                 })
