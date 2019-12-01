@@ -35,8 +35,18 @@ module.exports = {
                 .addField("Multiples cartas", "<:firefoxBlue:650668928275841025> Cada usuario podrá tener la misma carta")
             message.channel.send(pollEmbed1)
                 .then(async m => {
-                    await m.react("650668882994135051").catch(err => error(message, "Reaction createPoll 01 => ", err))
-                    await m.react("650668928275841025").catch(err => error(message, "Reaction createPoll 02 => ", err))
+                    await m.react("650668882994135051").catch(err => error(m, "Reaction createPoll 01 => ", err))
+                    await m.react("650668928275841025").catch(err => error(m, "Reaction createPoll 02 => ", err))
+                    
+                    const reactCollector = new Discord.createReactionCollector(m.reaction, n => n.author.id === message.author.id, { time: 10000 })
+                    reactCollector.on('collect', async (reaction) => {
+                        if (reaction.emoji.id === "650668882994135051") {
+                            message.channel.send("red")
+                        }
+                        else if (reaction.emoji.id === "650668928275841025") {
+                            message.channel.send("Bllue")
+                        }
+                    })
                 })
                 .catch(err => error(message, "Reaction createPoll 03 => ", err))
         })
