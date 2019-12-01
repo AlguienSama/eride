@@ -3,7 +3,7 @@ const client = new Discord.Client()
 const db = require('megadb')
 let poll = new db.crearDB('polls')
 
-var { deny } = require('../../logs.js')
+var { error, deny } = require('../../logs.js')
 
 module.exports = {
     name:'createpoll',
@@ -20,22 +20,25 @@ module.exports = {
             user.author.id == message.author.id
         }
 
-        message.channel.send("Introduzca el nombre de la colección: ")
+        var pollName = args.join(" ")
+
+        message.channel.send("Introduzca el comado de la colección: ")
 
         const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 30000 });
 
         collector.on('collect', message => {
+            var pollCommand = message.content
             let pollEmbed1 = new Discord.RichEmbed()
-                .setTitle('Poll ``'+message.content+'``')
+                .setTitle('Poll '+ pollName +' ``'+prefix,pollCommand+'``')
                 .setDescription("Selecciona la opción que quieras")
                 .addField("Una carta única", "<:firefoxRed:650668882994135051> La carta solo la podrá obtener un único usuario")
                 .addField("Multiples cartas", "<:firefoxBlue:650668928275841025> Cada usuario podrá tener la misma carta")
             message.channel.send(pollEmbed1)
-                .then(m => {
-                    console.log(client.emojis)
-                    m.react(client.emojis.get("650668882994135051")).catch(err => message.channel.send("1 "+err))
-                    m.react(client.emojis.get("650668928275841025")).catch(err => message.channel.send("2 "+err))
-                }).catch(err => message.channel.send("3 "+err))
+                .then(async m => {
+                    await m.react("650668882994135051").catch(err => error(message, "Reaction createPoll 01 => ", err))
+                    await m.react("650668928275841025").catch(err => error(message, "Reaction createPoll 02 => ", err))
+                })
+                .catch(err => error(message, "Reaction createPoll 03 => ", err))
         })
 
         // .then(() => {
