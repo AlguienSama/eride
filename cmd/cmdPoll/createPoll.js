@@ -17,42 +17,48 @@ module.exports = {
             return deny(message);
         
         var filter = (user) => {
-          console.log(user.author.id)
-          console.log(message.author.id)
             user.author.id == message.author.id
         }
 
-        message.channel.send("Introduzca el nombre de la colección: ").then(() => {
-            message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] })
-                .then(collected => {
-              console.log("collected "+collected)
-                    let pollEmbed1 = new Discord.RichEmbed()
-                        .setTitle('Poll ``'+collected+'``')
-                        .setDescription("Selecciona la opción que quieras")
-                        .addField("Una carta única", "<:firefoxRed:650668882994135051> La carta solo la podrá obtener un único usuario")
-                        .addField("Multiples cartas", "<:firefoxBlue:650668928275841025> Cada usuario podrá tener la misma carta")
-                    message.channel.send(pollEmbed1)
-                        .then(async m => {
-                            await m.react(client.emojis.get("650668882994135051"))
-                            await m.react(client.emojis.get("650668928275841025"))
+        message.channel.send("Introduzca el nombre de la colección: ")
 
-                            message.awaitReactions(filter, { max: 1, time: 6000, errors: ['Time'] })
-                                .then(async reaction => {
-                                    let pollEmbed = new Discord.RichEmbed()
-                                        .setTitle('Poll ``'+collected+'`` creada correctamente')
-                                    if (reaction.emoji.id == "650668882994135051") {
-                                        pollEmbed.setDescription("Una carta única")
-                                    } else if (reaction.emoji.id == "650668928275841025") {
-                                        pollEmbed.setDescription("Múltiples cartas")
-                                    }
-                                    return message.channel.send(pollEmbed)
-                                })
-                                .catch(err => message.channel.send("Error createPoll reaction"+ err))
-                        })
-                })
-                .catch(err => {
-                    message.channel.send("Error createPoll name"+ err)
-                })
+        const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 10000 });
+
+        collector.on('collect', message => {
+            
         })
+
+        // .then(() => {
+        //     message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] })
+        //         .then(collected => {
+        //       console.log("collected "+collected)
+        //             let pollEmbed1 = new Discord.RichEmbed()
+        //                 .setTitle('Poll ``'+collected+'``')
+        //                 .setDescription("Selecciona la opción que quieras")
+        //                 .addField("Una carta única", "<:firefoxRed:650668882994135051> La carta solo la podrá obtener un único usuario")
+        //                 .addField("Multiples cartas", "<:firefoxBlue:650668928275841025> Cada usuario podrá tener la misma carta")
+        //             message.channel.send(pollEmbed1)
+        //                 .then(async m => {
+        //                     await m.react(client.emojis.get("650668882994135051"))
+        //                     await m.react(client.emojis.get("650668928275841025"))
+
+        //                     message.awaitReactions(filter, { max: 1, time: 6000, errors: ['Time'] })
+        //                         .then(async reaction => {
+        //                             let pollEmbed = new Discord.RichEmbed()
+        //                                 .setTitle('Poll ``'+collected+'`` creada correctamente')
+        //                             if (reaction.emoji.id == "650668882994135051") {
+        //                                 pollEmbed.setDescription("Una carta única")
+        //                             } else if (reaction.emoji.id == "650668928275841025") {
+        //                                 pollEmbed.setDescription("Múltiples cartas")
+        //                             }
+        //                             return message.channel.send(pollEmbed)
+        //                         })
+        //                         .catch(err => message.channel.send("Error createPoll reaction"+ err))
+        //                 })
+        //         })
+        //         .catch(err => {
+        //             message.channel.send("Error createPoll name"+ err)
+        //         })
+        // })
     }
 }
