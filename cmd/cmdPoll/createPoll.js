@@ -16,8 +16,8 @@ module.exports = {
         if (!message.member.hasPermission("ADMINISTRATOR"))
             return deny(message);
         
-        var filter = (user) => {
-            user.author.id == message.author.id
+        var filter = (reaction, user) => {
+            user.id == message.author.id
         }
 
         var pollName = args.join(" ")
@@ -38,13 +38,15 @@ module.exports = {
                     await m.react("650668882994135051").catch(err => error(m, "Reaction createPoll 01 => ", err))
                     await m.react("650668928275841025").catch(err => error(m, "Reaction createPoll 02 => ", err))
                     
-                    const reactCollector = new Discord.createReactionCollector(m.reaction, n => n.author.id === message.author.id, { time: 10000 })
-                    reactCollector.on('collect', async (reaction) => {
+                    const reactCollector = m.createReactionCollector(filter, { time: 15000 } )
+                    reactCollector.on('collect', async (reaction, reactionCollector) => {
                         if (reaction.emoji.id === "650668882994135051") {
                             message.channel.send("red")
                         }
                         else if (reaction.emoji.id === "650668928275841025") {
                             message.channel.send("Bllue")
+                        } else {
+                            message.channel.send
                         }
                     })
                 })
