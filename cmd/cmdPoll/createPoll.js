@@ -37,19 +37,22 @@ module.exports = {
                 .then(async m => {
                     await m.react("650668882994135051").catch(err => error(m, "Reaction createPoll 01 => ", err))
                     await m.react("650668928275841025").catch(err => error(m, "Reaction createPoll 02 => ", err))
-                    
-                    const reactCollector = m.createReactionCollector(filter, { time: 15000 } )
-                    reactCollector.on('collect', async (reaction, reactionCollector) => {
-                        if (reaction.emoji.id === "650668882994135051") {
-                            message.channel.send("red")
-                        }
-                        else if (reaction.emoji.id === "650668928275841025") {
-                            message.channel.send("Bllue")
-                        } else {
-                            message.channel.send("F")
-                        }
-                    })
                 })
+                    .then(async msg => {
+                        const reactCollector = msg.createReactionCollector((reaction, user) => {
+                        
+                        })
+                        reactCollector.on('collect', async (reaction, reactionCollector) => {
+                            if (reaction.emoji.id === "650668882994135051") {
+                                message.channel.send("red")
+                            }
+                            else if (reaction.emoji.id === "650668928275841025") {
+                                message.channel.send("Bllue")
+                            } else {
+                                message.channel.send("F")
+                            }
+                        })
+                    })
                 .catch(err => error(message, "Reaction createPoll 03 => ", err))
         })
 
