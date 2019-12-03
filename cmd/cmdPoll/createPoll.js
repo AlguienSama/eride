@@ -26,19 +26,37 @@ module.exports = {
 
         const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 30000 });
 
-        collector.on('collect', message => {
+        collector.on('collect', async message => {
             var pollCommand = message.content
             let pollEmbed1 = new Discord.RichEmbed()
                 .setTitle('Poll '+ pollName +' ``'+prefix,pollCommand+'``')
                 .setDescription("Selecciona la opción que quieras")
                 .addField("Una carta única", "<:firefoxRed:650668882994135051> La carta solo la podrá obtener un único usuario")
                 .addField("Multiples cartas", "<:firefoxBlue:650668928275841025> Cada usuario podrá tener la misma carta")
-            message.channel.send(pollEmbed1)
-                .then(async m => {
-                    await m.react("650668882994135051").catch(err => error(m, "Reaction createPoll 01 => ", err))
-                    await m.react("650668928275841025").catch(err => error(m, "Reaction createPoll 02 => ", err))
-                })
-                    .then(async msg => {
+            
+            let mensaje = await message.channel.send(pollEmbed1)
+            
+            await mensaje.react("650668882994135051").catch(err => error(mensaje, "Reaction createPoll 01 => ", err))
+            await mensaje.react("650668928275841025").catch(err => error(mensaje, "Reaction createPoll 02 => ", err))
+             
+            const oneCard = (reaction, user) => reaction.emoji.id == "650668882994135051" && user.id == message.author.id;
+            const multCard = (reaction, user) => reaction.emoji.id == "650668928275841025" && user.id == message.author.id;
+          
+            const one = mensaje.createReactionCollector(oneCard, {time: 1000} )
+            const mult = mensaje.createReactionCollector(multCard, {time: 1000} )
+            
+            console.log(one)
+            console.log(mult)
+            
+            await one.on('collector', async m => {
+                await message.channel.send("Red")
+            })
+            
+            await mult.on('collector', async m => {
+                await message.channel.send("Blue")
+            })
+        })
+                    /*.then(async msg => {
                         const reactCollector = msg.createReactionCollector((reaction, user) => {
                         
                         })
@@ -54,7 +72,7 @@ module.exports = {
                         })
                     })
                 .catch(err => error(message, "Reaction createPoll 03 => ", err))
-        })
+        })*/
 
              
         
