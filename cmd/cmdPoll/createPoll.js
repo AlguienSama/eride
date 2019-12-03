@@ -25,7 +25,7 @@ module.exports = {
         collector.on('collect', async message => {
             var pollCommand = message.content
             let pollEmbed1 = new Discord.RichEmbed()
-                .setTitle('Poll '+ pollName +' ``'+prefix,pollCommand+'``')
+                .setTitle('Poll '+ pollName +' ``'+prefix + pollCommand+'``')
                 .setDescription("Selecciona la opción que quieras")
                 .addField("Una carta única", "<:firefoxRed:650668882994135051> La carta solo la podrá obtener un único usuario")
                 .addField("Multiples cartas", "<:firefoxBlue:650668928275841025> Cada usuario podrá tener la misma carta")
