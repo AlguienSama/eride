@@ -39,14 +39,14 @@ module.exports = {
             await mensaje.react("650668882994135051").catch(err => error(mensaje, "Reaction createPoll 01 => ", err))
             await mensaje.react("650668928275841025").catch(err => error(mensaje, "Reaction createPoll 02 => ", err))
              
-            const oneCard = (reaction, user) => reaction.emoji.id == "650668882994135051" && user.id == message.author.id;
-            const multCard = (reaction, user) => reaction.emoji.id == "650668928275841025" && user.id == message.author.id;
+            const oneCard = (reaction, user) => reaction.emoji.name == "firefoxRed" && user.id == message.author.id;
+            const multCard = (reaction, user) => reaction.emoji.name == "firefoxBlue" && user.id == message.author.id;
           
-            const one = mensaje.createReactionCollector(oneCard, {time: 1000} )
-            const mult = mensaje.createReactionCollector(multCard, {time: 1000} )
+            const one = await mensaje.createReactionCollector(oneCard, {time: 60000} )
+            const mult = await mensaje.createReactionCollector(multCard, {time: 60000} )
             
             console.log(one)
-            console.log(mult)
+            //console.log(mult)
             
             await one.on('collector', async m => {
                 await message.channel.send("Red")
