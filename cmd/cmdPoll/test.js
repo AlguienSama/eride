@@ -27,18 +27,26 @@ Reacciona con \`❌\` para denegar el dulce.
     await enviado.react("✅");
     await enviado.react("❌");
   
-    const aceptarFiltro = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
+    const aceptarFiltro = (reaction, user) => {
+      console.log(reaction.collection)
+      reaction.emoji.name === '✅' && user.id === message.author.id
+    }
     const denegarFiltro = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
     
-    const aceptar = enviado.createReactionCollector(aceptarFiltro, {time: 60000}); 
-    const denegar = enviado.createReactionCollector(denegarFiltro, {time: 60000}); // Colocamos el filtro que creamos arriba y ponemos un tiempo de 60000 ms (un minuto).
+    enviado.awaitReactions(aceptarFiltro, {time: 10000, errors: ['time']})
+      .then(collected => console.log("B"))
+      .catch(collected => console.log("G"))
     
-    aceptar.on('collector', async r => {
+    enviado.awaitReactions(denegarFiltro, {time: 10000, errors: ['time']})
+      .then(collected => console.log("A"))
+      .catch(collected => console.log("F"))
+    
+    /*aceptar.on('collector', async r => {
       await message.channel.send('Bien, ' + message.author.tag + '. Toma tu dulce. 🍬') // Aquí solo mando un mensaje, pero se pueden poner más cosas como agregar un rol, cambiar permisos, etc...
     })
     denegar.on('collector', async r => {
       await message.channel.send('Me deprimes, te juro que mis dulces no contienen sustancias. 😭') // Al igual que con el de arriba, se pueden poner otras cosas aparte de enviar un mensaje.
-    })
+    })*/
   }
   
 };
