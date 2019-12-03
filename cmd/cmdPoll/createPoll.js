@@ -32,22 +32,22 @@ module.exports = {
             
             message.channel.send(pollEmbed1).then(async mensaje => {
                 const oneCard = mensaje.createReactionCollector((reaction, user) => {
-                    return reaction.emoji.name === "♈" && user.id == message.author.id;
+                    return reaction.emoji.name === "firefoxRed" && user.id === message.author.id;
                 })
                 const multCard = mensaje.createReactionCollector((reaction, user) => {
-                    return reaction.emoji.name == "🔯" && user.id == message.author.id;
+                    return reaction.emoji.name === "firefoxBlue" && user.id === message.author.id;
                 })            
                 
-                oneCard.on('collector', async () => {
+                oneCard.on('collect', async () => {
                     message.channel.send("Red")
                 })
                 
-                multCard.on('collector', async () => {
+                multCard.on('collect', async () => {
                     message.channel.send("Blue")
                 })
     
-                await mensaje.react("♈").catch(err => error(mensaje, "Reaction createPoll 01 => ", err))
-                await mensaje.react("🔯").catch(err => error(mensaje, "Reaction createPoll 02 => ", err))
+                await mensaje.react("650668882994135051").catch(err => error(mensaje, "Reaction createPoll 01 => ", err))
+                await mensaje.react("650668928275841025").catch(err => error(mensaje, "Reaction createPoll 02 => ", err))
                  
             }).catch(err => message.channel.send(err))
             
