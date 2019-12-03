@@ -30,26 +30,28 @@ module.exports = {
                 .addField("Una carta única", "<:firefoxRed:650668882994135051> La carta solo la podrá obtener un único usuario")
                 .addField("Multiples cartas", "<:firefoxBlue:650668928275841025> Cada usuario podrá tener la misma carta")
             
-            let mensaje = await message.channel.send(pollEmbed1)
+            message.channel.send(pollEmbed1).then(async mensaje => {
+                const oneCard = mensaje.createReactionCollector((reaction, user) => {
+                    return reaction.emoji.name === "♈" && user.id == message.author.id;
+                })
+                const multCard = mensaje.createReactionCollector((reaction, user) => {
+                    return reaction.emoji.name == "🔯" && user.id == message.author.id;
+                })            
+                
+                oneCard.on('collector', async () => {
+                    message.channel.send("Red")
+                })
+                
+                multCard.on('collector', async () => {
+                    message.channel.send("Blue")
+                })
+    
+                await mensaje.react("♈").catch(err => error(mensaje, "Reaction createPoll 01 => ", err))
+                await mensaje.react("🔯").catch(err => error(mensaje, "Reaction createPoll 02 => ", err))
+                 
+            }).catch(err => message.channel.send(err))
             
-            const oneCard = mensaje.createReactionCollector((reaction, user) => {
-                return reaction.emoji.name == "firefoxRed" && user.id == message.author.id;
-            })
-            const multCard = mensaje.createReactionCollector((reaction, user) => {
-                return reaction.emoji.name == "firefoxBlue" && user.id == message.author.id;
-            })            
             
-            oneCard.on('collector', async () => {
-                await message.channel.send("Red")
-            })
-            
-            multCard.on('collector', async () => {
-                await message.channel.send("Blue")
-            })
-
-            await mensaje.react("650668882994135051").catch(err => error(mensaje, "Reaction createPoll 01 => ", err))
-            await mensaje.react("650668928275841025").catch(err => error(mensaje, "Reaction createPoll 02 => ", err))
-             
         })
                     /*.then(async msg => {
                         const reactCollector = msg.createReactionCollector((reaction, user) => {
