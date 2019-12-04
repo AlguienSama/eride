@@ -1,7 +1,15 @@
 {
     guildID: {
-        command: {
-            
+        pollCommand: {
+            pollName: {
+                id: {
+                    name: String,
+                    description: String,
+                    img: url,
+                    users: [],
+                },
+                type: "one"/"mult"
+            }
         }
     }
 }
