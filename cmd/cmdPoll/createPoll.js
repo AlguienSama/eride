@@ -52,7 +52,7 @@ module.exports = {
                 
                         multCard.on('collect', async () => {
                             pollEmbed2.addField('Poll type', 'Una carta por usuario')
-                            await poll.establecer(`${message.guild.id}.${pollCommand}.${pollName}.type`, "one").then(() => {
+                            await poll.establecer(`${message.guild.id}.${pollCommand}.${pollName}.type`, "mult").then(() => {
                                 return message.channel.send(pollEmbed2)
                             }).catch(err => error("message => "+ message +"\nmsg => "+ msg +"\nm => "+ m, "Error establecer poll mult 001", err))
                         })
