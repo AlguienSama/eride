@@ -19,6 +19,8 @@ module.exports = {
         if (!poll.tiene(`${message.guild.id}`))
             poll.establecer(`${message.guild.id}.rank`, 'Normal')
 
+        let filter = m => m.content
+
         message.channel.send("Escribe el nombre de la colección").then(async msg => {
             message.channel.send("Introduzca el comado para mostrar las cartas").then(async m => {
                 const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 30000 });
