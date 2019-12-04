@@ -16,42 +16,46 @@ module.exports = {
         if (!message.member.hasPermission("ADMINISTRATOR"))
             return deny(message);
 
-        var pollName = args.join(" ")
+        message.channel.send("Escribe el nombre de la colección").then(async msg => {
+            message.channel.send("Introduzca el comado para mostrar las cartas").then(async m => {
+                const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 30000 });
 
-        message.channel.send("Introduzca el comado para mostrar las cartas")
-
-        const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 30000 });
-
-        collector.on('collect', async message => {
-            var pollCommand = message.content
-            let pollEmbed1 = new Discord.RichEmbed()
-                .setTitle('Poll '+ pollName +' ``'+prefix + pollCommand+'``')
-                .setDescription("Selecciona la opción que quieras")
-                .addField("Una carta única", "<:firefoxRed:650668882994135051> La carta solo la podrá obtener un único usuario")
-                .addField("Multiples cartas", "<:firefoxBlue:650668928275841025> Cada usuario podrá tener la misma carta")
+                collector.on('collect', async message => {
+                    var pollName = msg.content
+                    var pollCommand = m.content
+                    let pollEmbed1 = new Discord.RichEmbed()
+                        .setTitle('Poll '+ pollName +' ``'+ pollCommand +'``')
+                        .setDescription("Selecciona la opción que quieras")
+                        .addField("Una carta única", "<:firefoxRed:650668882994135051> La carta solo la podrá obtener un único usuario")
+                        .addField("Multiples cartas", "<:firefoxBlue:650668928275841025> Cada usuario podrá tener la misma carta")
             
-            message.channel.send(pollEmbed1).then(async mensaje => {
-                const oneCard = mensaje.createReactionCollector((reaction, user) => {
-                    return reaction.emoji.name === "firefoxRed" && user.id === message.author.id;
-                })
-                const multCard = mensaje.createReactionCollector((reaction, user) => {
-                    return reaction.emoji.name === "firefoxBlue" && user.id === message.author.id;
-                })            
+                    message.channel.send(pollEmbed1).then(async mensaje => {
+                        const oneCard = mensaje.createReactionCollector((reaction, user) => {
+                            return reaction.emoji.name === "firefoxRed" && user.id === message.author.id;
+                        })
                 
-                oneCard.on('collect', async () => {
-                    message.channel.send("Red")
-                })
+                        const multCard = mensaje.createReactionCollector((reaction, user) => {
+                            return reaction.emoji.name === "firefoxBlue" && user.id === message.author.id;
+                        })
+
+                        let pollEmbed2 = new Discord.RichEmbed()
+                            .setTitle('Poll '+ pollName +' ``'+ pollCommand +'``')
+                            .setTimestamp()
                 
-                multCard.on('collect', async () => {
-                    message.channel.send("Blue")
-                })
+                        oneCard.on('collect', async () => {
+                            return message.channel.send("")
+                        })
+                
+                        multCard.on('collect', async () => {
+                            message.channel.send("")
+                        })
     
-                await mensaje.react("650668882994135051").catch(err => error(mensaje, "Reaction createPoll 01 => ", err))
-                await mensaje.react("650668928275841025").catch(err => error(mensaje, "Reaction createPoll 02 => ", err))
+                        await mensaje.react("650668882994135051").catch(err => error(mensaje, "Reaction createPoll 01 => ", err))
+                        await mensaje.react("650668928275841025").catch(err => error(mensaje, "Reaction createPoll 02 => ", err))
                  
-            }).catch(err => message.channel.send(err))
-            
-        })
-                    
+                    }).catch(err => message.channel.send(err))
+                })
+            }) 
+        })                    
     }
 }
