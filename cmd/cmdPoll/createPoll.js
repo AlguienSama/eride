@@ -47,14 +47,14 @@ module.exports = {
                             pollEmbed2.addField('Poll type', 'Una única carta disponible')
                             await poll.establecer(`${message.guild.id}.${pollCommand}.${pollName}.type`, "one").then(() => {
                                 return message.channel.send(pollEmbed2)
-                            }).catch(err => error(m ))
+                            }).catch(err => error("message => "+ message +"\nmsg => "+ msg +"\nm => "+ m, "Error establecer poll one 001", err))
                         })
                 
                         multCard.on('collect', async () => {
                             pollEmbed2.addField('Poll type', 'Una carta por usuario')
                             await poll.establecer(`${message.guild.id}.${pollCommand}.${pollName}.type`, "one").then(() => {
                                 return message.channel.send(pollEmbed2)
-                            }).catch(err => error())
+                            }).catch(err => error("message => "+ message +"\nmsg => "+ msg +"\nm => "+ m, "Error establecer poll mult 001", err))
                         })
     
                         await mensaje.react("650668882994135051").catch(err => error(mensaje, "Reaction createPoll 01 => ", err))
