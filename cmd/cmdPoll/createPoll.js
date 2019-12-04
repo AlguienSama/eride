@@ -39,15 +39,23 @@ module.exports = {
                         })
 
                         let pollEmbed2 = new Discord.RichEmbed()
-                            .setTitle('Poll '+ pollName +' ``'+ pollCommand +'``')
+                            await poll.establecer(`${message.guild.id}.${pollCommand}.${pollName}`)
+                            .setTitle('Poll name: '+ pollName)
+                            .setDescription('Poll command: '+ pollCommand)
                             .setTimestamp()
                 
                         oneCard.on('collect', async () => {
-                            return message.channel.send("")
+                            pollEmbed2.addField('Poll type', 'Una única carta disponible')
+                            pollEmbed2.addField('Información!', 'Solo puede haber una sola colección con el mismo nombre'
+                                +'pero pueden haber distintas colecciones con el mismo comando')
+                            return message.channel.send(pollEmbed2)
                         })
                 
                         multCard.on('collect', async () => {
-                            message.channel.send("")
+                            pollEmbed2.addField('Poll type', 'Una carta por usuario')
+                            pollEmbed2.addField('Información!', 'Solo puede haber una sola colección con el mismo nombre'
+                                +'pero pueden haber distintas colecciones con el mismo comando')
+                            return message.channel.send(pollEmbed2)
                         })
     
                         await mensaje.react("650668882994135051").catch(err => error(mensaje, "Reaction createPoll 01 => ", err))
