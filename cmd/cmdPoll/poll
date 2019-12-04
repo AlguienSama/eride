@@ -1,6 +1,6 @@
 {
     guildID: {
-        rank: "Normal"/"VIP"/"Premium"
+        rank: "Normal"/"VIP"/"Premium",
         pollCommand: {
             pollName: {
                 id: {
