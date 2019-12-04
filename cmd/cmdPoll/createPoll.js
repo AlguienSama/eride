@@ -33,31 +33,30 @@ module.exports = {
                         .addField("Multiples cartas", "<:firefoxBlue:650668928275841025> Cada usuario podrá tener la misma carta")
             
                     message.channel.send(pollEmbed1).then(async mensaje => {
-                        const oneCard = mensaje.createReactionCollector((reaction, user) => {
-                            return reaction.emoji.name === "firefoxRed" && user.id === message.author.id;
-                        })
-                
-                        const multCard = mensaje.createReactionCollector((reaction, user) => {
-                            return reaction.emoji.name === "firefoxBlue" && user.id === message.author.id;
-                        })
+                        const filter = (reaction, user) => {
+                            return (reaction.emoji.name === "firefoxRed" || reaction.emoji.name === "firefoxBlue") && user.id === message.author.id;
+                        }
+
+                        const card = mensaje.createReactionCollector(filter, { max: 1 })
 
                         let pollEmbed2 = new Discord.RichEmbed()
                             .setTitle('Poll name: '+ pollName)
                             .setDescription('Poll command: '+ pollCommand)
                             .setTimestamp()
                 
-                        oneCard.on('collect', async () => {
-                            pollEmbed2.addField('Poll type', 'Una única carta disponible')
-                            await poll.establecer(`${message.guild.id}.${pollCommand}.${pollName}.type`, "one").then(() => {
-                                return message.channel.send(pollEmbed2)
-                            }).catch(err => error("message => "+ message +"\nmsg => "+ msg +"\nm => "+ m, "Error establecer poll one 001", err))
-                        })
-                
-                        multCard.on('collect', async () => {
-                            pollEmbed2.addField('Poll type', 'Una carta por usuario')
-                            await poll.establecer(`${message.guild.id}.${pollCommand}.${pollName}.type`, "mult").then(() => {
-                                return message.channel.send(pollEmbed2)
-                            }).catch(err => error("message => "+ message +"\nmsg => "+ msg +"\nm => "+ m, "Error establecer poll mult 001", err))
+                        card.on('collect', async (reaction) => {
+                            if (reaction.emoji.name === "firefoxRed") {
+                                pollEmbed2.addField('Poll type', 'Una única carta disponible')
+                                await poll.establecer(`${message.guild.id}.${pollCommand}.${pollName}.type`, "one").then(() => {
+                                    return message.channel.send(pollEmbed2)
+                                }).catch(err => error("message => "+ message +"\nmsg => "+ msg +"\nm => "+ m, "Error establecer poll one 001", err))
+                            
+                            } else if (reaction.emoji.name === "firefoxBlue") {
+                                pollEmbed2.addField('Poll type', 'Una carta por usuario')
+                                await poll.establecer(`${message.guild.id}.${pollCommand}.${pollName}.type`, "mult").then(() => {
+                                    return message.channel.send(pollEmbed2)
+                                }).catch(err => error("message => "+ message +"\nmsg => "+ msg +"\nm => "+ m, "Error establecer poll mult 001", err))
+                            }
                         })
     
                         await mensaje.react("650668882994135051").catch(err => error(mensaje, "Reaction createPoll 01 => ", err))
