@@ -19,13 +19,23 @@ module.exports = {
         if (!poll.tiene(`${message.guild.id}`))
             poll.establecer(`${message.guild.id}.rank`, 'Normal')
 
-        let filter = m => m.content
+        let filterU = user => {
+            return user.id === message.author.id
+        }
 
-        message.channel.send("Escribe el nombre de la colección").then(async msg => {
+        message.channel.send("Escribe el nombre de la colección")
+        
+        // First message
+        const collector = new Discord.MessageCollector(message.channel, msg => msg.author.id === message.author.id, { time: 30000 });
+
+        collector.on('collect', async msg => {
+
             message.channel.send("Introduzca el comado para mostrar las cartas").then(async m => {
-                const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 30000 });
+                
+                // Second message
+                const collector2 = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 30000 });
 
-                collector.on('collect', async message => {
+                collector2.on('collect', async m => {
                     var pollName = msg.content
                     var pollCommand = m.content
                     let pollEmbed1 = new Discord.RichEmbed()
@@ -60,7 +70,7 @@ module.exports = {
                                 }).catch(err => error("message => "+ message +"\nmsg => "+ msg +"\nm => "+ m, "Error establecer poll mult 001", err))
                             }
                         })
-    
+
                         await mensaje.react("650668882994135051").catch(err => error(mensaje, "Reaction createPoll 01 => ", err))
                         await mensaje.react("650668928275841025").catch(err => error(mensaje, "Reaction createPoll 02 => ", err))
                  

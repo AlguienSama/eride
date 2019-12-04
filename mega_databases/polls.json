@@ -5,6 +5,11 @@
       "Escribe el nombre de la colección": {
         "type": "one"
       }
+    },
+    "df": {
+      "as": {
+        "type": "one"
+      }
     }
   }
 }
