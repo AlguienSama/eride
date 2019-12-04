@@ -16,6 +16,9 @@ module.exports = {
         if (!message.member.hasPermission("ADMINISTRATOR"))
             return deny(message);
 
+        if (!poll.tiene(`${message.guild.id}`))
+            poll.establecer(`${message.guild.id}.rank`, 'Normal')
+
         message.channel.send("Escribe el nombre de la colección").then(async msg => {
             message.channel.send("Introduzca el comado para mostrar las cartas").then(async m => {
                 const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 30000 });
