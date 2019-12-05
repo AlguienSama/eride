@@ -19,10 +19,6 @@ module.exports = {
         if (!poll.tiene(`${message.guild.id}`))
             poll.establecer(`${message.guild.id}.rank`, 'Normal')
 
-        var rank = await poll.obtener(`${message.guild.id}.rank`)
-
-
-
         message.channel.send("Escribe el nombre de la colección")
         
         // First message
