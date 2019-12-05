@@ -1,15 +1,17 @@
 {
     guildID: {
         rank: "Normal"/"VIP"/"Premium",
-        pollCommand: {
-            pollName: {
-                id: {
-                    name: String,
-                    description: String,
-                    img: url,
-                    users: [],
-                },
-                type: "one"/"mult"
+        polls: {
+            pollCommand: {
+                pollName: {
+                    id: {
+                        name: String,
+                        description: String,
+                        img: url,
+                        users: [],
+                    },
+                    type: "one"/"mult"
+                }
             }
         }
     }

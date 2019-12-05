@@ -19,9 +19,9 @@ module.exports = {
         if (!poll.tiene(`${message.guild.id}`))
             poll.establecer(`${message.guild.id}.rank`, 'Normal')
 
-        let filterU = user => {
-            return user.id === message.author.id
-        }
+        var rank = await poll.obtener(`${message.guild.id}.rank`)
+
+
 
         message.channel.send("Escribe el nombre de la colección")
         
@@ -59,13 +59,13 @@ module.exports = {
                         card.on('collect', async (reaction) => {
                             if (reaction.emoji.name === "firefoxRed") {
                                 pollEmbed2.addField('Poll type', 'Una única carta disponible')
-                                await poll.establecer(`${message.guild.id}.${pollCommand}.${pollName}.type`, "one").then(() => {
+                                await poll.establecer(`${message.guild.id}.polls.${pollCommand}.${pollName}.type`, "one").then(() => {
                                     return message.channel.send(pollEmbed2)
                                 }).catch(err => error("message => "+ message +"\nmsg => "+ msg +"\nm => "+ m, "Error establecer poll one 001", err))
                             
                             } else if (reaction.emoji.name === "firefoxBlue") {
                                 pollEmbed2.addField('Poll type', 'Una carta por usuario')
-                                await poll.establecer(`${message.guild.id}.${pollCommand}.${pollName}.type`, "mult").then(() => {
+                                await poll.establecer(`${message.guild.id}.polls.${pollCommand}.${pollName}.type`, "mult").then(() => {
                                     return message.channel.send(pollEmbed2)
                                 }).catch(err => error("message => "+ message +"\nmsg => "+ msg +"\nm => "+ m, "Error establecer poll mult 001", err))
                             }
