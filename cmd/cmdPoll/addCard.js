@@ -15,6 +15,9 @@ module.exports = {
 
         if (!message.member.hasPermission("ADMINISTRATOR"))
             return deny(message);
+        
+        if (!poll.tiene(`${message.guild.id}.polls`))
+            return message.channel.send('')
                   
     }
 }
