@@ -17,7 +17,22 @@ module.exports = {
             return deny(message);
         
         if (!poll.tiene(`${message.guild.id}.polls`))
-            return message.channel.send('')
+            return message.channel.send('Debes crear una poll ``'+ prefix+'createPoll``')
+
+        var rank = await poll.obtener(`${message.guild.id}.rank`)
+        var polls = await poll.obtener(`${message.guild.id}.polls`)
+
+        var totalKeys = 0
+        polls.forEach(async pollCmd => {
+            pollCmd.forEach(async pollName => {
+                var totalKeys = totalKeys + await poll.keys(`${message.guild.id}.polls.${pollCmd}.${pollName}`)
+            })
+        });
+
+        if (rank == "Normal" && totalKeys >= 50 || rank == "VIP" && totalKeys >= 100) {
+            return message.channel.send("Máximo de imagenes llegado")
+        }
+        
                   
     }
 }
