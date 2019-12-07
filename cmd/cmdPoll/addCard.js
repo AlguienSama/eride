@@ -35,10 +35,11 @@ module.exports = {
         
         let selectPollEmbed = new Discord.RichEmbed()
             .setTitle("Añadir imagen")
-        let num = 0;
+            .setDescription("Introduce el número de la colección que desea añadir la imagen")
+        let num = 1;
         polls.forEach(async pollCmd => {
             pollCmd.forEach(async pollName => {
-                
+                selectPollEmbed.addField(`${num})`, pollName)
             })
         });
 
