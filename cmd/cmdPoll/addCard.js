@@ -33,6 +33,21 @@ module.exports = {
             return message.channel.send("Máximo de imagenes llegado")
         }
         
+        let selectPollEmbed = new Discord.RichEmbed()
+            .setTitle("Añadir imagen")
+        let num = 0;
+        polls.forEach(async pollCmd => {
+            pollCmd.forEach(async pollName => {
+                
+            })
+        });
+
+
+        const filter = (reaction, user) => {
+            return (reaction.emoji.name === "firefoxRed" || reaction.emoji.name === "firefoxBlue") && user.id === message.author.id;
+        }
+
+        const card = mensaje.createReactionCollector(filter, { max: 1 })
                   
     }
 }
