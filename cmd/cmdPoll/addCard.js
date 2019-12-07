@@ -33,15 +33,15 @@ module.exports = {
             return message.channel.send("Máximo de imagenes llegado")
         }
         
-        let selectPollEmbed = new Discord.RichEmbed()
-            .setTitle("Añadir imagen")
-            .setDescription("Introduce el número de la colección que desea añadir la imagen")
-        let num = 1;
-        polls.forEach(async pollCmd => {
-            pollCmd.forEach(async pollName => {
-                selectPollEmbed.addField(`${num})`, pollName)
-            })
-        });
+        // let selectPollEmbed = new Discord.RichEmbed()
+        //     .setTitle("Añadir imagen")
+        //     .setDescription("Introduce el número de la colección que desea añadir la imagen")
+        // let num = 1;
+        // polls.forEach(async pollCmd => {
+        //     pollCmd.forEach(async pollName => {
+        //         selectPollEmbed.addField(`${num})`, pollName)
+        //     })
+        // });
 
 
         const filter = (reaction, user) => {
