@@ -20,7 +20,7 @@ module.exports = {
         message.channel.send(msg)
 
         const filter = m => {
-          m.content.includes(prefix+'aceptar');
+          m.content.includes(prefix+'acept');
           if (message.mentions.users.first())
             message.mentions.users.first().id === m.author.id
         }
