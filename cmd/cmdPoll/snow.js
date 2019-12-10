@@ -18,16 +18,18 @@ module.exports = {
           var msg = message.author +' quiere hacer una pelea de nieve. Quien acepta? ``'+prefix+'acept``'
           
         message.channel.send(msg)
-      
-        if (message.mentions.users.first())
-          var collector = new Discord.MessageCollector(message.channel, msg => msg.author.id === message.mentions.users.first().id, { time: 30000 });
-        else
-          var collector = new Discord.MessageCollector(message.channel, { time: 30000 });
-      
+
+        const filter = m => {
+          m.content.includes(prefix+'aceptar');
+          if (message.mentions.users.first())
+            message.mentions.users.first().id === m.author.id
+        }
+        const collector = message.channel.createMessageCollector(filter, { time: 15000 });
+
       const player1 = message.author
       
-      collector.on('collect', async msg => {
-          const player2 = msg.author
+      collector.on('collect', async m => {
+          const player2 = m.author
           
           message.channel.send("Player1 "+ player1 +"\nPlayer2 "+ player2)
       })
