@@ -29,7 +29,7 @@ module.exports = {
         if (command == "accept") {
             if (!game.tiene(`${message.channel.id}`)) 
                 return message.channel.send("Debes de iniciar una pelea antes")
-            if (await game.obtener(`${message.channel.id}.retado`) != message.author.id) 
+            if (game.tiene(`${message.channel.id}.retado`) && await game.obtener(`${message.channel.id}.retado`) != message.author.id) 
                 return message.channel.send("Tu no eres el usuario retado")
             if (await game.obtener(`${message.channel.id}.player1.id`) == message.author.id)
                 return message.channel.send("No puedes pelear contra ti mismo")
@@ -39,13 +39,13 @@ module.exports = {
             game.establecer(`${message.channel.id}.player2.name`, message.author.username).catch(err => console.log(err))
             game.establecer(`${message.channel.id}.player2.life`, 3).catch(err => console.log(err))
 
-            startGame(message)
+            startGame(message, prefix)
         }
         
     }
 }
 
-async function startGame(message) {
+async function startGame(message, prefix) {
     var player1Name = await game.obtener(`${message.channel.id}.player1.name`).catch(err => console.log(err))
     var player1Vida = await game.obtener(`${message.channel.id}.player1.life`).catch(err => console.log(err))
     var player2Name = await game.obtener(`${message.channel.id}.player2.name`).catch(err => console.log(err))
@@ -53,7 +53,8 @@ async function startGame(message) {
     console.log("b")
     let fightEmbed = new Discord.RichEmbed()
         .setTitle("Pelea de bolas de nieve")
-        .setDescription(`**Atacar** = ${prefix}a \t **Defender** ${prefix}d \t **Recargar** ${prefix}r`)
+        .setColor("#d0d0ff")
+        .setDescription(`☄️ **Atacar** \t=> ***a*** \n🛡️ **Defender** \t=> ***d*** \n❄️ **Recargar** \t=> ***r***`)
         .addField(player1Name, `♥️ Vida: ${player1Vida}`, true)
         .addField(player2Name, `♥️ Vida: ${player2Vida}`, true)
     message.channel.send(fightEmbed)
