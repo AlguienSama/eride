@@ -15,10 +15,12 @@ module.exports = {
             if (game.tiene(`${message.guild.id}`)) return message.channel.send("Ya hay una pelea en juego")
             if (message.mentions.users.first())
                 var msg = `${message.mentions.users.first()} te están retando a una pelea de nieve!`
+                game.establecer(`${message.channel.id}.retado`, message.mentions.users.first().id)
             else 
                 var msg = message.author +' quiere hacer una pelea de nieve. Quien acepta? ``'+prefix+'acept``'
             
             game.establecer(`${message.channel.id}.player1.id`, message.author.id)
+            game.establecer(`${message.channel.id}.player1.life`, 3)
             message.channel.send(msg)
         }
         
