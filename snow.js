@@ -6,7 +6,8 @@ let game = new db.crearDB('games')
 var { error, deny } = require('../../logs.js')
 
 module.exports = {
-    run: async (message, args, prefix) => {
+    run: async (message, prefix) => {
+        if (game.tiene(`${message.guild.id}`)) return message.channel.send("Ya hay una pelea en juego")
         if (message.mentions.users.first())
             var msg = `${message.mentions.users.first()} te están retando a una pelea de nieve!`
         else 
