@@ -30,12 +30,21 @@ module.exports = {
                 return message.channel.send("Debes de iniciar una pelea antes")
             if (await game.obtener(`${message.channel.id}.retado`) != message.author.id) 
                 return message.channel.send("Tu no eres el usuario retado")
+            if (await game.obtener(`${message.channel.id}.player1.id`) == message.author.id)
+                return message.channel.send("No puedes pelear contra ti mismo")
 
             game.establecer(`${message.channel.id}.player2.id`, message.author.id)
             game.establecer(`${message.channel.id}.player2.life`, 3)
 
-            
+            startGame(message)
         }
         
     }
+}
+
+function startGame(message) {
+    let fightEmbed = new Discord.RichEmbed()
+        .setTitle("Pelea de bolas de nieve")
+        .setDescription(`**Atacar** = ${prefix}a \t **Defender** ${prefix}d \t **Recargar** ${prefix}r`)
+        .addField()
 }
