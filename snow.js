@@ -7,13 +7,20 @@ var { error, deny } = require('../../logs.js')
 
 module.exports = {
     run: async (message, prefix) => {
-        if (game.tiene(`${message.guild.id}`)) return message.channel.send("Ya hay una pelea en juego")
-        if (message.mentions.users.first())
-            var msg = `${message.mentions.users.first()} te están retando a una pelea de nieve!`
-        else 
-            var msg = message.author +' quiere hacer una pelea de nieve. Quien acepta? ``'+prefix+'acept``'
-        
+
+        const args = message.content.slice(prefix.length).split(/ +/)
+        const command = args.shift().toLowerCase()
+
+        if (command == "start") {
+            if (game.tiene(`${message.guild.id}`)) return message.channel.send("Ya hay una pelea en juego")
+            if (message.mentions.users.first())
+                var msg = `${message.mentions.users.first()} te están retando a una pelea de nieve!`
+            else 
+                var msg = message.author +' quiere hacer una pelea de nieve. Quien acepta? ``'+prefix+'acept``'
+            
             game.establecer(`${message.channel.id}.player1.id`, message.author.id)
-        message.channel.send(msg)
+            message.channel.send(msg)
+        }
+        
     }
 }
