@@ -45,8 +45,10 @@ module.exports = {
 }
 
 function startGame(message) {
+    var player1Name = await game.obtener(`${message.channel.id}.player1.name`)
+    var player1Vida = await game.obtener(`${message.channel.id}.player1.life`)
     let fightEmbed = new Discord.RichEmbed()
         .setTitle("Pelea de bolas de nieve")
         .setDescription(`**Atacar** = ${prefix}a \t **Defender** ${prefix}d \t **Recargar** ${prefix}r`)
-        .addField()
+        .addField(player1Name, )
 }
