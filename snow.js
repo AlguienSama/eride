@@ -21,7 +21,7 @@ module.exports = {
                 var msg = message.author +' quiere hacer una pelea de nieve. Quien acepta? ``'+prefix+'acept``'
             
             game.establecer(`${message.channel.id}.player1.id`, message.author.id)
-            game.establecer(`${message.channel.id}.player1.name`, message.author.username)
+            game.establecer(`${message.channel.id}.player1.name`, message.member.nickname)
             game.establecer(`${message.channel.id}.player1.life`, 3)
             message.channel.send(msg)
         }
@@ -36,7 +36,7 @@ module.exports = {
 
             console.log("a")
             game.establecer(`${message.channel.id}.player2.id`, message.author.id).catch(err => console.log(err))
-            game.establecer(`${message.channel.id}.player2.name`, message.author.username).catch(err => console.log(err))
+            game.establecer(`${message.channel.id}.player2.name`, message.member.nickname).catch(err => console.log(err))
             game.establecer(`${message.channel.id}.player2.life`, 3).catch(err => console.log(err))
 
             startGame(message, prefix)
