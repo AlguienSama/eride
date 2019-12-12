@@ -31,6 +31,8 @@ const vida = require("./vida.js");
 const { blChannels } = require("./cmd/settings/channels.js");
 const { error } = require("./logs.js")
 
+const { snowFight } = require("./snow.js")
+
 
 // Bases de Datos
 let dbprefix = new db.crearDB("prefix");
@@ -85,7 +87,7 @@ client.on("message", async message => {
     return;
   }
 
-
+  snowFight(message, prefix)
   let cmd = client.command.get(command) || client.command.find(c => c.alias.includes(command));
   if (cmd && message.content.toLowerCase().startsWith(prefix)) {
     // let alias = cmd.alias;

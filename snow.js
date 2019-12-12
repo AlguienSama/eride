@@ -3,10 +3,10 @@ const client = new Discord.Client()
 const db = require('megadb')
 let game = new db.crearDB('games')
 
-var { error, deny } = require('../../logs.js')
+var { error, deny } = require('./logs.js')
 
 module.exports = {
-    run: async (message, prefix) => {
+    snowFight: async (message, prefix) => {
 
         const args = message.content.slice(prefix.length).split(/ +/)
         const command = args.shift().toLowerCase()
@@ -34,9 +34,10 @@ module.exports = {
             if (await game.obtener(`${message.channel.id}.player1.id`) == message.author.id)
                 return message.channel.send("No puedes pelear contra ti mismo")
 
-            game.establecer(`${message.channel.id}.player2.id`, message.author.id)
-            game.establecer(`${message.channel.id}.player2.name`, message.author.username)
-            game.establecer(`${message.channel.id}.player2.life`, 3)
+            console.log("a")
+            game.establecer(`${message.channel.id}.player2.id`, message.author.id).catch(err => console.log(err))
+            game.establecer(`${message.channel.id}.player2.name`, message.author.username).catch(err => console.log(err))
+            game.establecer(`${message.channel.id}.player2.life`, 3).catch(err => console.log(err))
 
             startGame(message)
         }
@@ -44,11 +45,17 @@ module.exports = {
     }
 }
 
-function startGame(message) {
-    var player1Name = await game.obtener(`${message.channel.id}.player1.name`)
-    var player1Vida = await game.obtener(`${message.channel.id}.player1.life`)
+async function startGame(message) {
+    var player1Name = await game.obtener(`${message.channel.id}.player1.name`).catch(err => console.log(err))
+    var player1Vida = await game.obtener(`${message.channel.id}.player1.life`).catch(err => console.log(err))
+    var player2Name = await game.obtener(`${message.channel.id}.player2.name`).catch(err => console.log(err))
+    var player2Vida = await game.obtener(`${message.channel.id}.player2.life`).catch(err => console.log(err))
+    console.log("b")
     let fightEmbed = new Discord.RichEmbed()
         .setTitle("Pelea de bolas de nieve")
         .setDescription(`**Atacar** = ${prefix}a \t **Defender** ${prefix}d \t **Recargar** ${prefix}r`)
-        .addField(player1Name, )
+        .addField(player1Name, `♥️ Vida: ${player1Vida}`, true)
+        .addField(player2Name, `♥️ Vida: ${player2Vida}`, true)
+    message.channel.send(fightEmbed)
+    await game.eliminar(`${message.channel.id}`)
 }
