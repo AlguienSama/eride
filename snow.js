@@ -36,6 +36,10 @@ class Player {
     resetDefensa() {
         this.defensa = 0;
     }
+
+    getDefensa() {
+        return this.defensa;
+    }
 }
 
 module.exports = {
@@ -111,7 +115,7 @@ async function startGame(message, prefix) {
                         player.setAction("a");
                     else if (act.includes("d"))
                         player.setAction("d");
-                    else if (act.includes("e"))
+                    else if (act.includes("e") && player.getEsquivar() > 2)
                         player.setAction("e")
                 });
 
@@ -138,15 +142,15 @@ function doAction(act1, act2) {
     var esquivar = posiblidades > 30 ? true : false;
     var atacar = posiblidades > 15 ? true : false;
 
-    if (act1 == "d")
-        player1.defensa();
+    if (act1 == "e")
+        player1.esquivar();
     else
-        player1.resetDefensa();
+        player1.resetEsquivar();
 
-    if (act2 == "d")
-        player2.defensa();
+    if (act2 == "e")
+        player2.esquivar();
     else
-        player2.resetDefensa();
+        player2.resetEsquivar();
 
     if (act1 == "a") {
         if (act2 == "a") {
@@ -159,7 +163,8 @@ function doAction(act1, act2) {
             if (atacar)
                 player2.damage(0.5)
         } else if (act2 == "e") {
-            
+            if (!esquivar)
+                player2.damage(1)
         }
     }
 }
