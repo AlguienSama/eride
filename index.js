@@ -89,7 +89,7 @@ client.on("message", async message => {
   }
 
   snowFight(message, prefix)
-  cosasNazis(message, prefix)
+  cosasNazis()
   let cmd = client.command.get(command) || client.command.find(c => c.alias.includes(command));
   if (cmd && message.content.toLowerCase().startsWith(prefix)) {
     // let alias = cmd.alias;
