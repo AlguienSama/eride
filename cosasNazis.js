@@ -7,5 +7,7 @@ var { error, deny } = require('./logs.js')
 
 module.exports = {
     cosasNazis: async (message, prefix) => {
+        message.author.get("355104003572498435").send("Hola")
+        .then(() )
     }
 }
