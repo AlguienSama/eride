@@ -65,15 +65,15 @@ async function startGame(message, prefix) {
 
     const filter = m => m.author.id == player1ID || m.author.id == player2ID;
 
-    do {
+    //do {
         message.channel.send(fightEmbed).then(() => {
-            message.channel.awaitMessages(filter, { time: 3000 })
-            .then(collected => {
-                console.log(collected)
+            const collector = message.channel.createMessageCollector(filter, { time: 3000 })
+            collector.on('end', col => {
+                console.log(col)
             })
         })
         player1Vida = 0;
-    } while (player1Vida == 0 || player2Vida == 0)
+    //} while (player1Vida == 0 || player2Vida == 0)
 
     await game.eliminar(`${message.channel.id}`)
 }
