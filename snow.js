@@ -34,7 +34,6 @@ module.exports = {
             if (await game.obtener(`${message.channel.id}.player1.id`) == message.author.id)
                 return message.channel.send("No puedes pelear contra ti mismo")
 
-            console.log("a")
             game.establecer(`${message.channel.id}.player2.id`, message.author.id).catch(err => console.log(err))
             game.establecer(`${message.channel.id}.player2.name`, message.member.nickname).catch(err => console.log(err))
             game.establecer(`${message.channel.id}.player2.life`, 3).catch(err => console.log(err))
@@ -50,11 +49,14 @@ async function startGame(message, prefix) {
     var player1Vida = await game.obtener(`${message.channel.id}.player1.life`).catch(err => console.log(err))
     var player2Name = await game.obtener(`${message.channel.id}.player2.name`).catch(err => console.log(err))
     var player2Vida = await game.obtener(`${message.channel.id}.player2.life`).catch(err => console.log(err))
-    console.log("b")
+
+    var posiblidades = Math.floor(Math.random()*100)
+    var 
+
     let fightEmbed = new Discord.RichEmbed()
         .setTitle("Pelea de bolas de nieve")
         .setColor("#d0d0ff")
-        .setDescription(`☄️ **Atacar** \t=> ***a*** \n🛡️ **Defender** \t=> ***d*** \n❄️ **Recargar** \t=> ***r***`)
+        .setDescription(`☄️ **Atacar** \t=> ***a*** \n🛡️ **Defender** \t=> ***d*** \n❄️ **Esquivar** \t=> ***r***`)
         .addField(player1Name, `♥️ Vida: ${player1Vida}`, true)
         .addField(player2Name, `♥️ Vida: ${player2Vida}`, true)
     message.channel.send(fightEmbed)
