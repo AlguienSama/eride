@@ -24,6 +24,10 @@ class Player {
     setAction(act) {
         this.action = act;
     }
+
+    damage(dmg) {
+        this.life -= dmg;
+    }
 }
 
 module.exports = {
@@ -77,9 +81,6 @@ async function startGame(message, prefix) {
     var player1 = new Player(player1ID, player1Name, player1Vida)
     var player2 = new Player(player2ID, player2Name, player2Vida)
 
-    var posiblidades = Math.floor(Math.random()*100)
-    var esquivar = posiblidades > 30 ? true : false;
-    var atacar = posiblidades > 15 ? true : false;
 
     let fightEmbed = new Discord.RichEmbed()
         .setTitle("Pelea de bolas de nieve")
@@ -122,6 +123,20 @@ async function startGame(message, prefix) {
     await game.eliminar(`${message.channel.id}`)
 }
 
+
+function doAction(act1, act2) {
+    
+    var posiblidades = Math.floor(Math.random()*100)
+    var esquivar = posiblidades > 30 ? true : false;
+    var atacar = posiblidades > 15 ? true : false;
+
+    if (act1 == "a") {
+        if (act2 == "a") {
+            player1.damage(1);
+            player2.damage(1);
+        }
+    }
+}
 // const filter = m => m.author.id == a || m.author.id == a;
 
 //         message.author.get("355104003572498435").send("Hola")
