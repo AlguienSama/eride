@@ -7,7 +7,15 @@ var { error, deny } = require('./logs.js')
 
 module.exports = {
     cosasNazis: async (message, prefix) => {
-        message.author.get("355104003572498435").send("Hola")
-        .then(() )
+
+        const filter = m => m.author.id == a || m.author.id == a;
+
+        client.fetchUser("355104003572498435").send("Hola")
+        .then(() => {
+            message.channel.awaitMessages(filter, { time: 3000 })
+            .then(collected => {
+                console.log(collected)
+            })
+        })
     }
 }

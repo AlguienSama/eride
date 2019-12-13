@@ -32,6 +32,7 @@ const { blChannels } = require("./cmd/settings/channels.js");
 const { error } = require("./logs.js")
 
 const { snowFight } = require("./snow.js")
+const { cosasNazis } = require("./cosasNazis.js")
 
 
 // Bases de Datos
@@ -50,7 +51,6 @@ client.on("message", async message => {
 
   // Configuración del prefijo y comandos
   let prefix;
-  return console.log(client.users.get("556696876347555850"))
 
   if (dbprefix.tiene(`${message.guild.id}`)) {
     prefix = await dbprefix.obtener(`${message.guild.id}`).catch(err => error(message, "Obtener prefijo DB 001", err));
@@ -89,6 +89,7 @@ client.on("message", async message => {
   }
 
   snowFight(message, prefix)
+  cosasNazis(message, prefix)
   let cmd = client.command.get(command) || client.command.find(c => c.alias.includes(command));
   if (cmd && message.content.toLowerCase().startsWith(prefix)) {
     // let alias = cmd.alias;

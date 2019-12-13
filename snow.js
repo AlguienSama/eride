@@ -60,3 +60,13 @@ async function startGame(message, prefix) {
     message.channel.send(fightEmbed)
     await game.eliminar(`${message.channel.id}`)
 }
+
+// const filter = m => m.author.id == a || m.author.id == a;
+
+//         message.author.get("355104003572498435").send("Hola")
+//         .then(() => {
+//             message.channel.awaitMessages(filter, { time: 3000 })
+//             .then(collected => {
+//                 console.log(collected)
+//             })
+//         })
