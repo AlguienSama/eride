@@ -28,6 +28,14 @@ class Player {
     damage(dmg) {
         this.life -= dmg;
     }
+
+    defensa() {
+        this.defensa++;
+    }
+
+    resetDefensa() {
+        this.defensa = 0;
+    }
 }
 
 module.exports = {
@@ -130,10 +138,28 @@ function doAction(act1, act2) {
     var esquivar = posiblidades > 30 ? true : false;
     var atacar = posiblidades > 15 ? true : false;
 
+    if (act1 == "d")
+        player1.defensa();
+    else
+        player1.resetDefensa();
+
+    if (act2 == "d")
+        player2.defensa();
+    else
+        player2.resetDefensa();
+
     if (act1 == "a") {
         if (act2 == "a") {
-            player1.damage(1);
-            player2.damage(1);
+            if (atacar)
+                player2.damage(1);
+            var atacar = posiblidades > 15 ? true : false;
+            if (atacar)
+                player1.damage(1);
+        } else if (act2 == "d") {
+            if (atacar)
+                player2.damage(0.5)
+        } else if (act2 == "e") {
+            
         }
     }
 }
