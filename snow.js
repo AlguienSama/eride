@@ -69,7 +69,14 @@ async function startGame(message, prefix) {
         message.channel.send(fightEmbed).then(() => {
             const collector = message.channel.createMessageCollector(filter, { time: 3000 })
             collector.on('end', col => {
-                console.log(col)
+                col.forEach(msg => {
+                    if (player1ID == msg.author.id) {
+                        
+                    } else if (player2ID == msg.author.id) {
+
+                    }
+                    console.log(msg.content)
+                });
             })
         })
         player1Vida = 0;
