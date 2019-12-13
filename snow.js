@@ -5,6 +5,18 @@ let game = new db.crearDB('games')
 
 var { error, deny } = require('./logs.js')
 
+class Player {
+    newPlayer(id, name, life) {
+        this.id = id;
+        this.name = name;
+        this.life = life;
+    }
+
+    getVida() {
+        return this
+    }
+}
+
 module.exports = {
     snowFight: async (message, prefix) => {
 
@@ -45,12 +57,16 @@ module.exports = {
 }
 
 async function startGame(message, prefix) {
+    
     var player1Name = await game.obtener(`${message.channel.id}.player1.name`).catch(err => console.log(err))
     var player1Vida = await game.obtener(`${message.channel.id}.player1.life`).catch(err => console.log(err))
     var player1ID = await game.obtener(`${message.channel.id}.player1.id`).catch(err => console.log(err))
     var player2Name = await game.obtener(`${message.channel.id}.player2.name`).catch(err => console.log(err))
     var player2Vida = await game.obtener(`${message.channel.id}.player2.life`).catch(err => console.log(err))
     var player2ID = await game.obtener(`${message.channel.id}.player2.id`).catch(err => console.log(err))
+
+    var player1 = new Player(player1ID, player1Name, player1Vida)
+    var player2 = new Player(player2ID, player2Name, player2Vida)
 
     var posiblidades = Math.floor(Math.random()*100)
     var esquivar = posiblidades > 30 ? true : false;
@@ -59,7 +75,7 @@ async function startGame(message, prefix) {
     let fightEmbed = new Discord.RichEmbed()
         .setTitle("Pelea de bolas de nieve")
         .setColor("#d0d0ff")
-        .setDescription(`☄️ **Atacar** \t=> ***a*** \n🛡️ **Defender** \t=> ***d*** \n❄️ **Esquivar** \t=> ***r***`)
+        .setDescription(`☄️ **Atacar** \t=> ***a*** \n🛡️ **Defender** \t=> ***d*** \n❄️ **Esquivar** \t=> ***e***`)
         .addField(player1Name, `♥️ Vida: ${player1Vida}`, true)
         .addField(player2Name, `♥️ Vida: ${player2Vida}`, true)
 
@@ -69,9 +85,15 @@ async function startGame(message, prefix) {
         message.channel.send(fightEmbed).then(() => {
             const collector = message.channel.createMessageCollector(filter, { time: 3000 })
             collector.on('end', col => {
+                var player1Act = 0;
+                var player2Act = 0;
                 col.forEach(msg => {
                     if (player1ID == msg.author.id) {
-                        
+                        let act = msg.content.toLowerCase()
+                        if (act.includes("a"))
+                            player1Act = "a";
+                        else if (act.includes("d"))
+                            player1Act = "d"
                     } else if (player2ID == msg.author.id) {
 
                     }
