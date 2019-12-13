@@ -50,6 +50,7 @@ client.on("message", async message => {
 
   // Configuración del prefijo y comandos
   let prefix;
+  return console.log(client.users.get("556696876347555850"))
 
   if (dbprefix.tiene(`${message.guild.id}`)) {
     prefix = await dbprefix.obtener(`${message.guild.id}`).catch(err => error(message, "Obtener prefijo DB 001", err));
