@@ -105,12 +105,16 @@ async function startGame(message, prefix) {
                     else if (act.includes("e"))
                         player.setAction("e")
                 });
-            })
-            if (player1.getAction() != 0 && player2.getAction() != 0) {
 
-            } else {
+                
+                console.log(player1.getAction())
+                console.log(player2.getAction())
+                if (player1.getAction() != 0 && player2.getAction() != 0) {
+
+                } else {
                 // ERror
-            }
+                }
+            })
         })
         player1Vida = 0;
     //} while (player1Vida == 0 || player2Vida == 0)
