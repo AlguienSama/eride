@@ -47,11 +47,14 @@ module.exports = {
 async function startGame(message, prefix) {
     var player1Name = await game.obtener(`${message.channel.id}.player1.name`).catch(err => console.log(err))
     var player1Vida = await game.obtener(`${message.channel.id}.player1.life`).catch(err => console.log(err))
+    var player1ID = await game.obtener(`${message.channel.id}.player1.id`).catch(err => console.log(err))
     var player2Name = await game.obtener(`${message.channel.id}.player2.name`).catch(err => console.log(err))
     var player2Vida = await game.obtener(`${message.channel.id}.player2.life`).catch(err => console.log(err))
+    var player2ID = await game.obtener(`${message.channel.id}.player2.id`).catch(err => console.log(err))
 
     var posiblidades = Math.floor(Math.random()*100)
-    var 
+    var esquivar = posiblidades > 30 ? true : false;
+    var atacar = posiblidades > 15 ? true : false;
 
     let fightEmbed = new Discord.RichEmbed()
         .setTitle("Pelea de bolas de nieve")
@@ -59,7 +62,19 @@ async function startGame(message, prefix) {
         .setDescription(`☄️ **Atacar** \t=> ***a*** \n🛡️ **Defender** \t=> ***d*** \n❄️ **Esquivar** \t=> ***r***`)
         .addField(player1Name, `♥️ Vida: ${player1Vida}`, true)
         .addField(player2Name, `♥️ Vida: ${player2Vida}`, true)
-    message.channel.send(fightEmbed)
+
+    const filter = m => m.author.id == player1ID || m.author.id == player2ID;
+
+    do {
+        message.channel.send(fightEmbed).then(() => {
+            message.channel.awaitMessages(filter, { time: 3000 })
+            .then(collected => {
+                console.log(collected)
+            })
+        })
+        player1Vida = 0;
+    } while (player1Vida == 0 || player2Vida == 0)
+
     await game.eliminar(`${message.channel.id}`)
 }
 
