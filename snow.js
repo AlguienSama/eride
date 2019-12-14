@@ -110,13 +110,14 @@ async function startGame(message) {
                         player.setAction("d");
                     else if (act.includes("e") && player.getEsquivar() > 2)
                         player.setAction("e")
+                    
                 });
 
                 
                 console.log(player1.getAction())
                 console.log(player2.getAction())
                 if (player1.getAction() != 0 && player2.getAction() != 0) {
-
+                    doAction(player1.action, player2.action)
                 } else {
                 // ERror
                 }
@@ -134,6 +135,9 @@ function doAction(act1, act2) {
     var posiblidades = Math.floor(Math.random()*100)
     var esquivar = posiblidades > 30 ? true : false;
     var atacar = posiblidades > 15 ? true : false;
+    var posiblidades2 = Math.floor(Math.random()*100)
+    var esquivar2 = posiblidades2 > 30 ? true : false;
+    var atacar2 = posiblidades2 > 15 ? true : false;
 
     if (act1 == "e")
         player1.esquivar();
@@ -149,8 +153,7 @@ function doAction(act1, act2) {
         if (act2 == "a") {
             if (atacar)
                 player2.damage(1);
-            var atacar = posiblidades > 15 ? true : false;
-            if (atacar)
+            if (atacar2)
                 player1.damage(1);
         } else if (act2 == "d") {
             if (atacar)
@@ -159,7 +162,7 @@ function doAction(act1, act2) {
             if (!esquivar)
                 player2.damage(1)
         }
-    }
+    } else if (ac)
 }
 // const filter = m => m.author.id == a || m.author.id == a;
 
