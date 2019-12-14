@@ -156,7 +156,6 @@ function doAction(player1, player2) {
     var esquivar = posiblidades > 30 ? true : false;
     var atacar = posiblidades > 15 ? true : false;
     var posiblidades2 = Math.floor(Math.random()*100)
-    var esquivar2 = posiblidades2 > 30 ? true : false;
     var atacar2 = posiblidades2 > 15 ? true : false;
 
     if (act1 == "e")
