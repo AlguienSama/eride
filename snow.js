@@ -152,13 +152,28 @@ async function startGame(message) {
                                     return
                                 }
                                 console.log("Vida 1 == "+ player1.getVida() + "\nVida 2 == " + player2.getVida())
-                                if (player1.getVida() == 0) {
-                                    message.channel.send("Gana Player2")
+                                let finEmbed = new Discord.RichEmbed()
+                                    .setTitle("Pelea de bolas de nieve")
+                                    .setColor("#d0d0ff")
+                                    .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥️ Vida: ${player1.getVida()}`, true)
+                                    .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥️ Vida: ${player2.getVida()}`, true)
+                                if (player1.getVida() == 0 && player2.getVida() == 0) {
+                                    finEmbed.setDescription(`❄️***EMPATE***❄️`)
+                                    message.channel.send(finEmbed)
+                                    clearInterval(ataque)
+                                    clearInterval(ronda)
+                                    return
+                                } else if (player1.getVida() == 0) {
+                                    finEmbed.setDescription(`❄️***VICTIORA de ${player2.name}***❄️`)
+                                    message.channel.send(finEmbed)
+                                    clearInterval(ataque)
                                     clearInterval(ataque)
                                     clearInterval(ronda)
                                     return
                                 } else if (player2.getVida() == 0) {
-                                    message.channel.send("Gana Player1")
+                                    finEmbed.setDescription(`❄️***VICTIORA de ${player1.name}***❄️`)
+                                    message.channel.send(finEmbed)
+                                    clearInterval(ataque)
                                     clearInterval(ataque)
                                     clearInterval(ronda)
                                     return
