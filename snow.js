@@ -43,9 +43,9 @@ class Player {
 }
 
 module.exports = {
-    snowFight: async (message, prefix) => {
+    snowFight: async (message) => {
 
-        const args = message.content.slice(prefix.length).split(/ +/)
+        const args = message.content.slice(message.prefix.length).split(/ +/)
         const command = args.shift().toLowerCase()
 
         if (command == "start") {
@@ -55,7 +55,7 @@ module.exports = {
                 game.establecer(`${message.channel.id}.retado`, message.mentions.users.first().id)
             }
             else 
-                var msg = message.author +' quiere hacer una pelea de nieve. Quien acepta? ``'+prefix+'acept``'
+                var msg = message.author +' quiere hacer una pelea de nieve. Quien acepta? ``'+message.prefix+'acept``'
             
             game.establecer(`${message.channel.id}.player1.id`, message.author.id)
             game.establecer(`${message.channel.id}.player1.name`, message.member.nickname)
@@ -75,13 +75,13 @@ module.exports = {
             game.establecer(`${message.channel.id}.player2.name`, message.member.nickname).catch(err => console.log(err))
             game.establecer(`${message.channel.id}.player2.life`, 3).catch(err => console.log(err))
 
-            startGame(message, prefix)
+            startGame(message)
         }
         
     }
 }
 
-async function startGame(message, prefix) {
+async function startGame(message) {
     
     var player1Name = await game.obtener(`${message.channel.id}.player1.name`).catch(err => console.log(err))
     var player1Vida = await game.obtener(`${message.channel.id}.player1.life`).catch(err => console.log(err))

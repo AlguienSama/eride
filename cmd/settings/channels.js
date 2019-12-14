@@ -5,7 +5,7 @@ const client = new Discord.Client()
 
 module.exports = {
 
-    blChannels: async (message, prefix, error) => {
+    blChannels: async (message, error) => {
 
         var canal = message.mentions.channels.first() || message.channel
         
@@ -13,7 +13,7 @@ module.exports = {
       
         const datos = await dbChannelsBL.obtener(message.guild.id).catch(err => error(message, "Obtener canales BL 002", err))
         
-        if (message.content.startsWith(prefix + 'channel-disable') && message.member.hasPermission('ADMINISTRATOR')) {
+        if (message.content.startsWith(message.prefix + 'channel-disable') && message.member.hasPermission('ADMINISTRATOR')) {
 
             if (datos.includes(canal.id)) return message.channel.send("Ya tenia bloqueado este canal...")
 
@@ -24,7 +24,7 @@ module.exports = {
         }
 
 
-        if (message.content.startsWith(prefix + 'channel-enable') && message.member.hasPermission('ADMINISTRATOR')) {
+        if (message.content.startsWith(message.prefix + 'channel-enable') && message.member.hasPermission('ADMINISTRATOR')) {
 
             if (!datos.includes(canal.id)) return message.channel.send("Ya me podías ejecutar, pero gracias por intentarme liberar")
 

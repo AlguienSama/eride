@@ -50,17 +50,16 @@ client.on("message", async message => {
   if (message.author.id === client.user.id) return;
 
   // Configuración del prefijo y comandos
-  let prefix;
 
   if (dbprefix.tiene(`${message.guild.id}`)) {
-    prefix = await dbprefix.obtener(`${message.guild.id}`).catch(err => error(message, "Obtener prefijo DB 001", err));
+    message.prefix = await dbprefix.obtener(`${message.guild.id}`).catch(err => error(message, "Obtener prefijo DB 001", err));
     // console.log('Prefix DB: '+prefix)
   } else {
-    prefix = botconfig.prefix;
+    message.prefix = botconfig.prefix;
     // console.log('Prefix base: '+prefix)
   }
   
-  const args = message.content.slice(prefix.length).split(/ +/)
+  const args = message.content.slice(message.prefix.length).split(/ +/)
 	const command = args.shift().toLowerCase()
   
 
@@ -69,11 +68,11 @@ client.on("message", async message => {
     message.content.toLowerCase().includes(client.user.id) &&
     message.content.toLowerCase().includes("prefix")
   ) {
-    return message.channel.send("Mi prefijo es ``" + prefix + "``");
+    return message.channel.send("Mi prefijo es ``" + message.prefix + "``");
   }
 
   // Black List Channels
-  blChannels(message, prefix, error);
+  blChannels(message, error);
   var datos;
   if (dbChannelsBL.tiene(message.guild.id)) {
     datos = await dbChannelsBL.obtener(message.guild.id).catch(err => error(message, "Obtener canales BL 001", err));
@@ -91,7 +90,7 @@ client.on("message", async message => {
   snowFight(message, prefix)
   //cosasNazis(client, message, prefix)
   let cmd = client.command.get(command) || client.command.find(c => c.alias.includes(command));
-  if (cmd && message.content.toLowerCase().startsWith(prefix)) {
+  if (cmd && message.content.toLowerCase().startsWith(message.prefix)) {
     // let alias = cmd.alias;
     // let name = cmd.name;
     // let description = cmd.description;
