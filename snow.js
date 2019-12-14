@@ -6,10 +6,8 @@ let game = new db.crearDB('games')
 var { error, deny } = require('./logs.js')
 
 class Player {
-    newPlayer(id, name, life) {
-        this.id = id;
-        this.name = name;
-        this.life = life;
+    newPlayer() {
+        this.life = 3;
         this.action = 0;
     }
 
@@ -59,7 +57,6 @@ module.exports = {
             
             game.establecer(`${message.channel.id}.player1.id`, message.author.id)
             game.establecer(`${message.channel.id}.player1.name`, message.member.nickname)
-            game.establecer(`${message.channel.id}.player1.life`, 3)
             message.channel.send(msg)
         }
 
@@ -73,7 +70,6 @@ module.exports = {
 
             game.establecer(`${message.channel.id}.player2.id`, message.author.id).catch(err => console.log(err))
             game.establecer(`${message.channel.id}.player2.name`, message.member.nickname).catch(err => console.log(err))
-            game.establecer(`${message.channel.id}.player2.life`, 3).catch(err => console.log(err))
 
             startGame(message)
         }
@@ -82,26 +78,23 @@ module.exports = {
 }
 
 async function startGame(message) {
-    
-    var player1Name = await game.obtener(`${message.channel.id}.player1.name`).catch(err => console.log(err))
-    var player1Vida = await game.obtener(`${message.channel.id}.player1.life`).catch(err => console.log(err))
-    var player1ID = await game.obtener(`${message.channel.id}.player1.id`).catch(err => console.log(err))
-    var player2Name = await game.obtener(`${message.channel.id}.player2.name`).catch(err => console.log(err))
-    var player2Vida = await game.obtener(`${message.channel.id}.player2.life`).catch(err => console.log(err))
-    var player2ID = await game.obtener(`${message.channel.id}.player2.id`).catch(err => console.log(err))
 
-    var player1 = new Player(player1ID, player1Name, player1Vida)
-    var player2 = new Player(player2ID, player2Name, player2Vida)
+    var player1 = new Player()
+    var player2 = new Player()
 
+    player1.name = await game.obtener(`${message.channel.id}.player1.name`).catch(err => console.log(err))
+    player1.id = await game.obtener(`${message.channel.id}.player1.id`).catch(err => console.log(err))
+    player2.name = await game.obtener(`${message.channel.id}.player2.name`).catch(err => console.log(err))
+    player2.id = await game.obtener(`${message.channel.id}.player2.id`).catch(err => console.log(err))
 
     let fightEmbed = new Discord.RichEmbed()
         .setTitle("Pelea de bolas de nieve")
         .setColor("#d0d0ff")
         .setDescription(`☄️ **Atacar** \t=> ***a*** \n🛡️ **Defender** \t=> ***d*** \n❄️ **Esquivar** \t=> ***e***`)
-        .addField(player1Name, `♥️ Vida: ${player1.getVida()}`, true)
-        .addField(player2Name, `♥️ Vida: ${player2.getVida()}`, true)
+        .addField(player1.name, `♥️ Vida: ${player1.getVida()}`, true)
+        .addField(player2.name, `♥️ Vida: ${player2.getVida()}`, true)
 
-    const filter = m => m.author.id == player1ID || m.author.id == player2ID;
+    const filter = m => m.author.id == player1.id || m.author.id == player2.id;
 
     //do {
         message.channel.send(fightEmbed).then(() => {
@@ -109,7 +102,7 @@ async function startGame(message) {
             collector.on('end', col => {
                 col.forEach(msg => {
                     var player;
-                    msg.author.id == player1ID ?  player = player1 : player = player2
+                    msg.author.id == player1.id ?  player = player1 : player = player2
                     let act = msg.content.toLowerCase()
                     if (act.includes("a"))
                         player.setAction("a");
@@ -129,7 +122,7 @@ async function startGame(message) {
                 }
             })
         })
-        player1Vida = 0;
+        player1.life = 0;
     //} while (player1Vida == 0 || player2Vida == 0)
 
     await game.eliminar(`${message.channel.id}`)
