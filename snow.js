@@ -99,18 +99,19 @@ async function startGame(message) {
     player2.name = await game.obtener(`${message.channel.id}.player2.name`).catch(err => console.log(err))
     player2.id = await game.obtener(`${message.channel.id}.player2.id`).catch(err => console.log(err))
 
-    let fightEmbed = new Discord.RichEmbed()
-        .setTitle("Pelea de bolas de nieve")
-        .setColor("#d0d0ff")
-        .setDescription(`☄️ **Atacar** \t=> ***a*** \n⛄ **Defender** \t=> ***d*** \n💨 **Esquivar** \t=> ***e***`)
-        .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥️ Vida: ${player1.getVida()}`, true)
-        .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥️ Vida: ${player2.getVida()}`, true)
+    
 
     const filter = m => m.author.id == player1.id || m.author.id == player2.id;
 
     var ronda = setInterval(() => {
         
         var time = 3;
+        let fightEmbed = new Discord.RichEmbed()
+            .setTitle("Pelea de bolas de nieve")
+            .setColor("#d0d0ff")
+            .setDescription(`☄️ **Atacar** \t=> ***a*** \n⛄ **Defender** \t=> ***d*** \n💨 **Esquivar** \t=> ***e***`)
+            .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥️ Vida: ${player1.getVida()}`, true)
+            .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥️ Vida: ${player2.getVida()}`, true)
         message.channel.send(fightEmbed)
         .then(() => {
             var finRonda = false
@@ -148,24 +149,33 @@ async function startGame(message) {
                                     finRonda = true;
                                 } else {
                                     message.channel.send("FIN")
-                                    clearInterval(ronda)
+                                    return
                                 }
-                                console.log(player1.getVida() + "\n" + player2.getVida())
+                                console.log("Vida 1 == "+ player1.getVida() + "\nVida 2 == " + player2.getVida())
+                                if (player1.getVida() == 0) {
+                                    message.channel.send("Gana Player2")
+                                    clearInterval(ataque)
+                                    clearInterval(ronda)
+                                    return
+                                } else if (player2.getVida() == 0) {
+                                    message.channel.send("Gana Player1")
+                                    clearInterval(ataque)
+                                    clearInterval(ronda)
+                                    return
+                                }
                             })
                         })
-                        console.log(time)
+                        
                         clearInterval(ataque)
                     }
-                    console.log("c")
 
-                }, 3000)
+                }, 1000)
+                
             })
             console.log(finRonda)
             if (finRonda == true) {
-                console.log("a")
                 clearInterval(ronda)
             }
-            console.log("b")
         })
     }, 6000)
 
