@@ -113,11 +113,12 @@ async function startGame(message) {
         var time = 3;
         message.channel.send(fightEmbed)
         .then(() => {
-            message.channel.send(`Siguiente ataque en... **${time}**`).then(ataque = setTimeout((msg) => {
-                time--;
-                if (time > 0) 
-                    msg.edit(`Siguiente ataque en... **${time}**`)
-                else {
+            message.channel.send(`Siguiente ataque en... **${time}**`).then(() => {
+                ataque = setTimeout(msg => {
+                    time--;
+                    if (time > 0) 
+                        msg.edit(`Siguiente ataque en... **${time}**`)
+                    else {
                     message.channel.send("ATACAD!").then(() => {
                         const collector = message.channel.createMessageCollector(filter, { time: 3000 })
                         collector.on('end', col => {
@@ -154,7 +155,8 @@ async function startGame(message) {
                     clearInterval(ataque)
                 }
                 time--;
-            }, 1000))
+            }, 1000)
+        })
             clearInterval(ronda)  
         })
     }, 6000)
