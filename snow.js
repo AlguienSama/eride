@@ -104,23 +104,23 @@ async function startGame(message) {
     const filter = m => m.author.id == player1.id || m.author.id == player2.id;
 
     var ronda = setInterval(() => {
-        if (player1.getVida() == 0 || player2.getVida() == 0) {
+        if (player1.getVida() <= 0 || player2.getVida() <= 0) {
             let finEmbed = new Discord.RichEmbed()
                 .setTitle("Pelea de bolas de nieve")
                 .setColor("#d0d0ff")
                 .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥️ Vida: ${player1.getVida()}`, true)
                 .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥️ Vida: ${player2.getVida()}`, true)
-            if (player1.getVida() == 0 && player2.getVida() == 0) {
+            if (player1.getVida() <= 0 && player2.getVida() <= 0) {
                 finEmbed.setDescription(`❄️***EMPATE***❄️`)
                 message.channel.send(finEmbed)
                 clearInterval(ronda)
                 return
-            } else if (player1.getVida() == 0) {
+            } else if (player1.getVida() <= 0) {
                 finEmbed.setDescription(`❄️***VICTIORA de ${player2.name}***❄️`)
              message.channel.send(finEmbed)
                 clearInterval(ronda)
                 return
-            } else if (player2.getVida() == 0) {
+            } else if (player2.getVida() <= 0) {
                 finEmbed.setDescription(`❄️***VICTIORA de ${player1.name}***❄️`)
                 message.channel.send(finEmbed)
                 clearInterval(ronda)
