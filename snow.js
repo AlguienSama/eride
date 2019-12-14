@@ -10,6 +10,7 @@ class Player {
         this.life = 3;
         this.action = 0;
         this.accion = "❄️";
+        this.dash = 0; 
     }
 
     getVida() {
@@ -36,16 +37,16 @@ class Player {
         this.life -= dmg;
     }
 
-    defensa() {
-        this.defensa++;
+    esquivar() {
+        this.dash++;
     }
 
-    resetDefensa() {
-        this.defensa = 0;
+    resetEsquivar() {
+        this.dash = 0;
     }
 
-    getDefensa() {
-        return this.defensa;
+    getEsquivar() {
+        return this.dash;
     }
 }
 
@@ -134,21 +135,23 @@ async function startGame(message) {
                 console.log(player1.getAction())
                 console.log(player2.getAction())
                 if (player1.getAction() != 0 && player2.getAction() != 0) {
-                    doAction(player1.action, player2.action)
+                    doAction(player1, player2)
                 } else {
                 // ERror
                 }
+                console.log(player1.getVida() + "\n" + player2.getVida())
             })
         })
-        player1.life = 0;
     //} while (player1Vida == 0 || player2Vida == 0)
 
     await game.eliminar(`${message.channel.id}`)
 }
 
 
-function doAction(act1, act2) {
-    
+function doAction(player1, player2) {
+    var act1 = player1.getAction();
+    var act2 = player2.getAction();
+
     var posiblidades = Math.floor(Math.random()*100)
     var esquivar = posiblidades > 30 ? true : false;
     var atacar = posiblidades > 15 ? true : false;
