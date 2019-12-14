@@ -8,7 +8,7 @@ var { error, deny } = require('./logs.js')
 class Player {
     newPlayer() {
         this.life = 3;
-        this.action = 0;
+        this.action = "⛄";
         this.accion = "❄️";
         this.dash = 0; 
     }
@@ -83,6 +83,17 @@ module.exports = {
 
             startGame(message)
         }
+
+        if (command == "help") {
+            let fightEmbed = new Discord.RichEmbed()
+                .setTitle("Pelea de bolas de nieve")
+                .setColor("#d0d0ff")
+                .setDescription(`☄️ **Atacar** \t=> ***a*** \n⛄ **Defender** \t=> ***d*** \n💨 **Esquivar** \t=> ***e***`)
+                .addField('❄️Acción❄️', 'Deberás poner la letra corresponiente a la opción de arriba que deseas ejecutar (_puedes ponerla en mayusculas o minusculas_)')
+                .addField('☄️Atacar☄️', 'Hace 1 pto de daño al enemigo.\nTiene 15% de fallar')
+                .addField('⛄Defender⛄', 'Si el enemigo te ataca, solo te hará 0.5 ptos de daño')
+                .addField('💨Esquivar💨', 'Evitas el daño enemigo.\nTiene 30% de fallar.\nSolo puedes esquivar 2 veces seguidas')
+        }
         
     }
 }
@@ -137,14 +148,14 @@ async function startGame(message) {
         message.channel.send(fightEmbed)
         .then(() => {
             var finRonda = false
-            message.channel.send(`Siguiente ataque en... **${time}**`).then(msg => {
+            message.channel.send(`❄️Siguiente ataque en... **${time}**❄️`).then(msg => {
                 ataque = setInterval(() => {
                     time--;
                     if (time > 0) 
-                        msg.edit(`Siguiente ataque en... **${time}**`)
+                        msg.edit(`❄️Siguiente ataque en... **${time}**❄️`)
                     else {
                         time = 3;
-                        message.channel.send("ATACAD!").then(() => {
+                        message.channel.send("❄️**ATACAD!**❄️").then(() => {
                             const collector = message.channel.createMessageCollector(filter, { time: 3000 })
                             collector.on('end', col => {
                                 col.forEach(msg => {
@@ -165,13 +176,8 @@ async function startGame(message) {
                                     
                                 }); 
 
-                                if (player1.getAction() != 0 && player2.getAction() != 0) {
-                                    doAction(player1, player2)
-                                    finRonda = true;
-                                } else {
-                                    message.channel.send("FIN")
-                                    return
-                                }
+                                doAction(player1, player2)
+                                
                                 console.log("Vida 1 == "+ player1.getVida() + "\nVida 2 == " + player2.getVida())
                                 
                             })
