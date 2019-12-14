@@ -13,11 +13,15 @@ class Player {
     }
 
     getVida() {
-        return this.vida;
+        return this.life;
     }
 
     getAction() {
         return this.action;
+    }
+
+    getAccion() {
+        return this.accion;
     }
 
     setAction(act) {
@@ -86,6 +90,8 @@ async function startGame(message) {
 
     var player1 = new Player()
     var player2 = new Player()
+    player1.newPlayer();
+    player2.newPlayer();
 
     player1.name = await game.obtener(`${message.channel.id}.player1.name`).catch(err => console.log(err))
     player1.id = await game.obtener(`${message.channel.id}.player1.id`).catch(err => console.log(err))
@@ -109,12 +115,18 @@ async function startGame(message) {
                     var player;
                     msg.author.id == player1.id ?  player = player1 : player = player2
                     let act = msg.content.toLowerCase()
-                    if (act.includes("a"))
+                    if (act.includes("a")) {
                         player.setAction("a");
-                    else if (act.includes("d"))
+                        player.setAccion("☄️");
+                    }
+                    else if (act.includes("d")) {
                         player.setAction("d");
-                    else if (act.includes("e") && player.getEsquivar() > 2)
-                        player.setAction("e")
+                        player.setAccion("⛄");
+                    }
+                    else if (act.includes("e") && player.getEsquivar() < 2) {
+                        player.setAction("e");
+                        player.setAccion("💨");
+                    }
                     
                 });
 
@@ -155,7 +167,6 @@ function doAction(act1, act2) {
         player2.resetEsquivar();
 
     if (act1 == "a") {
-        player1.setAccion("")
         if (act2 == "a") {
             if (atacar)
                 player2.damage(1);
