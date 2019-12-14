@@ -108,48 +108,56 @@ async function startGame(message) {
 
     const filter = m => m.author.id == player1.id || m.author.id == player2.id;
 
-    setTimeout(() => {
-        message.channel.send(fightEmbed)
+    var ronda = setTimeout(() => {
+        
         var time = 3;
-        setTimeout(() => {
-            time message.channel.send(`Siguiente ataque en... **${time}**`)
-            time--;
-        }, 1000)
-    }, 6000)
-        message.channel.send("Siguiente ataque en... **3**").then(() => {
-            const collector = message.channel.createMessageCollector(filter, { time: 3000 })
-            collector.on('end', col => {
-                col.forEach(msg => {
-                    var player;
-                    msg.author.id == player1.id ?  player = player1 : player = player2
-                    let act = msg.content.toLowerCase()
-                    if (act.includes("a")) {
-                        player.setAction("a");
-                        player.setAccion("☄️");
-                    }
-                    else if (act.includes("d")) {
-                        player.setAction("d");
-                        player.setAccion("⛄");
-                    }
-                    else if (act.includes("e") && player.getEsquivar() < 2) {
-                        player.setAction("e");
-                        player.setAccion("💨");
-                    }
-                    
-                });
-
-                
-                console.log(player1.getAction())
-                console.log(player2.getAction())
-                if (player1.getAction() != 0 && player2.getAction() != 0) {
-                    doAction(player1, player2)
-                } else {
-                // ERror
+        message.channel.send(fightEmbed)
+        .then(() => {
+            message.channel.send(`Siguiente ataque en... **${time}**`).then(ataque = setTimeout((msg) => {
+                time--;
+                if (time > 0) 
+                    msg.edit(`Siguiente ataque en... **${time}**`)
+                else {
+                    message.channel.send("ATACAD!").then(() => {
+                        const collector = message.channel.createMessageCollector(filter, { time: 3000 })
+                        collector.on('end', col => {
+                            col.forEach(msg => {
+                                var player;
+                                msg.author.id == player1.id ?  player = player1 : player = player2
+                                let act = msg.content.toLowerCase()
+                                if (act.includes("a")) {
+                                    player.setAction("a");
+                                    player.setAccion("☄️");
+                                }
+                                else if (act.includes("d")) {
+                                    player.setAction("d");
+                                    player.setAccion("⛄");
+                                }
+                                else if (act.includes("e") && player.getEsquivar() < 2) {
+                                    player.setAction("e");
+                                    player.setAccion("💨");
+                                }
+                            
+                            });
+        
+                        
+                            console.log(player1.getAction())
+                            console.log(player2.getAction())
+                            if (player1.getAction() != 0 && player2.getAction() != 0) {
+                                doAction(player1, player2)
+                            } else {
+                            // ERror
+                            }
+                            console.log(player1.getVida() + "\n" + player2.getVida())
+                        })
+                    })
+                    clearInterval(ataque)
                 }
-                console.log(player1.getVida() + "\n" + player2.getVida())
-            })
+                time--;
+            }, 1000))
+            clearInterval(ronda)  
         })
-    //} while (player1Vida == 0 || player2Vida == 0)
+    }, 6000)
 
     await game.eliminar(`${message.channel.id}`)
 }
