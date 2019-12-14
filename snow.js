@@ -108,17 +108,19 @@ async function startGame(message) {
 
     const filter = m => m.author.id == player1.id || m.author.id == player2.id;
 
-    var ronda = setTimeout(() => {
+    var ronda = setInterval(() => {
         
         var time = 3;
         message.channel.send(fightEmbed)
         .then(() => {
+            var finRonda = false
             message.channel.send(`Siguiente ataque en... **${time}**`).then(msg => {
-                ataque = setTimeout(() => {
+                ataque = setInterval(() => {
                     time--;
                     if (time > 0) 
                         msg.edit(`Siguiente ataque en... **${time}**`)
                     else {
+                        time = 3;
                         message.channel.send("ATACAD!").then(() => {
                             const collector = message.channel.createMessageCollector(filter, { time: 3000 })
                             collector.on('end', col => {
@@ -140,14 +142,13 @@ async function startGame(message) {
                                     }
                                     
                                 }); 
-                        
-                                console.log(player1.getAction())
-                                console.log(player2.getAction())
+
                                 if (player1.getAction() != 0 && player2.getAction() != 0) {
                                     doAction(player1, player2)
-                                    var finRonda = true;
+                                    finRonda = true;
                                 } else {
-                                // ERror
+                                    message.channel.send("FIN")
+                                    clearInterval(ronda)
                                 }
                                 console.log(player1.getVida() + "\n" + player2.getVida())
                             })
@@ -155,11 +156,16 @@ async function startGame(message) {
                         console.log(time)
                         clearInterval(ataque)
                     }
+                    console.log("c")
 
-                }, 1000)
+                }, 3000)
             })
-            console.log("a")
-            clearInterval(ronda)  
+            console.log(finRonda)
+            if (finRonda == true) {
+                console.log("a")
+                clearInterval(ronda)
+            }
+            console.log("b")
         })
     }, 6000)
 
