@@ -95,7 +95,7 @@ client.on("message", async message => {
     // let name = cmd.name;
     // let description = cmd.description;
     // console.log(alias, name, description)
-    return cmd.run(message, args, prefix);
+    return cmd.run(message, args);
   }
 
 });
