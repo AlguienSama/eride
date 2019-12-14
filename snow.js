@@ -9,6 +9,7 @@ class Player {
     newPlayer() {
         this.life = 3;
         this.action = 0;
+        this.accion = "❄️";
     }
 
     getVida() {
@@ -21,6 +22,10 @@ class Player {
 
     setAction(act) {
         this.action = act;
+    }
+
+    setAccion(acc) {
+        this.accion = acc;
     }
 
     damage(dmg) {
@@ -90,9 +95,9 @@ async function startGame(message) {
     let fightEmbed = new Discord.RichEmbed()
         .setTitle("Pelea de bolas de nieve")
         .setColor("#d0d0ff")
-        .setDescription(`☄️ **Atacar** \t=> ***a*** \n🛡️ **Defender** \t=> ***d*** \n❄️ **Esquivar** \t=> ***e***`)
-        .addField(player1.name, `♥️ Vida: ${player1.getVida()}`, true)
-        .addField(player2.name, `♥️ Vida: ${player2.getVida()}`, true)
+        .setDescription(`☄️ **Atacar** \t=> ***a*** \n⛄ **Defender** \t=> ***d*** \n💨 **Esquivar** \t=> ***e***`)
+        .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥️ Vida: ${player1.getVida()}`, true)
+        .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥️ Vida: ${player2.getVida()}`, true)
 
     const filter = m => m.author.id == player1.id || m.author.id == player2.id;
 
@@ -150,6 +155,7 @@ function doAction(act1, act2) {
         player2.resetEsquivar();
 
     if (act1 == "a") {
+        player1.setAccion("")
         if (act2 == "a") {
             if (atacar)
                 player2.damage(1);
@@ -162,7 +168,14 @@ function doAction(act1, act2) {
             if (!esquivar)
                 player2.damage(1)
         }
-    } else if (ac)
+    } else if (act1 == "d") {
+        if (act2 == "a")
+            player1.damage(0.1)
+    } else if (act1 == "e") {
+        if (act2 == "a")
+            if (!esquivar)
+                player1.damage(1)
+    }
 }
 // const filter = m => m.author.id == a || m.author.id == a;
 
