@@ -113,50 +113,52 @@ async function startGame(message) {
         var time = 3;
         message.channel.send(fightEmbed)
         .then(() => {
-            message.channel.send(`Siguiente ataque en... **${time}**`).then(() => {
-                ataque = setTimeout(msg => {
+            message.channel.send(`Siguiente ataque en... **${time}**`).then(msg => {
+                ataque = setTimeout(() => {
                     time--;
                     if (time > 0) 
                         msg.edit(`Siguiente ataque en... **${time}**`)
                     else {
-                    message.channel.send("ATACAD!").then(() => {
-                        const collector = message.channel.createMessageCollector(filter, { time: 3000 })
-                        collector.on('end', col => {
-                            col.forEach(msg => {
-                                var player;
-                                msg.author.id == player1.id ?  player = player1 : player = player2
-                                let act = msg.content.toLowerCase()
-                                if (act.includes("a")) {
-                                    player.setAction("a");
-                                    player.setAccion("☄️");
-                                }
-                                else if (act.includes("d")) {
-                                    player.setAction("d");
-                                    player.setAccion("⛄");
-                                }
-                                else if (act.includes("e") && player.getEsquivar() < 2) {
-                                    player.setAction("e");
-                                    player.setAccion("💨");
-                                }
-                            
-                            });
-        
+                        message.channel.send("ATACAD!").then(() => {
+                            const collector = message.channel.createMessageCollector(filter, { time: 3000 })
+                            collector.on('end', col => {
+                                col.forEach(msg => {
+                                    var player;
+                                    msg.author.id == player1.id ?  player = player1 : player = player2
+                                    let act = msg.content.toLowerCase()
+                                    if (act.includes("a")) {
+                                        player.setAction("a");
+                                        player.setAccion("☄️");
+                                    }
+                                    else if (act.includes("d")) {
+                                        player.setAction("d");
+                                        player.setAccion("⛄");
+                                    }
+                                    else if (act.includes("e") && player.getEsquivar() < 2) {
+                                        player.setAction("e");
+                                        player.setAccion("💨");
+                                    }
+                                    
+                                }); 
                         
-                            console.log(player1.getAction())
-                            console.log(player2.getAction())
-                            if (player1.getAction() != 0 && player2.getAction() != 0) {
-                                doAction(player1, player2)
-                            } else {
-                            // ERror
-                            }
-                            console.log(player1.getVida() + "\n" + player2.getVida())
+                                console.log(player1.getAction())
+                                console.log(player2.getAction())
+                                if (player1.getAction() != 0 && player2.getAction() != 0) {
+                                    doAction(player1, player2)
+                                    var finRonda = true;
+                                } else {
+                                // ERror
+                                }
+                                console.log(player1.getVida() + "\n" + player2.getVida())
+                            })
                         })
-                    })
-                    clearInterval(ataque)
-                }
-                time--;
-            }, 1000)
-        })
+                        console.log(time)
+                        clearInterval(ataque)
+                    }
+
+                }, 1000)
+            })
+            console.log("a")
             clearInterval(ronda)  
         })
     }, 6000)
