@@ -66,7 +66,7 @@ module.exports = {
                 var msg = message.author +' quiere hacer una pelea de nieve. Quien acepta? ``'+message.prefix+'accept``'
             
             game.establecer(`${message.channel.id}.player1.id`, message.author.id)
-            game.establecer(`${message.channel.id}.player1.name`, message.member.nickname)
+            game.establecer(`${message.channel.id}.player1.name`, message.member.displayName)
             message.channel.send(msg)
         }
 
@@ -79,7 +79,7 @@ module.exports = {
                 return message.channel.send("No puedes pelear contra ti mismo")
 
             game.establecer(`${message.channel.id}.player2.id`, message.author.id).catch(err => console.log(err))
-            game.establecer(`${message.channel.id}.player2.name`, message.member.nickname).catch(err => console.log(err))
+            game.establecer(`${message.channel.id}.player2.name`, message.member.displayName).catch(err => console.log(err))
 
             startGame(message)
         }
@@ -92,7 +92,9 @@ module.exports = {
                 .addField('❄️Acción❄️', 'Deberás poner la letra corresponiente a la opción de arriba que deseas ejecutar (_puedes ponerla en mayusculas o minusculas_)')
                 .addField('☄️Atacar☄️', 'Hace 1 pto de daño al enemigo.\nTiene 15% de fallar')
                 .addField('⛄Defender⛄', 'Si el enemigo te ataca, solo te hará 0.5 ptos de daño')
-                .addField('💨Esquivar💨', 'Evitas el daño enemigo.\nTiene 30% de fallar.\nSolo puedes esquivar 2 veces seguidas')
+                .addField('💨Esquivar💨', 'Evitas el daño enemigo.\nTiene 30% de fallar.')
+                .addField('Tips', 'Si no has seleccionado ninguna acción, harás la acción anterior o en caso contrario defender.\nSolo puedes esquivar 2 veces seguidas.')
+            message.channel.send(fightEmbed)
         }
         
     }
