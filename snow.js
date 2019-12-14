@@ -108,8 +108,15 @@ async function startGame(message) {
 
     const filter = m => m.author.id == player1.id || m.author.id == player2.id;
 
-    //do {
-        message.channel.send(fightEmbed).then(() => {
+    setTimeout(() => {
+        message.channel.send(fightEmbed)
+        var time = 3;
+        setTimeout(() => {
+            time message.channel.send(`Siguiente ataque en... **${time}**`)
+            time--;
+        }, 1000)
+    }, 6000)
+        message.channel.send("Siguiente ataque en... **3**").then(() => {
             const collector = message.channel.createMessageCollector(filter, { time: 3000 })
             collector.on('end', col => {
                 col.forEach(msg => {
@@ -190,12 +197,4 @@ function doAction(player1, player2) {
                 player1.damage(1)
     }
 }
-// const filter = m => m.author.id == a || m.author.id == a;
-
-//         message.author.get("355104003572498435").send("Hola")
-//         .then(() => {
-//             message.channel.awaitMessages(filter, { time: 3000 })
-//             .then(collected => {
-//                 console.log(collected)
-//             })
-//         })
+// clearInterval()
