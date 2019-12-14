@@ -63,7 +63,7 @@ module.exports = {
                 game.establecer(`${message.channel.id}.retado`, message.mentions.users.first().id)
             }
             else 
-                var msg = message.author +' quiere hacer una pelea de nieve. Quien acepta? ``'+message.prefix+'acept``'
+                var msg = message.author +' quiere hacer una pelea de nieve. Quien acepta? ``'+message.prefix+'accept``'
             
             game.establecer(`${message.channel.id}.player1.id`, message.author.id)
             game.establecer(`${message.channel.id}.player1.name`, message.member.nickname)
@@ -99,7 +99,7 @@ async function startGame(message) {
     player2.name = await game.obtener(`${message.channel.id}.player2.name`).catch(err => console.log(err))
     player2.id = await game.obtener(`${message.channel.id}.player2.id`).catch(err => console.log(err))
 
-    
+    message.channel.send(`❄️<@${player1.id}>❄️ vs ❄️<@${player1.id}>❄️\nPreparense, la pelea está a punto de empezar!`)
 
     const filter = m => m.author.id == player1.id || m.author.id == player2.id;
 
@@ -166,13 +166,6 @@ async function startGame(message) {
                                     
                                 }); 
 
-                                if (player1.getAction() != 0 && player2.getAction() != 0) {
-                                    doAction(player1, player2)
-                                    finRonda = true;
-                                } else {
-                                    message.channel.send("FIN")
-                                    return
-                                }
                                 console.log("Vida 1 == "+ player1.getVida() + "\nVida 2 == " + player2.getVida())
                                 
                             })
