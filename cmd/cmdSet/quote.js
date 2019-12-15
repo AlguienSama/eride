@@ -61,7 +61,7 @@ module.exports = {
             quoteEmbed.setTimestamp()
 
             // Send quote
-            message.channel.send(quoteEmbed)
+            message.channel.send(quoteEmbed).then(() => {message.delete()})
 
             // MESSAGE USER
             // Embed quote user
