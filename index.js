@@ -26,6 +26,12 @@ for (const fileFun of commandFun) {
   client.command.set(commandFuns.name, commandFuns)
 }
 
+const commandGame = fs.readdirSync("./cmd/cmdGame").filter(f => f.endsWith(".js"));
+for (const fileGame of commandGame) {
+  let commandGames = require(`./cmd/cmdGame/${fileGame}`);
+  client.command.set(commandGames.name, commandGames)
+}
+
 // Connections
 const botconfig = require("./config.json");
 const vida = require("./vida.js");
