@@ -22,7 +22,7 @@ for (const filePoll of commandPoll) {
 
 const commandFun = fs.readdirSync("./cmd/cmdFun").filter(f => f.endsWith(".js"));
 for (const fileFun of commandFun) {
-  let commandFuns = require(`./cmd/cmdPoll/${fileFun}`);
+  let commandFuns = require(`./cmd/cmdFun/${fileFun}`);
   client.command.set(commandFuns.name, commandFuns)
 }
 

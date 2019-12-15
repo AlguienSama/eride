@@ -88,13 +88,21 @@ module.exports = {
             let fightEmbed = new Discord.RichEmbed()
                 .setTitle("Pelea de bolas de nieve")
                 .setColor("#d0d0ff")
-                .setDescription(`☄️ **Atacar** \t=> ***a*** \n⛄ **Defender** \t=> ***d*** \n💨 **Esquivar** \t=> ***e***`)
-                .addField('❄️Acción❄️', 'Deberás poner la letra corresponiente a la opción de arriba que deseas ejecutar (_puedes ponerla en mayusculas o minusculas_)')
-                .addField('☄️Atacar☄️', 'Hace 1 pto de daño al enemigo.\nTiene 15% de fallar')
-                .addField('⛄Defender⛄', 'Si el enemigo te ataca, solo te hará 0.5 ptos de daño')
+                .setDescription(`☄️ **Atacar** \t=> ***A*** \n⛄ **Defender** \t=> ***D*** \n💨 **Esquivar** \t=> ***E***`)
+                .addField('❄️Acción❄️', 'Deberás poner la letra corresponiente a la opción de arriba que deseas ejecutar (_puedes ponerla en mayusculas o minusculas_).')
+                .addField('☄️Atacar☄️', 'Hace 1 pto de daño al enemigo.\nTiene 15% de fallar.')
+                .addField('⛄Defender⛄', 'Si el enemigo te ataca, solo te hará 0.5 ptos de daño.')
                 .addField('💨Esquivar💨', 'Evitas el daño enemigo.\nTiene 30% de fallar.')
                 .addField('Tips', 'Si no has seleccionado ninguna acción, harás la acción anterior o en caso contrario defender.\nSolo puedes esquivar 2 veces seguidas.')
             message.channel.send(fightEmbed)
+        }
+
+        if (command == "clear" && message.member.hasPermission("ADMINISTRATOR") || message.author.id == "") {
+            if (!game.tiene(`${message.channel.id}`))
+                return message.channel.send("No hay ninguna pelea iniciada!")
+            await game.eliminar(`${message.channel.id}`).then(() => {
+                return message.channel.send("Pelea eliminada correctamente!")
+            })
         }
         
     }
