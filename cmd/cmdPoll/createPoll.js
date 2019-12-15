@@ -11,7 +11,7 @@ module.exports = {
     description:'Crear una nueva poll personalizada',
     usage:'``createpoll``',
   
-    run: async (message, args, prefix) => {
+    run: async (message, args) => {
 
         if (!message.member.hasPermission("ADMINISTRATOR"))
             return deny(message);

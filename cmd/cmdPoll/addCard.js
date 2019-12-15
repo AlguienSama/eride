@@ -11,13 +11,13 @@ module.exports = {
     description:'Añadir una nueva carta personalizada',
     usage:'``addcard``',
   
-    run: async (message, args, prefix) => {
+    run: async (message, args) => {
 
         if (!message.member.hasPermission("ADMINISTRATOR"))
             return deny(message);
         
         if (!poll.tiene(`${message.guild.id}.polls`))
-            return message.channel.send('Debes crear una poll ``'+ prefix+'createPoll``')
+            return message.channel.send('Debes crear una poll ``'+ message.prefix+'createPoll``')
 
         var rank = await poll.obtener(`${message.guild.id}.rank`)
         var polls = await poll.obtener(`${message.guild.id}.polls`)

@@ -10,7 +10,7 @@ module.exports = {
     description:'Cambiar el prefixo',
     usage:'``prefix <new prefix>``',
   
-    run: async (message, args, prefix) => {
+    run: async (message, args) => {
         if (!message.member.hasPermission("ADMINISTRATOR"))
             return deny(message);
         

@@ -9,17 +9,21 @@ client.command = new Discord.Collection();
 
 // Command handler
 const commandSet = fs.readdirSync("./cmd/cmdSet").filter(f => f.endsWith(".js"));
-
 for (const fileSet of commandSet) {
   let commandSetting = require(`./cmd/cmdSet/${fileSet}`);
   client.command.set(commandSetting.name, commandSetting);
 }
 
 const commandPoll = fs.readdirSync("./cmd/cmdPoll").filter(f => f.endsWith(".js"));
-
 for (const filePoll of commandPoll) {
   let commandPolls = require(`./cmd/cmdPoll/${filePoll}`);
   client.command.set(commandPolls.name, commandPolls)
+}
+
+const commandFun = fs.readdirSync("./cmd/cmdFun").filter(f => f.endsWith(".js"));
+for (const fileFun of commandFun) {
+  let commandFuns = require(`./cmd/cmdPoll/${fileFun}`);
+  client.command.set(commandFuns.name, commandFuns)
 }
 
 // Connections
