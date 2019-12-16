@@ -10,6 +10,7 @@ class Player {
         this.life = 3;
         this.action = "⛄";
         this.accion = "❄️";
+        this.taunt = 0;
         this.dash = 0; 
     }
 
@@ -47,6 +48,10 @@ class Player {
 
     getEsquivar() {
         return this.dash;
+    }
+
+    setTaunt() {
+        this.taunt++;
     }
 }
 
@@ -213,6 +218,10 @@ async function startGame(message) {
 function doAction(player1, player2) {
     var act1 = player1.getAction();
     var act2 = player2.getAction();
+    if (act1 == "❄️")
+        player1
+    if (act1 == "❄️" || act2 == "❄️")
+        return 
 
     var posiblidades = Math.floor(Math.random()*100)
     var esquivar = posiblidades > 30 ? true : false;
@@ -251,4 +260,6 @@ function doAction(player1, player2) {
             if (!esquivar)
                 player1.damage(1)
     }
+    player1.setAccion("❄️");
+    player2.setAccion("❄️");
 }
