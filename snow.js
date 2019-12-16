@@ -7,7 +7,7 @@ var { error, deny } = require('./logs.js')
 
 class Player {
     newPlayer() {
-        this.life = 3;
+        this.life = 5;
         this.action = "⛄";
         this.accion = "❄️";
         this.taunt = 0;
@@ -98,7 +98,9 @@ module.exports = {
                 .addField('☄️Atacar☄️', 'Hace 1 pto de daño al enemigo.\nTiene 15% de fallar.')
                 .addField('⛄Defender⛄', 'Si el enemigo te ataca, solo te hará 0.5 ptos de daño.')
                 .addField('💨Esquivar💨', 'Evitas el daño enemigo.\nTiene 30% de fallar.')
-                .addField('Tips', 'Si no has seleccionado ninguna acción, harás la acción anterior o en caso contrario defender.\nSolo puedes esquivar 2 veces seguidas.')
+                .addField('Tips', 'Si no has seleccionado ninguna acción, harás la acción anterior o en caso contrario defender.' +
+                '\nSolo puedes esquivar 2 veces seguidas.' + 
+                '\nSi no haces ninguna acción durante 3 turnos, pierdes la partida')
             message.channel.send(fightEmbed)
         }
 
@@ -134,8 +136,8 @@ async function startGame(message) {
             let finEmbed = new Discord.RichEmbed()
                 .setTitle("Pelea de bolas de nieve")
                 .setColor("#d0d0ff")
-                .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥️ Vida: ${player1.getVida()}`, true)
-                .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥️ Vida: ${player2.getVida()}`, true)
+                .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥️ Vida: ${player1.getVida()}\nTurnos perdidos: ${player1.taunt}`, true)
+                .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥️ Vida: ${player2.getVida()}\nTurnos perdidos: ${player2.taunt}`, true)
             if (player1.getVida() <= 0 && player2.getVida() <= 0) {
                 finEmbed.setDescription(`❄️***EMPATE***❄️`)
                 message.channel.send(finEmbed)
@@ -253,23 +255,23 @@ function doAction(player1, player2) {
     } else if (act1 == "a") {
         if (act2 == "a") {
             if (atacar)
-                player2.damage(1);
+                player2.damage(2);
             if (atacar2)
-                player1.damage(1);
+                player1.damage(2);
         } else if (act2 == "d") {
             if (atacar)
-                player2.damage(0.5)
+                player2.damage(1)
         } else if (act2 == "e") {
             if (!esquivar)
-                player2.damage(1)
+                player2.damage(2)
         }
     } else if (act1 == "d") {
         if (act2 == "a")
-            player1.damage(0.1)
+            player1.damage(1)
     } else if (act1 == "e") {
         if (act2 == "a")
             if (!esquivar)
-                player1.damage(1)
+                player1.damage(2)
     }
     player1.setAccion("❄️");
     player2.setAccion("❄️");
