@@ -53,6 +53,10 @@ class Player {
     setTaunt() {
         this.taunt++;
     }
+
+    getTaunt() {
+        return this.taunt;
+    }
 }
 
 module.exports = {
@@ -127,7 +131,7 @@ async function startGame(message) {
     player2.name = await game.obtener(`${message.channel.id}.player2.name`).catch(err => console.log(err))
     player2.id = await game.obtener(`${message.channel.id}.player2.id`).catch(err => console.log(err))
 
-    message.channel.send(`❄️<@${player1.id}>❄️ vs ❄️<@${player1.id}>❄️\nPreparense, la pelea está a punto de empezar`)
+    message.channel.send(`❄️<@${player1.id}>❄️ vs ❄️<@${player2.id}>❄️\nPreparense, la pelea está a punto de empezar`)
 
     const filter = m => m.author.id == player1.id || m.author.id == player2.id;
 
@@ -136,8 +140,8 @@ async function startGame(message) {
             let finEmbed = new Discord.RichEmbed()
                 .setTitle("Pelea de bolas de nieve")
                 .setColor("#d0d0ff")
-                .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥️ Vida: ${player1.getVida()}\nTurnos perdidos: ${player1.taunt}`, true)
-                .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥️ Vida: ${player2.getVida()}\nTurnos perdidos: ${player2.taunt}`, true)
+                .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥️ Vida: ${player1.getVida()}\nTurnos perdidos: ${player1.getTaunt()}`, true)
+                .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥️ Vida: ${player2.getVida()}\nTurnos perdidos: ${player2.getTaunt()}`, true)
             if (player1.getVida() <= 0 && player2.getVida() <= 0) {
                 finEmbed.setDescription(`❄️***EMPATE***❄️`)
                 message.channel.send(finEmbed)
@@ -160,8 +164,8 @@ async function startGame(message) {
             .setTitle("Pelea de bolas de nieve")
             .setColor("#d0d0ff")
             .setDescription(`☄️ **Atacar** \t=> ***a*** \n⛄ **Defender** \t=> ***d*** \n💨 **Esquivar** \t=> ***e***`)
-            .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥️ Vida: ${player1.getVida()}`, true)
-            .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥️ Vida: ${player2.getVida()}`, true)
+            .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥️ Vida: ${player1.getVida()}\nTurnos perdidos: ${player1.getTaunt()}`, true)
+            .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥️ Vida: ${player2.getVida()}\nTurnos perdidos: ${player2.getTaunt()}`, true)
         message.channel.send(fightEmbed)
         .then(() => {
             var finRonda = false
