@@ -219,7 +219,15 @@ function doAction(player1, player2) {
     var act1 = player1.getAction();
     var act2 = player2.getAction();
     if (act1 == "❄️")
-        player1
+        player1.setTaunt();
+    else
+        player1.taunt = 0;
+    
+    if (act2 == "❄️")
+        player2.setTaunt();
+    else
+        player2.taunt = 0;
+    
     if (act1 == "❄️" || act2 == "❄️")
         return 
 
@@ -239,7 +247,10 @@ function doAction(player1, player2) {
     else
         player2.resetEsquivar();
 
-    if (act1 == "a") {
+
+    if (player1.taunt == 2 || player2.taunt == 2) {
+        // TERMINAR
+    } else if (act1 == "a") {
         if (act2 == "a") {
             if (atacar)
                 player2.damage(1);
