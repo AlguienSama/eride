@@ -168,6 +168,9 @@ async function startGame(message) {
             .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥️ Vida: ${player2.getVida()}\nTurnos perdidos: ${player2.getTaunt()}`, true)
         message.channel.send(fightEmbed)
         .then(() => {
+            
+            player1.setAction("❄️");
+            player2.setAction("❄️");
             var finRonda = false
             message.channel.send(`❄️Siguiente ataque en... **${time}**❄️`).then(msg => {
                 ataque = setInterval(() => {
@@ -185,6 +188,7 @@ async function startGame(message) {
                                     let act = msg.content.toLowerCase()
                                     if (act.includes("a")) {
                                         player.setAction("a");
+                                        player.setAccion("☄️");
                                     }
                                     else if (act.includes("d")) {
                                         player.setAction("d");
@@ -224,6 +228,7 @@ async function startGame(message) {
 function doAction(player1, player2) {
     var act1 = player1.getAction();
     var act2 = player2.getAction();
+    console.log("act1")
     if (act1 == "❄️")
         player1.setTaunt();
     else
@@ -242,6 +247,7 @@ function doAction(player1, player2) {
     var atacar = posiblidades > 15 ? true : false;
     var posiblidades2 = Math.floor(Math.random()*100)
     var atacar2 = posiblidades2 > 15 ? true : false;
+    var defensa = Math.floor(Math.random()*10)*2*0.1
 
     if (act1 == "e")
         player1.esquivar();
@@ -254,8 +260,8 @@ function doAction(player1, player2) {
         player2.resetEsquivar();
 
 
-    if (player1.taunt == 2 || player2.taunt == 2) {
-        // TERMINAR
+    if (player1.getTaunt() == 2 || player2.getTaunt() == 2) {
+        clearInterval(doAction)
     } else if (act1 == "a") {
         if (act2 == "a") {
             if (atacar)
@@ -277,6 +283,4 @@ function doAction(player1, player2) {
             if (!esquivar)
                 player1.damage(2)
     }
-    player1.setAccion("❄️");
-    player2.setAccion("❄️");
 }
