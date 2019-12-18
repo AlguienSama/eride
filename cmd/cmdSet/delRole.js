@@ -12,10 +12,10 @@ module.exports = {
     run: async (message, args) => {
         if (!message.member.hasPermission("ADMINISTRATOR"))
             return deny(message);
-        for (var i = 0; message.guild.roles.length()>i; i++){
-            console.log(message.guild.role[i].name)
-        }
+        
+        var rolesTag = (message.guild.roles.map(roles => `${roles}`))
 
-        console.log(message.guild.roles.name)
+        console.log(roles)
+
     }
 }
