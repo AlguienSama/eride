@@ -33,7 +33,6 @@ for (const fileGame of commandGame) {
 }
 
 // Connections
-const botconfig = require("./config.json");
 const vida = require("./vida.js");
 
 
