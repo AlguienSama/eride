@@ -64,7 +64,7 @@ client.on("message", async message => {
     message.prefix = await dbprefix.obtener(`${message.guild.id}`).catch(err => error(message, "Obtener prefijo DB 001", err));
     // console.log('Prefix DB: '+prefix)
   } else {
-    message.prefix = botconfig.prefix;
+    message.prefix = process.env.PREFIX;
     // console.log('Prefix base: '+prefix)
   }
   
@@ -110,5 +110,5 @@ client.on("message", async message => {
 });
 
 // Connect token
-let bot_token = botconfig.token;
+let bot_token = process.env.TOKEN;
 client.login(bot_token);
