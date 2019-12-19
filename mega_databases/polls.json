@@ -10,6 +10,18 @@
       "as": {
         "type": "one"
       }
+    },
+    "polls": {
+      "As": {
+        "Asdf": {
+          "type": "one"
+        }
+      },
+      "/addcard": {
+        "As": {
+          "type": "one"
+        }
+      }
     }
   }
 }
