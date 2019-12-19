@@ -19,20 +19,35 @@ module.exports = {
         if (!poll.tiene(`${message.guild.id}.polls`))
             return message.channel.send('Debes crear una poll ``'+ message.prefix+'createPoll``')
 
-        var rank = await poll.obtener(`${message.guild.id}.rank`)
-        var polls = await poll.obtener(`${message.guild.id}.polls`)
+        const rank = await poll.obtener(`${message.guild.id}.rank`);
+        const polls = await poll.obtener(`${message.guild.id}.polls`);
 
-        var totalKeys = 0
-        polls.forEach(async pollCmd => {
+        let addCardEmbed = new Discord.RichEmbed()
+            .setTitle("Añadir carta")
+            .addField("Como añadir una carta?", message.prefix + "``addcard <pollName> <url img>``")
+            .setColor("")
+            .setTimestamp()
+
+        let totalKeys = 0;
+        polls.forEach(pollCmd => {
             pollCmd.forEach(async pollName => {
-                var totalKeys = totalKeys + await poll.keys(`${message.guild.id}.polls.${pollCmd}.${pollName}`)
+                const images = await poll.keys(`${message.guild.id}.polls.${pollCmd}.${pollName}`);
+                addCardEmbed.addField(pollName, `Command: ${pollCmd}\nNúm imgs: ${images}`)
+                totalKeys = totalKeys + images;
             })
         });
+
+        addCardEmbed.setFooter("Imagenes totales: " + totalKeys)
 
         if (rank == "Normal" && totalKeys >= 50 || rank == "VIP" && totalKeys >= 100) {
             return message.channel.send("Máximo de imagenes llegado")
         }
-        
+
+        if (!args[0])
+            return message.channel.send(addCardEmbed)
+
+        let name = args.join(" ").split(args.length -1)
+        console.log(name)
         // let selectPollEmbed = new Discord.RichEmbed()
         //     .setTitle("Añadir imagen")
         //     .setDescription("Introduce el número de la colección que desea añadir la imagen")
@@ -42,13 +57,6 @@ module.exports = {
         //         selectPollEmbed.addField(`${num})`, pollName)
         //     })
         // });
-
-
-        const filter = (reaction, user) => {
-            return (reaction.emoji.name === "firefoxRed" || reaction.emoji.name === "firefoxBlue") && user.id === message.author.id;
-        }
-
-        const card = mensaje.createReactionCollector(filter, { max: 1 })
                   
     }
 }
