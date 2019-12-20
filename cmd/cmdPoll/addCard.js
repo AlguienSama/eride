@@ -43,8 +43,9 @@ module.exports = {
             return message.channel.send("Máximo de imagenes llegado")
         }
 
+        message.channel.send(addCardEmbed)
         if (!args[0])
-            return message.channel.send(addCardEmbed)
+            return 
 
         let name = args.join(" ").split(args.length -1)
         console.log(name)
