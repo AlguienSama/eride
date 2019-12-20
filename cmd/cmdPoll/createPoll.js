@@ -22,14 +22,14 @@ module.exports = {
         message.channel.send("Escribe el nombre de la colección")
         
         // First message
-        const collector = new Discord.MessageCollector(message.channel, msg => msg.author.id === message.author.id, { time: 30000 });
+        const collector = new Discord.MessageCollector(message.channel, msg => msg.author.id === message.author.id, { max: 1, time: 30000 });
 
         collector.on('collect', async msg => {
 
             message.channel.send("Introduzca el comado para mostrar las cartas").then(async m => {
                 
                 // Second message
-                const collector2 = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 30000 });
+                const collector2 = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { max: 1, time: 30000 });
 
                 collector2.on('collect', async m => {
                     var pollName = msg.content
