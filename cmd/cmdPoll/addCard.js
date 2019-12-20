@@ -47,8 +47,10 @@ module.exports = {
         if (!args[0])
             return 
 
-        let name = args.join(" ").split(args.length -1)
-        console.log(name)
+        message.channel.send("Escribe el nombre de la colección a la que le desea agregar una carta")
+        const collector = new Discord.MessageCollector(message.channel, msg => msg.author.id === message.author.id, { max: 1, time: 30000 });
+
+        collector.on('collect', async msg => {});
         // let selectPollEmbed = new Discord.RichEmbed()
         //     .setTitle("Añadir imagen")
         //     .setDescription("Introduce el número de la colección que desea añadir la imagen")
