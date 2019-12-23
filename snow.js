@@ -190,10 +190,8 @@ async function startGame(message) {
                                         let act = msg.content.toLowerCase();
                                         if (act.includes("a")) {
                                             player.setAction("a");
-                                            player.setAccion("☄");
                                         } else if (act.includes("d")) {
                                             player.setAction("d");
-                                            player.setAccion("⛄");
                                         } else if (act.includes("e") && player.getEsquivar() < 2) {
                                             player.setAction("e");
                                             player.setAccion("💨");
@@ -201,7 +199,7 @@ async function startGame(message) {
 
                                     });
 
-                                    doAction(player1, player2);
+                                    doAction(player1, player2, ronda);
 
                                     console.log("Vida 1 == " + player1.getVida() + "\nVida 2 == " + player2.getVida())
 
@@ -219,13 +217,13 @@ async function startGame(message) {
                     clearInterval(ronda)
                 }
             })
-    }, 15000);
+    }, 6000);
 
     await game.eliminar(`${message.channel.id}`)
 }
 
 
-function doAction(player1, player2) {
+function doAction(player1, player2, ronda) {
     const act1 = player1.getAction();
     const act2 = player2.getAction();
     console.log("act1");
@@ -242,13 +240,6 @@ function doAction(player1, player2) {
     if (player1.getAccion() === "❄" || player2.getAccion() === "❄")
         return;
 
-    const posiblidades = Math.floor(Math.random() * 100);
-    const esquivar = posiblidades > 30;
-    const atacar = posiblidades > 15;
-    const posiblidades2 = Math.floor(Math.random() * 100);
-    const atacar2 = posiblidades2 > 15;
-    const defensa = Math.floor(Math.random() * 10) * 2 * 0.1;
-
     if (act1 === "e")
         player1.esquivar();
     else
@@ -261,26 +252,95 @@ function doAction(player1, player2) {
 
 
     if (player1.getTaunt() === 2 || player2.getTaunt() === 2) {
-        clearInterval(doAction)
-    } else if (act1 === "a") {
-        if (act2 === "a") {
-            if (atacar)
-                player2.damage(2);
-            if (atacar2)
-                player1.damage(2);
-        } else if (act2 === "d") {
-            if (atacar)
-                player2.damage(1)
-        } else if (act2 === "e") {
-            if (!esquivar)
-                player2.damage(2)
-        }
-    } else if (act1 === "d") {
-        if (act2 === "a")
-            player1.damage(1)
-    } else if (act1 === "e") {
-        if (act2 === "a")
-            if (!esquivar)
-                player1.damage(2)
+        clearInterval(ronda);
     }
+
+    else if (act1 === "a") {
+        if (act2 === "a") {
+            atacar(player1, player2);
+            atacar(player2, player1)
+        } else if (act2 === "d")
+            defenderAtacar(player2, player1);
+        else if (act2 === "e")
+            esquivarAtacar(player2, player1)
+    }
+
+    else if (act1 === "d") {
+        if (act2 === "a")
+            defenderAtacar(player1, player2);
+        else if (act2 === "d")
+            defender(player1, player2);
+        else if (act2 === "e")
+            esquivarDefender(player2, player1)
+    }
+
+    else if (act1 === "e") {
+        if (act2 === "a")
+            esquivarAtacar(player1, player2);
+        else if (act2 === "d")
+            esquivarDefender(player1, player2);
+        else if (act2 === "e")
+            esquivar(player1, player2)
+    }
+}
+
+function esquivarAtacar(player1, player2) {
+    const posiblidades = Math.floor(Math.random() * 100);
+    const esquivar = posiblidades > 30;
+    const atacar = posiblidades > 15;
+
+    if (esquivar) {
+        player1.setAccion("💨 \nEsquivo realizado");
+        if (atacar) {
+            player2.setAccion("☄️\nAtaque esquivado")
+        } else {
+            player2.setAccion("☄️\nAtaque fallido")
+        }
+    } else {
+        player1.setAccion("💨 \nEsquivo fallido");
+        if (atacar) {
+            player1.damage(2);
+            player2.setAccion("☄️\nAtaque esquivado")
+        } else {
+            player2.setAccion("☄️\nAtaque fallido")
+        }
+    }
+}
+
+function defenderAtacar(player1, player2) {
+    const posiblidades = Math.floor(Math.random() * 100);
+    const atacar = posiblidades > 15;
+    player2.setAccion("⛄️\nDefensa realizada");
+    if (atacar) {
+        player2.damage(1);
+        player1.setAccion("☄️\nAtaque defendido")
+    } else {
+        player1.setAccion("☄️\nAtaque fallido")
+    }
+}
+
+function esquivarDefender(player1, player2) {
+    player1.setAccion("💨 \nEsquivo");
+    player2.setAccion("⛄️\nDefensa")
+}
+
+function atacar(player1, player2) {
+    const posiblidades = Math.floor(Math.random() * 100);
+    const atacar = posiblidades > 15;
+    if (atacar){
+        player2.damage(2);
+        player1.setAccion("☄️\nAtaque realizado")
+    } else {
+        player1.setAccion("☄️\nAtaque fallido")
+    }
+}
+
+function defender(player1, player2) {
+    player1.setAccion("⛄️\nDefensa");
+    player2.setAccion("⛄️\nDefensa")
+}
+
+function esquivar(player1, player2) {
+    player1.setAccion("💨 \nEsquivo");
+    player2.setAccion("💨 \nEsquivo")
 }
