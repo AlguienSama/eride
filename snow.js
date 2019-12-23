@@ -219,7 +219,7 @@ async function startGame(message) {
                     clearInterval(ronda)
                 }
             })
-    }, 6000);
+    }, 15000);
 
     await game.eliminar(`${message.channel.id}`)
 }
