@@ -38,18 +38,6 @@ class Player {
         this.life -= dmg;
     }
 
-    esquivar() {
-        this.dash++;
-    }
-
-    resetEsquivar() {
-        this.dash = 0;
-    }
-
-    getEsquivar() {
-        return this.dash;
-    }
-
     setTaunt() {
         this.taunt++;
     }
@@ -227,35 +215,21 @@ function doAction(player1, player2, ronda) {
     const act1 = player1.getAction();
     const act2 = player2.getAction();
     console.log("act1");
-    if (player1.getAccion() === "❄")
+    if (player1.getAccion() === "❄") {
         player1.setTaunt();
+        player1.setAccion("❄\nInactividad")
+    }
     else
         player1.taunt = 0;
     
-    if (player2.getAccion() === "❄")
+    if (player2.getAccion() === "❄") {
         player2.setTaunt();
+        player2.setAccion("❄\nInactividad")
+    }
     else
         player2.taunt = 0;
     
-    if (player1.getAccion() === "❄" || player2.getAccion() === "❄")
-        return;
-
-    if (act1 === "e")
-        player1.esquivar();
-    else
-        player1.resetEsquivar();
-
-    if (act2 === "e")
-        player2.esquivar();
-    else
-        player2.resetEsquivar();
-
-
-    if (player1.getTaunt() === 2 || player2.getTaunt() === 2) {
-        clearInterval(ronda);
-    }
-
-    else if (act1 === "a") {
+    if (act1 === "a") {
         if (act2 === "a") {
             atacar(player1, player2);
             atacar(player2, player1)
@@ -282,6 +256,18 @@ function doAction(player1, player2, ronda) {
         else if (act2 === "e")
             esquivar(player1, player2)
     }
+  
+      if (player1.getTaunt() === 2) {
+        player1.life = 0;
+        player1.setAccion("❄\nInactividad")
+    }
+  console.log("Taun1 :" + player1.getTaunt())
+  console.log("Taun2 : "+ player2.getTaunt())
+    if (player2.getTaunt() === 2) {
+        player2.life = 0;
+        player2.setAccion("❄\nInactividad")
+    }
+
 }
 
 function esquivarAtacar(player1, player2) {
