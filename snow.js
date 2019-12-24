@@ -11,7 +11,6 @@ class Player {
         this.action = "❄️";
         this.accion = "❄️";
         this.taunt = 0;
-        this.dash = 0; 
     }
 
     getVida() {
@@ -68,7 +67,7 @@ module.exports = {
         }
 
         if (command === "accept") {
-            if (!game.tiene(`${message.channel.id}`)) 
+            if (!game.tiene(`${message.channel.id}`))
                 return message.channel.send("Debes de iniciar una pelea antes");
             if (game.tiene(`${message.channel.id}.retado`) && await game.obtener(`${message.channel.id}.retado`) !== message.author.id)
                 return message.channel.send("Tu no eres el usuario retado");
@@ -101,9 +100,8 @@ module.exports = {
                 return message.channel.send("Pelea eliminada correctamente!")
             })
         }
-        
     }
-}
+};
 
 async function startGame(message) {
 
@@ -117,11 +115,11 @@ async function startGame(message) {
     player2.name = await game.obtener(`${message.channel.id}.player2.name`).catch(err => console.log(err));
     player2.id = await game.obtener(`${message.channel.id}.player2.id`).catch(err => console.log(err));
 
-    message.channel.send(`❄️ <@${player1.id}> ❄️ vs ❄️ <@${player2.id}> ❄️\nPreparense, la pelea está a punto de empezar`)
+    message.channel.send(`❄️ <@${player1.id}> ❄️ vs ❄️ <@${player2.id}> ❄️\nPreparense, la pelea está a punto de empezar`);
 
     const filter = m => m.author.id === player1.id || m.author.id === player2.id;
 
-    const ronda = setInterval(() => {
+    let ronda = setInterval(() => {
         if (player1.getVida() <= 0 || player2.getVida() <= 0) {
             let finEmbed = new Discord.RichEmbed()
                 .setTitle("Pelea de bolas de nieve")
@@ -148,84 +146,81 @@ async function startGame(message) {
 
         let time = 3;
 
-        let fightEmbed = new Discord.RichEmbed()
-            .setTitle("Pelea de bolas de nieve")
-            .setColor("#d0d0ff")
-            .setDescription(`☄️ **Atacar** \t=> ***a*** \n⛄ **Defender** \t=> ***d*** \n💨 **Esquivar** \t=> ***e***`)
-            .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥ Vida: ${player1.getVida()}\nTurnos perdidos: ${player1.getTaunt()}`, true)
-            .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥ Vida: ${player2.getVida()}\nTurnos perdidos: ${player2.getTaunt()}`, true);
-        message.channel.send(fightEmbed)
-            .then(() => {
+        player1.setAction("❄️");
+        player2.setAction("❄️");
+        let finRonda = false;
+        message.channel.send(`❄ Siguiente ataque en... **${time}** ❄`).then(msg => {
+            let ataque = setInterval(() => {
+                time--;
+                if (time > 0)
+                    msg.edit(`❄ Siguiente ataque en... **${time}** ❄`);
+                else {
+                    time = 3;
+                    message.channel.send("❄️**ATACAD!**❄️").then(() => {
+                        const collector = message.channel.createMessageCollector(filter, {time: 3000});
+                        collector.on('end', col => {
+                            col.forEach(msg => {
+                                let player;
+                                msg.author.id === player1.id ? player = player1 : player = player2;
+                                let act = msg.content.toLowerCase();
+                                if (act.includes("a")) {
+                                    player.setAction("a");
+                                } else if (act.includes("d")) {
+                                    player.setAction("d");
+                                } else if (act.includes("e")) {
+                                    player.setAction("e");
+                                }
 
-                player1.setAction("❄️");
-                player2.setAction("❄️");
-                let finRonda = false;
-                message.channel.send(`❄ Siguiente ataque en... **${time}** ❄`).then(msg => {
-                    let ataque = setInterval(() => {
-                        time--;
-                        if (time > 0)
-                            msg.edit(`❄ Siguiente ataque en... **${time}** ❄`);
-                        else {
-                            time = 3;
-                            message.channel.send("❄️**ATACAD!**❄️").then(() => {
-                                const collector = message.channel.createMessageCollector(filter, {time: 3000});
-                                collector.on('end', col => {
-                                    col.forEach(msg => {
-                                        let player;
-                                        msg.author.id === player1.id ? player = player1 : player = player2;
-                                        let act = msg.content.toLowerCase();
-                                        if (act.includes("a")) {
-                                            player.setAction("a");
-                                        } else if (act.includes("d")) {
-                                            player.setAction("d");
-                                        } else if (act.includes("e")) {
-                                            player.setAction("e");
-                                        }
-
-                                    });
-
-                                    doAction(player1, player2, ronda);
-
-                                    console.log("Vida 1 == " + player1.getVida() + "\nVida 2 == " + player2.getVida())
-
-                                })
                             });
 
-                            clearInterval(ataque)
-                        }
+                            doAction(player1, player2, ronda);
 
-                    }, 1000)
+                            console.log("Vida 1 == " + player1.getVida() + "\nVida 2 == " + player2.getVida())
 
-                });
-                console.log(finRonda);
-                if (finRonda === true) {
-                    clearInterval(ronda)
+                        })
+                    });
+
+                    clearInterval(ataque)
                 }
-            })
+
+            }, 1000)
+
+        }).then(() => {
+            let fightEmbed = new Discord.RichEmbed()
+                .setTitle("Pelea de bolas de nieve")
+                .setColor("#d0d0ff")
+                .setDescription(`☄️ **Atacar** \t=> ***a*** \n⛄ **Defender** \t=> ***d*** \n💨 **Esquivar** \t=> ***e***`)
+                .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥ Vida: ${player1.getVida()}\nTurnos perdidos: ${player1.getTaunt()}`, true)
+                .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥ Vida: ${player2.getVida()}\nTurnos perdidos: ${player2.getTaunt()}`, true);
+            message.channel.send(fightEmbed)
+        });
+        console.log(finRonda);
+        if (finRonda === true) {
+            clearInterval(ronda)
+        }
+
     }, 6000);
 
     await game.eliminar(`${message.channel.id}`)
 }
 
 
-function doAction(player1, player2, ronda) {
+function doAction(player1, player2) {
     const act1 = player1.getAction();
     const act2 = player2.getAction();
     console.log("act1");
     if (act1 === "❄️") {
         player1.setTaunt();
         player1.setAccion("❄️\nInactividad")
-    }
-    else
+    } else
         player1.taunt = 0;
-    
+
     if (act2 === "❄️") {
         player2.setTaunt();
         player2.setAccion("❄️\nInactividad")
-    }
-    else
+    } else
         player2.taunt = 0;
-    
+
     if (act1 === "a") {
         if (act2 === "a") {
             atacar(player1, player2);
@@ -234,18 +229,14 @@ function doAction(player1, player2, ronda) {
             defenderAtacar(player2, player1);
         else if (act2 === "e")
             esquivarAtacar(player2, player1)
-    }
-
-    else if (act1 === "d") {
+    } else if (act1 === "d") {
         if (act2 === "a")
             defenderAtacar(player1, player2);
         else if (act2 === "d")
             defender(player1, player2);
         else if (act2 === "e")
             esquivarDefender(player2, player1)
-    }
-
-    else if (act1 === "e") {
+    } else if (act1 === "e") {
         if (act2 === "a")
             esquivarAtacar(player1, player2);
         else if (act2 === "d")
@@ -253,11 +244,11 @@ function doAction(player1, player2, ronda) {
         else if (act2 === "e")
             esquivar(player1, player2)
     }
-  
+
     if (player1.getTaunt() === 3) {
         player1.life = 0;
     }
-  
+
     if (player2.getTaunt() === 3) {
         player2.life = 0;
     }
@@ -307,7 +298,7 @@ function esquivarDefender(player1, player2) {
 function atacar(player1, player2) {
     const posiblidades = Math.floor(Math.random() * 100);
     const atacar = posiblidades > 15;
-    if (atacar){
+    if (atacar) {
         player2.damage(2);
         player1.setAccion("☄️\nAtaque realizado")
     } else {
