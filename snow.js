@@ -119,7 +119,7 @@ async function startGame(message) {
 
     const filter = m => m.author.id === player1.id || m.author.id === player2.id;
 
-    let ronda = setInterval(() => {
+    let ronda = setInterval(async () => {
         if (player1.getVida() <= 0 || player2.getVida() <= 0) {
             let finEmbed = new Discord.RichEmbed()
                 .setTitle("Pelea de bolas de nieve")
@@ -128,17 +128,17 @@ async function startGame(message) {
                 .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥ Vida: ${player2.getVida()}\nTurnos perdidos: ${player2.getTaunt()}`, true);
             if (player1.getVida() <= 0 && player2.getVida() <= 0) {
                 finEmbed.setDescription(`❄️ ***EMPATE*** ❄️`);
-                message.channel.send(finEmbed);
+                await message.channel.send(finEmbed);
                 clearInterval(ronda);
                 return
             } else if (player1.getVida() <= 0) {
                 finEmbed.setDescription(`❄️ ***VICTIORA de ${player2.name}*** ❄️`);
-                message.channel.send(finEmbed);
+                await message.channel.send(finEmbed);
                 clearInterval(ronda);
                 return
             } else if (player2.getVida() <= 0) {
                 finEmbed.setDescription(`❄️ ***VICTIORA de ${player1.name}*** ❄️`);
-                message.channel.send(finEmbed);
+                await message.channel.send(finEmbed);
                 clearInterval(ronda);
                 return
             }
@@ -157,7 +157,7 @@ async function startGame(message) {
                     message.channel.send("❄️**ATACAD!**❄️").then(() => {
                         const collector = message.channel.createMessageCollector(filter, {time: 3000});
                         collector.on('end', async col => {
-                            for (const msg of col) {
+                            col.forEach(msg => {
                                 let player;
                                 msg.author.id === player1.id ? player = player1 : player = player2;
                                 let act = msg.content.toLowerCase();
@@ -169,19 +169,9 @@ async function startGame(message) {
                                     player.setAction("e");
                                 }
 
-                            }
+                            });
 
                             await doAction(player1, player2, ronda);
-
-                            let fightEmbed = new Discord.RichEmbed()
-                                .setTitle("Pelea de bolas de nieve")
-                                .setColor("#d0d0ff")
-                                .setDescription(`☄️ **Atacar** \t=> ***a*** \n⛄ **Defender** \t=> ***d*** \n💨 **Esquivar** \t=> ***e***`)
-                                .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥ Vida: ${player1.getVida()}\nTurnos perdidos: ${player1.getTaunt()}`, true)
-                                .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥ Vida: ${player2.getVida()}\nTurnos perdidos: ${player2.getTaunt()}`, true);
-                            await message.channel.send(fightEmbed);
-                            player1.setAction("❄️");
-                            player2.setAction("❄️");
 
                             console.log("Vida 1 == " + player1.getVida() + "\nVida 2 == " + player2.getVida())
                         })
@@ -198,6 +188,16 @@ async function startGame(message) {
             clearInterval(ronda)
         }
 
+        let fightEmbed = new Discord.RichEmbed()
+            .setTitle("Pelea de bolas de nieve")
+            .setColor("#d0d0ff")
+            .setDescription(`☄️ **Atacar** \t=> ***a*** \n⛄ **Defender** \t=> ***d*** \n💨 **Esquivar** \t=> ***e***`)
+            .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥ Vida: ${player1.getVida()}\nTurnos perdidos: ${player1.getTaunt()}`, true)
+            .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥ Vida: ${player2.getVida()}\nTurnos perdidos: ${player2.getTaunt()}`, true);
+        await message.channel.send(fightEmbed).then(() => {
+            player1.setAction("❄️");
+            player2.setAction("❄️");
+        });
     }, 6000);
 
     await game.eliminar(`${message.channel.id}`)
