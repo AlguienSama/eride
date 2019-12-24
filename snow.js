@@ -146,25 +146,12 @@ async function startGame(message) {
                 clearInterval(ronda);
                 return
             }
-        } else {
-            setTimeout(async () => {
-                let fightEmbed = new Discord.RichEmbed()
-                    .setTitle("Pelea de bolas de nieve")
-                    .setColor("#d0d0ff")
-                    .setDescription(`☄️ **Atacar** \t=> ***a*** \n⛄ **Defender** \t=> ***d*** \n💨 **Esquivar** \t=> ***e***`)
-                    .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥ Vida: ${player1.getVida()}\nTurnos perdidos: ${player1.getTaunt()}`, true)
-                    .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥ Vida: ${player2.getVida()}\nTurnos perdidos: ${player2.getTaunt()}`, true);
-                await message.channel.send(fightEmbed).then(() => {
-                    player1.setAction("❄️");
-                    player2.setAction("❄️");
-                });
-            }, 5500)
         }
 
         let time = 3;
 
         let finRonda = false;
-        console.log(player1);
+        // console.log(player1);
         await message.channel.send(`❄ Siguiente ataque en... **${time}** ❄`).then(msg => {
             let ataque = setInterval(() => {
                 time--;
@@ -189,9 +176,9 @@ async function startGame(message) {
 
                             });
 
-                            await doAction(player1, player2, ronda);
+                            await doAction(player1, player2, message);
 
-                            console.log("Vida 1 == " + player1.getVida() + "\nVida 2 == " + player2.getVida())
+                            // console.log("Vida 1 == " + player1.getVida() + "\nVida 2 == " + player2.getVida())
                         })
                     });
 
@@ -201,7 +188,7 @@ async function startGame(message) {
             }, 1000)
 
         });
-        console.log(finRonda);
+        // console.log(finRonda);
         if (finRonda === true) {
             clearInterval(ronda)
         }
@@ -211,10 +198,10 @@ async function startGame(message) {
 }
 
 
-function doAction(player1, player2) {
+function doAction(player1, player2, message) {
     const act1 = player1.getAction();
     const act2 = player2.getAction();
-    console.log("act1");
+    // console.log("act1");
     if (act1 === "❄️") {
         player1.setTaunt();
         player1.setAccion("❄️\nInactividad")
@@ -259,6 +246,7 @@ function doAction(player1, player2) {
         player2.life = 0;
     }
 
+    sendEmbed(player1, player2, message)
 }
 
 function esquivarAtacar(player1, player2) {
@@ -320,4 +308,20 @@ function defender(player1, player2) {
 function esquivar(player1, player2) {
     player1.setAccion("💨 \nEsquivo");
     player2.setAccion("💨 \nEsquivo")
+}
+
+
+async function sendEmbed(player1, player2, message) {
+    console.log(player1);
+    console.log(player2);
+    let fightEmbed = new Discord.RichEmbed()
+        .setTitle("Pelea de bolas de nieve")
+        .setColor("#d0d0ff")
+        .setDescription(`☄️ **Atacar** \t=> ***a*** \n⛄ **Defender** \t=> ***d*** \n💨 **Esquivar** \t=> ***e***`)
+        .addField(player1.name, `Anterior acción: ${player1.getAccion()}\n♥ Vida: ${player1.getVida()}\nTurnos perdidos: ${player1.getTaunt()}`, true)
+        .addField(player2.name, `Anterior acción: ${player2.getAccion()}\n♥ Vida: ${player2.getVida()}\nTurnos perdidos: ${player2.getTaunt()}`, true);
+    await message.channel.send(fightEmbed).then(() => {
+        player1.setAction("❄️");
+        player2.setAction("❄️");
+    });
 }
