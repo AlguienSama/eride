@@ -189,7 +189,7 @@ async function startGame(message) {
             if (finRonda === true) {
                 clearInterval(ronda)
             }
-        }, 6000);
+        }, 10000);
 
     });
 
