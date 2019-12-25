@@ -259,13 +259,13 @@ function esquivarAtacar(player1, player2) {
         if (atacar) {
             player2.setAccion("☄️\nAtaque esquivado")
         } else {
-            player2.setAccion("☄️\nAtaque fallido")
+            player2.setAccion("☄️\nAtaque esquivado")
         }
     } else {
         player1.setAccion("💨 \nEsquivo fallido");
         if (atacar) {
             player1.damage(2);
-            player2.setAccion("☄️\nAtaque esquivado")
+            player2.setAccion("☄️\nAtaque realizado")
         } else {
             player2.setAccion("☄️\nAtaque fallido")
         }
@@ -280,7 +280,7 @@ function defenderAtacar(player1, player2) {
         player2.damage(1);
         player1.setAccion("☄️\nAtaque defendido")
     } else {
-        player1.setAccion("☄️\nAtaque fallido")
+        player1.setAccion("☄️\nAtaque defendido")
     }
 }
 
