@@ -156,7 +156,8 @@ async function startGame(message) {
                     else {
                         time = 3;
                         message.channel.send("❄️**ATACAD!** ❄️").then(() => {
-                            const collector = message.channel.createMessageCollector(filter, {time: 3000});
+                            const collector = message.channel.createMessageCollector(filter, {time: 2000});
+                            message.channel.send("❄️**ATACAD!** ❄️");
                             collector.on('end', col => {
                                 col.forEach(msg => {
                                     let player;
