@@ -157,8 +157,8 @@ async function startGame(message) {
                         time = 3;
                         message.channel.send("❄️**ATACAD!** ❄️").then(() => {
                             const collector = message.channel.createMessageCollector(filter, {time: 2000});
-                            message.channel.send("❄️**ATACAD!** ❄️");
                             collector.on('end', col => {
+                                message.channel.send("❄️**TIEMPO!** ❄️");
                                 col.forEach(msg => {
                                     let player;
                                     msg.author.id === player1.id ? player = player1 : player = player2;
@@ -245,7 +245,7 @@ function doAction(player1, player2, message) {
         player2.life = 0;
     }
 
-    if (player1.getVida() !== 0 || player2.getVida() !== 0)
+    if (player1.getVida() > 0 && player2.getVida() > 0)
         sendEmbed(player1, player2, message)
 }
 
