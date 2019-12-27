@@ -6,8 +6,8 @@ let poll = new db.crearDB('polls')
 var { error, deny } = require('../../logs.js')
 
 module.exports = {
-    name:'createpoll',
-    alias:['newpoll'],
+    name:'creategacha',
+    alias:['newgacha'],
     description:'Crear una nueva poll personalizada',
     usage:'``createpoll``',
   
@@ -19,14 +19,14 @@ module.exports = {
         if (!poll.tiene(`${message.guild.id}`))
             poll.establecer(`${message.guild.id}.rank`, 'Normal')
 
-        message.channel.send("Escribe el nombre de la colección. Pon ``"+ prefix +"exit`` para cancelar")
+        message.channel.send("Escribe el nombre de la colección. Pon ``"+ message.prefix +"exit`` para cancelar")
         
         // First message
         const collector = new Discord.MessageCollector(message.channel, msg => msg.author.id === message.author.id, { max: 1, time: 30000 });
 
         collector.on('collect', async msg => {
 
-            if (msg.content.toLowerCase() == prefix+"exit")
+            if (msg.content.toLowerCase() == message.prefix+"exit")
                 return
 
             message.channel.send("Introduzca el comado para mostrar las cartas").then(async m => {
@@ -35,7 +35,7 @@ module.exports = {
                 const collector2 = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { max: 1, time: 30000 });
 
                 collector2.on('collect', async m => {
-                    if (m.content.toLowerCase() == prefix+"exit")
+                    if (m.content.toLowerCase() == message.prefix+"exit")
                         return
                     var pollName = msg.content
                     var pollCommand = m.content
