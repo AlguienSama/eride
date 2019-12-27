@@ -15,10 +15,10 @@ for (const fileSet of commandSet) {
   client.command.set(commandSetting.name, commandSetting);
 }
 
-const commandPoll = fs.readdirSync("./cmd/cmdPoll").filter(f => f.endsWith(".js"));
-for (const filePoll of commandPoll) {
-  let commandPolls = require(`./cmd/cmdPoll/${filePoll}`);
-  client.command.set(commandPolls.name, commandPolls)
+const commandGacha = fs.readdirSync("./cmd/cmdGacha").filter(f => f.endsWith(".js"));
+for (const fileGacha of commandGacha) {
+  let commandGachas = require(`./cmd/cmdGacha/${fileGacha}`);
+  client.command.set(commandGachas.name, commandGachas)
 }
 
 const commandFun = fs.readdirSync("./cmd/cmdFun").filter(f => f.endsWith(".js"));
