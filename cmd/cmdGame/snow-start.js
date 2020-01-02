@@ -3,7 +3,7 @@ const client = new Discord.Client()
 const db = require('megadb')
 let game = new db.crearDB('games')
 
-const {error, deny} = require('../../logs.js');
+const {error, deny} = require('../../files/logs.js');
 
 module.exports = {
     name:'snow-start',

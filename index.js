@@ -44,10 +44,7 @@ const vida = require("./vida.js");
 
 
 // Exports
-const { blChannels } = require("./cmd/settings/channels.js");
-const { error } = require("./logs.js")
-
-const { cosasNazis } = require("./cosasNazis.js")
+const { error } = require("./files/logs.js")
 
 
 // Bases de Datos
