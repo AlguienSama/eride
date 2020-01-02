@@ -10,12 +10,16 @@ module.exports = {
         return embedImg
     },
 
-    imgSpoiler: async (url) => {
-        let  ={
+    jpgSpoiler: async (url) => {
+        let dom = url.split(".")
+        dom = dom[dom.length - 1]
+        let spoilerImg ={
             files: [{
-
+                attachment:url,
+                name:"SPOILER_IMG."+dom
             }]
         }
+        return spoilerImg
     }
   
 }
