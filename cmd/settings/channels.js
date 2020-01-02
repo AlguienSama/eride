@@ -1,7 +1,6 @@
 const Discord = require('discord.js')
 const db = require('megadb')
 let dbChannelsBL = new db.crearDB('channelBL')
-const client = new Discord.Client()
 
 module.exports = {
 
