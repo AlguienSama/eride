@@ -98,7 +98,6 @@ client.on("message", async message => {
     return;
   }
 
-  snowFight(message)
   //cosasNazis(client, message)
   let cmd = client.command.get(command) || client.command.find(c => c.alias.includes(command));
   if (cmd && message.content.toLowerCase().startsWith(message.prefix)) {
