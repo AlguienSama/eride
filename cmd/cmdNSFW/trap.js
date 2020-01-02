@@ -5,14 +5,14 @@ const neko = new client();
 var {error, deny} = require('../../logs.js');
 
 module.exports = {
-    name: 'nekogif',
-    alias: ['nekosgif'],
-    description: 'Gif de nekos',
-    usage: '``nekogif``',
+    name: 'trap',
+    alias: ['traps'],
+    description: 'Hentai de trapos',
+    usage: '``trap``',
 
     run: async (message, args) => {
         return
-        neko.nsfw.nekoGif().then(neko => message.channel.send(new Discord.Attachment(neko.url)))
+        neko.nsfw.trap().then(neko => message.channel.send(new Discord.Attachment(neko.url)))
       
     }
 };
