@@ -9,7 +9,8 @@ module.exports = {
     name: 'addcard',
     alias: ['newcard'],
     description: 'Añadir una nueva carta personalizada',
-    usage: '``addcard``',
+    usage: 'addcard',
+    permission:'Administrador',
 
     run: async (message, args) => {
 

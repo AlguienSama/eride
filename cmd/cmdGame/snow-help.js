@@ -6,10 +6,11 @@ let game = new db.crearDB('games')
 const {error, deny} = require('../../logs.js');
 
 module.exports = {
-    name:'snow-start',
-    alias:['sn-st'],
-    description:'Empezar una pelea de nieve',
-    usage:'snow-start [usuario]',
+    name:'snow-help',
+    alias:['sn-he'],
+    description:'Información sobre el juego snow',
+    usage:'snow-help',
+    permission:'none',
   
     run: async (message, args) => {
         

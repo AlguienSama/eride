@@ -47,7 +47,13 @@ class Player {
 }
 
 module.exports = {
-    snowFight: async (message) => {
+    name:'snow-accept',
+    alias:['sn-ac'],
+    description:'Aceptar una pelea',
+    usage:'snow-accept',
+    permission:'none',
+
+    run: async (message) => {
 
         if (!game.tiene(`${message.channel.id}`))
             return message.channel.send("Debes de iniciar una pelea antes");

@@ -8,7 +8,8 @@ module.exports = {
     name:'prefix',
     alias:[],
     description:'Cambiar el prefixo',
-    usage:'``prefix <new prefix>``',
+    usage:'prefix <new prefix>',
+    permission:'Administrador',
   
     run: async (message, args) => {
         if (!message.member.hasPermission("ADMINISTRATOR"))

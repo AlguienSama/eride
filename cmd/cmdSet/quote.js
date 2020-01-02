@@ -4,8 +4,9 @@ const client = new Discord.Client()
 module.exports = {
     name:'quote',
     alias:[],
-    description:'',
-    usage:'``quote <message id> [channel] [text]``',
+    description:'Responder a un mensaje (Fase: BETA)',
+    usage:'quote <message id> [channel] [text]',
+    permission:'none',
 
     run: async (message, args) => {
 

@@ -6,10 +6,11 @@ let game = new db.crearDB('games')
 const {error, deny} = require('../../logs.js');
 
 module.exports = {
-    name:'snow-start',
-    alias:['sn-st'],
-    description:'Empezar una pelea de nieve',
-    usage:'snow-start [usuario]',
+    name:'snow-clear',
+    alias:['sn-cl'],
+    description:'Eliminar la pelea iniciada',
+    usage:'snow-clear',
+    permission:'Administrador | Rol Autorizado',
   
     run: async (message, args) => {
         if (!message.member.hasPermission("ADMINISTRATOR")) return deny(message)

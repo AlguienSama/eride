@@ -9,7 +9,8 @@ module.exports = {
     name:'creategacha',
     alias:['newgacha'],
     description:'Crear una nueva poll personalizada',
-    usage:'``createpoll``',
+    usage:'createpoll',
+    permission:'Administrador',
   
     run: async (message, args) => {
 

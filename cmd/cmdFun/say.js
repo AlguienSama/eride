@@ -4,7 +4,8 @@ module.exports = {
   name:'!say',
   alias:[],
   description:'Repite el mensaje escrito y elimina el mensaje del usuario',
-  usage:'``say <argumentos>``',
+  usage:'say <argumentos>',
+  permission:'none',
   
   run: (message, args) => {
     

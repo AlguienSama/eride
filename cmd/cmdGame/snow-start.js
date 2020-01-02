@@ -10,6 +10,7 @@ module.exports = {
     alias:['sn-st'],
     description:'Empezar una pelea de nieve',
     usage:'snow-start [usuario]',
+    permission:'none',
   
     run: async (message, args) => {
         let msg;

@@ -4,10 +4,11 @@ const db = require('megadb')
 var { deny } = require('../../logs.js')
 
 module.exports = {
-    name:'rm-role',
-    alias:[],
-    description:'',
-    usage:'``rm-role <user> <role>``',
+    name:'role-list',
+    alias:['list-role'],
+    description:'Listado de roles del servidor o de un usuario',
+    usage:'``role-list <user>``',
+    permission:'Administrador | Rol Autorizado',
   
     run: async (message, args) => {
         if (!message.member.hasPermission("ADMINISTRATOR"))
