@@ -84,8 +84,7 @@ client.on("message", async message => {
   }
 
   // Black List Channels
-  blChannels(message, error);
-  var datos;
+  let datos;
   if (dbChannelsBL.tiene(message.guild.id)) {
     datos = await dbChannelsBL.obtener(message.guild.id).catch(err => error(message, "Obtener canales BL 001", err));
   }
