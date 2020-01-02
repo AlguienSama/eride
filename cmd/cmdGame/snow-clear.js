@@ -3,7 +3,8 @@ const client = new Discord.Client()
 const db = require('megadb')
 let game = new db.crearDB('games')
 
-const {error, deny} = require('../../logs.js');
+const { error } = require('../../files/logs.js');
+const { admin, adminRole } = require('../../files/perm.js');
 
 module.exports = {
     name:'snow-clear',
@@ -13,7 +14,8 @@ module.exports = {
     permission:'Administrador | Rol Autorizado',
   
     run: async (message, args) => {
-        if (!message.member.hasPermission("ADMINISTRATOR")) return deny(message)
+        admin(message)
+        adminRole(message)
             
         if (!game.tiene(`${message.channel.id}`))
             return message.channel.send("No hay ninguna pelea iniciada!");

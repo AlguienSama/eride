@@ -3,7 +3,8 @@ const client = new Discord.Client();
 const db = require('megadb');
 let poll = new db.crearDB('polls');
 
-var {error, deny} = require('../../logs.js');
+const { error } = require('../../files/logs.js');
+const { admin } = require('../../files/perm.js');
 
 module.exports = {
     name: 'addcard',
@@ -14,8 +15,7 @@ module.exports = {
 
     run: async (message, args) => {
 
-        if (!message.member.hasPermission("ADMINISTRATOR"))
-            return deny(message);
+        admin(message)
 
         if (!poll.tiene(`${message.guild.id}.polls`))
             return message.channel.send('Debes crear una poll ``' + message.prefix + 'createPoll``');

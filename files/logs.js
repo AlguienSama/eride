@@ -1,7 +1,6 @@
 const Discord = require('discord.js')
 const db = require('megadb')
 const client = new Discord.Client()
-let dbChannelsBL = new db.crearDB('channelBL')
 
 module.exports = {
   error: async (message, code, err) => {

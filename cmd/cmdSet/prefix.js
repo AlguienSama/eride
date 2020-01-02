@@ -2,7 +2,8 @@ const Discord = require('discord.js')
 const db = require('megadb')
 let dbprefix = new db.crearDB('prefix')
 
-var { deny } = require('../../logs.js')
+const { error } = require('../../files/logs.js');
+const { admin } = require('../../files/perm.js');
 
 module.exports = {
     name:'prefix',
@@ -12,8 +13,8 @@ module.exports = {
     permission:'Administrador',
   
     run: async (message, args) => {
-        if (!message.member.hasPermission("ADMINISTRATOR"))
-            return deny(message);
+        
+        admin(message)
         
         if (!args[0])
             return message.channel.send("Debes introducir el nuevo prefijo\n``prefix <new prefix>``")

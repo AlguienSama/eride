@@ -1,7 +1,8 @@
 const Discord = require('discord.js')
 const db = require('megadb')
 
-var { deny } = require('../../logs.js')
+const { error } = require('../../files/logs.js');
+const { admin, adminRole } = require('../../files/perm.js');
 
 module.exports = {
     name:'role-list',
@@ -11,8 +12,9 @@ module.exports = {
     permission:'Administrador | Rol Autorizado',
   
     run: async (message, args) => {
-        if (!message.member.hasPermission("ADMINISTRATOR"))
-            return deny(message);
+        
+        admin(message)
+        adminRole(message)
         
         var rolesId = (message.guild.roles.map(roles => `${roles.id}`))
 
