@@ -3,7 +3,7 @@ const client = new Discord.Client();
 const db = require('megadb');
 let game = new db.crearDB('games');
 
-const {error, deny} = require('./logs.js');
+const {error, deny} = require('../../logs.js');
 
 class Player {
     newPlayer() {
@@ -49,57 +49,20 @@ class Player {
 module.exports = {
     snowFight: async (message) => {
 
-        const args = message.content.slice(message.prefix.length).split(/ +/);
-        const command = args.shift().toLowerCase();
+        if (!game.tiene(`${message.channel.id}`))
+            return message.channel.send("Debes de iniciar una pelea antes");
+        
+        if (game.tiene(`${message.channel.id}.retado`) && await game.obtener(`${message.channel.id}.retado`) !== message.author.id)
+            return message.channel.send("Tu no eres el usuario retado");
+        
+        if (await game.obtener(`${message.channel.id}.player1.id`) === message.author.id)
+            return message.channel.send("No puedes pelear contra ti mismo");
 
-        let msg;
-        if (command === "start") {
-            if (game.tiene(`${message.channel.id}`)) return message.channel.send("Ya hay una pelea en juego");
-            if (message.mentions.users.first()) {
-                msg = `${message.mentions.users.first()} te están retando a una pelea de nieve!`;
-                game.establecer(`${message.channel.id}.retado`, message.mentions.users.first().id)
-            } else
-                msg = message.author + ' quiere hacer una pelea de nieve. Quien acepta? ``' + message.prefix + 'accept``';
+        game.establecer(`${message.channel.id}.player2.id`, message.author.id).catch(err => console.log(err));
+        game.establecer(`${message.channel.id}.player2.name`, message.member.displayName).catch(err => console.log(err));
 
-            game.establecer(`${message.channel.id}.player1.id`, message.author.id);
-            game.establecer(`${message.channel.id}.player1.name`, message.member.displayName);
-            message.channel.send(msg)
-        }
+        await startGame(message)
 
-        if (command === "accept") {
-            if (!game.tiene(`${message.channel.id}`))
-                return message.channel.send("Debes de iniciar una pelea antes");
-            if (game.tiene(`${message.channel.id}.retado`) && await game.obtener(`${message.channel.id}.retado`) !== message.author.id)
-                return message.channel.send("Tu no eres el usuario retado");
-            if (await game.obtener(`${message.channel.id}.player1.id`) === message.author.id)
-                return message.channel.send("No puedes pelear contra ti mismo");
-
-            game.establecer(`${message.channel.id}.player2.id`, message.author.id).catch(err => console.log(err));
-            game.establecer(`${message.channel.id}.player2.name`, message.member.displayName).catch(err => console.log(err));
-
-            await startGame(message)
-        }
-
-        if (command === "help") {
-            let fightEmbed = new Discord.RichEmbed()
-                .setTitle("❄️ Pelea de bolas de nieve ❄️")
-                .setColor("#d0d0ff")
-                .setDescription(`☄ **Atacar** \t=> ***A*** \n⛄ **Defender** \t=> ***D*** \n💨 **Esquivar** \t=> ***E***`)
-                .addField('❄️ Acción ❄️', 'Deberás poner la letra corresponiente a la opción de arriba que deseas ejecutar (_puedes ponerla en mayusculas o minusculas_).')
-                .addField('☄️ Atacar ☄️', 'Hace 2 ptos de daño al enemigo.\nTiene 15% de fallar.')
-                .addField('⛄ Defender ⛄', 'Evitas la mitad del daño enemigo (1 pto).')
-                .addField('💨 Esquivar 💨', 'Evitas el daño enemigo.\nTiene 30% de fallar.')
-                .addField('🌨️ Tips 🌨️', 'Si no seleccionas ninguna acción 3 veces seguidas, pierdes.');
-            await message.channel.send(fightEmbed)
-        }
-
-        if (command === "clear" && message.member.hasPermission("ADMINISTRATOR") || message.author.id === "") {
-            if (!game.tiene(`${message.channel.id}`))
-                return message.channel.send("No hay ninguna pelea iniciada!");
-            await game.eliminar(`${message.channel.id}`).then(() => {
-                return message.channel.send("Pelea eliminada correctamente!")
-            })
-        }
     }
 };
 

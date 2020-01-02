@@ -47,7 +47,6 @@ const vida = require("./vida.js");
 const { blChannels } = require("./cmd/settings/channels.js");
 const { error } = require("./logs.js")
 
-const { snowFight } = require("./snow.js")
 const { cosasNazis } = require("./cosasNazis.js")
 
 
