@@ -13,7 +13,8 @@
     "express": "^4.16.4",
     "discord.js": "^11.5.1",
     "fs": "^0.0.2",
-    "megadb": "^3.0.0"
+    "megadb": "^3.0.0",
+    "nekos.life": "^2.0.4"
   },
   "engines": {
     "node": "8.x"
