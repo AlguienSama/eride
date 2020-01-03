@@ -11,6 +11,7 @@ module.exports = {
     description:'Configurar los comandos nsfw\n**off** : Deshabilitar comandos nsfw\n**spoiler** : Las imagenes salen en formato spoiler\n**default** : Salen de forma normal',
     usage:'nsfw-set < off | spoiler | default >',
     permission:'Administrador | Rol Autorizado',
+    type:'set',
 
     run: async (message, args) => {
         

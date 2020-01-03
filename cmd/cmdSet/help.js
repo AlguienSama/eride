@@ -8,6 +8,8 @@ module.exports = {
     alias:[],
     description:'Ver ayuda',
     usage:'``help [categoria]``',
+    permission:'none',
+    type:'set',
   
     run: async (message, args) => {
 

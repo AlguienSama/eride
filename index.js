@@ -109,6 +109,8 @@ client.on("message", async message => {
     // let name = cmd.name;
     // let description = cmd.description;
     // console.log(alias, name, description)
+    if (!message.channel.nsfw && cmd.type == "nsfw") return
+    
     return cmd.run(message, args);
   }
 

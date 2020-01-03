@@ -10,7 +10,9 @@ module.exports = {
     name: 'nekogif',
     alias: ['nekosgif'],
     description: 'Gif de nekos',
-    usage: '``nekogif``',
+    usage: 'nekogif',
+    permission:'none',
+    type:'nsfw',
 
     run: async (message, args) => {
 

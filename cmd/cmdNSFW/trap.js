@@ -10,7 +10,9 @@ module.exports = {
     name: 'trap',
     alias: ['traps'],
     description: 'Hentai de trapos',
-    usage: '``trap``',
+    usage: 'trap',
+    permission:'none',
+    type:'nsfw',
 
     run: async (message, args) => {
         

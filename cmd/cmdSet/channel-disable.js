@@ -11,6 +11,7 @@ module.exports = {
     description:'Para hacer que el bot pueda **no** hablar en el canal',
     usage:'channel-disable [canal]',
     permission:'Administrador | Rol Autorizado',
+    type:'set',
 
     run: async (message, args) => {
 

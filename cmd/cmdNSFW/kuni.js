@@ -10,7 +10,9 @@ module.exports = {
     name: 'kuni',
     alias: [],
     description: 'Hentai de kuni ||que le come el coño||',
-    usage: '``kuni``',
+    usage: 'kuni',
+    permission:'none',
+    type:'nsfw',
 
     run: async (message, args) => {
         

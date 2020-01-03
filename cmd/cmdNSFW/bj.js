@@ -10,7 +10,9 @@ module.exports = {
     name: 'bj',
     alias: ['mamada'],
     description: 'Blow job ||mamada||',
-    usage: '``bj``',
+    usage: 'bj',
+    permission:'none',
+    type:'nsfw',
 
     run: async (message, args) => {
         

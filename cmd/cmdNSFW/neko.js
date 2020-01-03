@@ -10,7 +10,9 @@ module.exports = {
     name: 'neko',
     alias: ['nekos'],
     description: 'Imagenes de nekos',
-    usage: '``neko``',
+    usage: 'neko',
+    permission:'none',
+    type:'nsfw',
 
     run: async (message, args) => {
 

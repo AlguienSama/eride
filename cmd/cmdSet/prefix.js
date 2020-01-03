@@ -11,6 +11,7 @@ module.exports = {
     description:'Cambiar el prefixo',
     usage:'prefix <new prefix>',
     permission:'Administrador',
+    type:'set',
   
     run: async (message, args) => {
         

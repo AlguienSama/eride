@@ -10,7 +10,9 @@ module.exports = {
     name: 'avatar',
     alias: [],
     description: 'Avatares de hentai',
-    usage: '``avatar``',
+    usage: 'avatar',
+    permission:'none',
+    type:'nsfw',
 
     run: async (message, args) => {
         

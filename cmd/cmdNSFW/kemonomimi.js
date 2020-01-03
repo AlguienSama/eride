@@ -10,7 +10,9 @@ module.exports = {
     name: 'kemonomimi',
     alias: [],
     description: 'Hentai de kemonomimi ||orejitas de animales||',
-    usage: '``kemonomimi``',
+    usage: 'kemonomimi',
+    permission:'none',
+    type:'nsfw',
 
     run: async (message, args) => {
         

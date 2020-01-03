@@ -10,7 +10,9 @@ module.exports = {
     name: 'kitsune',
     alias: ['kitsunes'],
     description: 'Imagenes de kitsunes',
-    usage: '``kitsune``',
+    usage: 'kitsune',
+    permission:'none',
+    type:'nsfw',
 
     run: async (message, args) => {
 

@@ -10,7 +10,9 @@ module.exports = {
     name: 'femdom',
     alias: [],
     description: 'Hentai de femdom ||algo como yuri||',
-    usage: '``femodom``',
+    usage: 'femodom',
+    permission:'none',
+    type:'nsfw',
 
     run: async (message, args) => {
         

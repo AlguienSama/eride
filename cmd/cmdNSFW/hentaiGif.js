@@ -10,7 +10,9 @@ module.exports = {
     name: 'hentaigif',
     alias: [],
     description: 'Hentai gif',
-    usage: '``hentaigif``',
+    usage: 'hentaigif',
+    permission:'none',
+    type:'nsfw',
 
     run: async (message, args) => {
         

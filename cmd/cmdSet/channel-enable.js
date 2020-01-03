@@ -11,6 +11,7 @@ module.exports = {
     description:'Para hacer que el bot pueda hablar en el canal',
     usage:'channel-enable [canal]',
     permission:'Administrador | Rol Autorizado',
+    type:'set',
 
     run: async (message, args) => {
 

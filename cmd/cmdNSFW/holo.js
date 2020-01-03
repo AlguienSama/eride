@@ -10,7 +10,9 @@ module.exports = {
     name: 'holo',
     alias: [],
     description: 'Hentai de holo ||una zorra que se llama Holo||',
-    usage: '``holo``',
+    usage: 'holo',
+    permission:'none',
+    type:'nsfw',
 
     run: async (message, args) => {
         

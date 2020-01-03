@@ -10,7 +10,9 @@ module.exports = {
     name: 'cum',
     alias: ['corrida'],
     description: 'Corridas',
-    usage: '``cum``',
+    usage: 'cum',
+    permission:'none',
+    type:'nsfw',
 
     run: async (message, args) => {
         
