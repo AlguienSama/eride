@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const db = require('megadb')
-let poll = new db.crearDB('polls')
+let poll = new db.crearDB('gachas')
 
 const { error } = require('../../files/logs.js');
 const { admin } = require('../../files/perm.js');

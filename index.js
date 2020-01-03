@@ -49,7 +49,7 @@ const { error } = require("./files/logs.js")
 
 // Bases de Datos
 let dbprefix = new db.crearDB("prefix");
-let dbChannelsBL = new db.crearDB("channelBL");
+let blackList = new db.crearDB("blackList");
 
 
 client.on("ready", async () => {
@@ -88,8 +88,8 @@ client.on("message", async message => {
 
   // Black List Channels
   let datos;
-  if (dbChannelsBL.tiene(message.guild.id)) {
-    datos = await dbChannelsBL.obtener(message.guild.id).catch(err => error(message, "Obtener canales BL 001", err));
+  if (blackList.tiene(`${message.guild.id}.channels`)) {
+    datos = await blackList.obtener(`${message.guild.id}.channels`).catch(err => error(message, "Obtener canales BL 001", err));
   }
 
   // Prevención de Bucles y canales
