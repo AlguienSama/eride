@@ -12,7 +12,7 @@ client.command = new Discord.Collection();
 const commandSet = fs.readdirSync("./cmd/cmdSet").filter(f => f.endsWith(".js"));
 for (const fileSet of commandSet) {
   let commandSetting = require(`./cmd/cmdSet/${fileSet}`);
-  client.command.set(commandSetting.name+"@set", commandSetting);
+  client.command.set(commandSetting.name, commandSetting);
 }
 
 const commandNSFW = fs.readdirSync("./cmd/cmdNSFW").filter(f => f.endsWith(".js"));
