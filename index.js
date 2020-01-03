@@ -12,7 +12,7 @@ client.command = new Discord.Collection();
 const commandSet = fs.readdirSync("./cmd/cmdSet").filter(f => f.endsWith(".js"));
 for (const fileSet of commandSet) {
   let commandSetting = require(`./cmd/cmdSet/${fileSet}`);
-  client.command.set(commandSetting.name, commandSetting);
+  client.command.set(commandSetting.name, commandSetting, "set");
 }
 
 const commandNSFW = fs.readdirSync("./cmd/cmdNSFW").filter(f => f.endsWith(".js"));
@@ -54,6 +54,8 @@ let dbChannelsBL = new db.crearDB("channelBL");
 
 client.on("ready", () => {
   console.log("Connected as " + client.user.tag);
+  console.log("ESTOOO => "+client.command);
+  
 });
 
 
