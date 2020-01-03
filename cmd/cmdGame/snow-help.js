@@ -11,6 +11,7 @@ module.exports = {
     description:'Información sobre el juego snow',
     usage:'snow-help',
     permission:'none',
+    type:'snow-game',
   
     run: async (message, args) => {
         

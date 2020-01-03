@@ -94,12 +94,12 @@ client.on("message", async message => {
   }
 
   // Prevención de Bucles y canales
-  /*if (
+  if (
     message.author == client.user ||
     message.author.bot
   ) {
     return;
-  }*/
+  }
   
   //cosasNazis(client, message)
   let cmd = client.command.get(command) || client.command.find(c => c.alias.includes(command));

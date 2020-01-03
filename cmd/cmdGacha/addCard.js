@@ -12,6 +12,7 @@ module.exports = {
     description: 'Añadir una nueva carta personalizada',
     usage: 'addcard',
     permission:'Administrador',
+    type:'gacha',
 
     run: async (message, args) => {
 

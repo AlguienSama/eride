@@ -12,6 +12,7 @@ module.exports = {
     description:'Eliminar la pelea iniciada',
     usage:'snow-clear',
     permission:'Administrador | Rol Autorizado',
+    type:'snow-game',
   
     run: async (message, args) => {
         admin(message)

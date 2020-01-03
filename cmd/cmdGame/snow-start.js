@@ -11,6 +11,7 @@ module.exports = {
     description:'Empezar una pelea de nieve',
     usage:'snow-start [usuario]',
     permission:'none',
+    type:'snow-game',
   
     run: async (message, args) => {
         let msg;

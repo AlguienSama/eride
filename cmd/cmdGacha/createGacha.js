@@ -12,6 +12,7 @@ module.exports = {
     description:'Crear una nueva poll personalizada',
     usage:'createpoll',
     permission:'Administrador',
+    type:'gacha',
   
     run: async (message, args) => {
 

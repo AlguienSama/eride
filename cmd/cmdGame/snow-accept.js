@@ -52,6 +52,7 @@ module.exports = {
     description:'Aceptar una pelea',
     usage:'snow-accept',
     permission:'none',
+    type:'snow-game',
 
     run: async (message) => {
 

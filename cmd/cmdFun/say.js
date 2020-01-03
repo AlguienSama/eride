@@ -6,6 +6,7 @@ module.exports = {
   description:'Repite el mensaje escrito y elimina el mensaje del usuario',
   usage:'say <argumentos>',
   permission:'none',
+  type:'fun',
   
   run: (message, args) => {
     
