@@ -10,8 +10,17 @@ module.exports = {
     usage: '``trap``',
 
     run: async (message, args) => {
-        return
-        neko.nsfw.trap().then(neko => message.channel.send(new Discord.Attachment(neko.url)))
-      
+        
+        neko.nsfw.trap().then(async img => {
+
+            if (bbdd.tiene(`${message.guild.id}.nsfw`)) {
+                let perm = await bbdd.obtener(`${message.guild.id}.nsfw`)
+    
+                if (perm === "spoiler")
+                    return message.channel.send( await imgSpoiler(img.url))
+            } else {
+                return message.channel.send( await imgEmbed(img.url))
+            }
+        })
     }
 };

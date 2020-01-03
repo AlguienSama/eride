@@ -14,15 +14,17 @@ module.exports = {
 
     run: async (message, args) => {
         
-        let img = neko.nsfw.futanari().then(neko => message.channel.send(new Discord.Attachment(neko.url)))
+        neko.nsfw.futanari().then(async img => {
 
-        if (bbdd.tiene(`${message.guild.id}.nsfw`)) {
-            let perm = await bbdd.obtener(`${message.guild.id}.nsfw`)
-
-            if (perm === "spoiler")
-                return message.channel.send(imgSpoiler(img))
-        } else
-            return message.channel.send(imgEmbed(img))
+            if (bbdd.tiene(`${message.guild.id}.nsfw`)) {
+                let perm = await bbdd.obtener(`${message.guild.id}.nsfw`)
+    
+                if (perm === "spoiler")
+                    return message.channel.send( await imgSpoiler(img.url))
+            } else {
+                return message.channel.send( await imgEmbed(img.url))
+            }
+        })
       
     }
 };

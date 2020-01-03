@@ -3,7 +3,7 @@ const db = require('megadb')
 let bbdd = new db.crearDB('permisos')
 
 const { error } = require('../../files/logs.js');
-const { admin, adminRole } = require('../../files/perm.js');
+const { admin, adminRole, adminB, adminRoleB } = require('../../files/perm.js');
 
 module.exports = {
     name:'nsfw-set',
@@ -14,7 +14,12 @@ module.exports = {
 
     run: async (message, args) => {
         
-        if (await adminB(message) && await adminRoleB(message)) return
+        if (await !adminB(message) && await !adminRoleB(message)) {
+            if (!adminB(message))
+                return admin(message)
+            else (!adminRoleB(message))
+                return adminRole(message)
+        }
 
         let perm;
         switch (args[0]) {
