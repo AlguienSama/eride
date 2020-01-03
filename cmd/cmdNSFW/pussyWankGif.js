@@ -8,7 +8,7 @@ const { imgEmbed, imgSpoiler } = require('../../files/embeds.js');
 
 module.exports = {
     name: 'pussywank',
-    alias: [],
+    alias: ['pussywankgif'],
     description: 'Hentai de pussy noseque',
     usage: 'pussywank',
     permission:'none',
