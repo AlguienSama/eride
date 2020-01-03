@@ -62,7 +62,7 @@ client.on("ready", async () => {
 
 client.on("message", async message => {
   if (message.guild === undefined) return;
-  if (message.author.id === client.user.id) return;
+  //if (message.author.id === client.user.id) return;
 
   // Configuración del prefijo y comandos
 
@@ -94,17 +94,18 @@ client.on("message", async message => {
   }
 
   // Prevención de Bucles y canales
-  if (
+  /*if (
     message.author == client.user ||
     message.author.bot
   ) {
     return;
-  }
-
+  }*/
+  
   //cosasNazis(client, message)
   let cmd = client.command.get(command) || client.command.find(c => c.alias.includes(command));
   if (cmd && message.content.toLowerCase().startsWith(message.prefix)) {
     // let alias = cmd.alias;
+    console.log("a")
     // let name = cmd.name;
     // let description = cmd.description;
     // console.log(alias, name, description)
