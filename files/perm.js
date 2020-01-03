@@ -10,6 +10,7 @@ module.exports = {
     },
 
     adminRole: async (message)  => {
+        let rolID = guild.roles.find("name", "everyone")
         if (!message.member.roles.has(rolID)) return deny(message)
     }
   

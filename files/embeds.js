@@ -8,12 +8,14 @@ module.exports = {
             .setColor('RANDOM')
             .setImage(url)
         
-        return message.channel.send(embedImg)
+        return embedImg
     },
 
     imgSpoiler: async (url) => {
         let dom = url.split(".")
         dom = dom[dom.length - 1]
+        console.log("THIS => "+ dom);
+        
         let spoilerImg ={
             files: [{
                 attachment:url,
