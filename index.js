@@ -55,7 +55,7 @@ let blackList = new db.crearDB("blackList");
 client.on("ready", async () => {
   console.log("Connected as " + client.user.tag);
 
-  console.log(client.command);
+  // console.log(client.command);
   
 });
 
@@ -90,12 +90,12 @@ client.on("message", async message => {
   let datos;
   if (blackList.tiene(`${message.guild.id}.channels`)) {
     datos = await blackList.obtener(`${message.guild.id}.channels`).catch(err => error(message, "Obtener canales BL 001", err));
+    if (datos.includes(message.channel.id)) return
   }
 
   // Prevención de Bucles y canales
   if (
     message.author == client.user ||
-    datos.includes(message.channel.id) ||
     message.author.bot
   ) {
     return;
