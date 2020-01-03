@@ -24,19 +24,19 @@ for (const fileNSFW of commandNSFW) {
 const commandGacha = fs.readdirSync("./cmd/cmdGacha").filter(f => f.endsWith(".js"));
 for (const fileGacha of commandGacha) {
   let commandGachas = require(`./cmd/cmdGacha/${fileGacha}`);
-  client.command.set(commandGachas.name, commandGachas)
+  client.command.set(commandGachas.name+"@gacha", commandGachas)
 }
 
 const commandFun = fs.readdirSync("./cmd/cmdFun").filter(f => f.endsWith(".js"));
 for (const fileFun of commandFun) {
   let commandFuns = require(`./cmd/cmdFun/${fileFun}`);
-  client.command.set(commandFuns.name, commandFuns)
+  client.command.set(commandFuns.name+"@fun", commandFuns)
 }
 
 const commandGame = fs.readdirSync("./cmd/cmdGame").filter(f => f.endsWith(".js"));
 for (const fileGame of commandGame) {
   let commandGames = require(`./cmd/cmdGame/${fileGame}`);
-  client.command.set(commandGames.name, commandGames)
+  client.command.set(commandGames.name+"@game", commandGames)
 }
 
 // Connections
