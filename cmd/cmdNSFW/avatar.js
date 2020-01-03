@@ -7,14 +7,14 @@ let bbdd = new db.crearDB('permisos')
 const { imgEmbed, imgSpoiler } = require('../../files/embeds.js');
 
 module.exports = {
-    name: 'femdom',
+    name: 'avatar',
     alias: [],
-    description: 'Hentai de femdom ||algo como yuri||',
-    usage: '``femodom``',
+    description: 'Avatares de hentai',
+    usage: '``avatar``',
 
     run: async (message, args) => {
         
-        neko.nsfw.femdom().then(async img => {
+        neko.nsfw.avatar().then(async img => {
 
             if (bbdd.tiene(`${message.guild.id}.nsfw`)) {
                 let perm = await bbdd.obtener(`${message.guild.id}.nsfw`)
