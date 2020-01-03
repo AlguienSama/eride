@@ -10,7 +10,7 @@ module.exports = {
         return embedImg
     },
 
-    jpgSpoiler: async (url) => {
+    imgSpoiler: async (url) => {
         let dom = url.split(".")
         dom = dom[dom.length - 1]
         let spoilerImg ={
