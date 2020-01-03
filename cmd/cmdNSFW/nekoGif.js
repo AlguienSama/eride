@@ -21,9 +21,9 @@ module.exports = {
                 let perm = await bbdd.obtener(`${message.guild.id}.nsfw`)
     
                 if (perm === "spoiler")
-                    return message.channel.send(imgSpoiler(img.url))
+                    return message.channel.send( await imgSpoiler(img.url))
             } else {
-                return message.channel.send(imgEmbed(img.url))
+                return message.channel.send( await imgEmbed(img.url))
             }
         })
     }

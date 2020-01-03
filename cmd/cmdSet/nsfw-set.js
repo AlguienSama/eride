@@ -13,9 +13,8 @@ module.exports = {
     permission:'Administrador | Rol Autorizado',
 
     run: async (message, args) => {
-
-        admin(message)
-        adminRole(message)
+        
+        if (await adminB(message) && await adminRoleB(message)) return
 
         let perm;
         switch (args[0]) {
@@ -35,7 +34,7 @@ module.exports = {
                 return message.channel.send("Opción no válida")
         }
 
-        return message.channel.send("Permisos cambiados a "+ perm)
+        return message.channel.send("Permisos cambiados a **"+ perm + "**")
 
     }
 }
