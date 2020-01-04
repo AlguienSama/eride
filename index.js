@@ -45,6 +45,7 @@ const vida = require("./vida.js");
 
 // Exports
 const { error } = require("./files/logs.js")
+const { guildInfo } = require("./files/embeds.js")
 
 
 // Bases de Datos
@@ -59,7 +60,7 @@ client.on("ready", async () => {
 
 //joined a server
 client.on("guildCreate", guild => {
-  console.log("Joined a new guild: " + guild.name);
+  guildInfo(guild, )
   //Your other stuff like adding to guildArray
 })
 

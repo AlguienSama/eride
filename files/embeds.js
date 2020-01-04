@@ -34,13 +34,15 @@ module.exports = {
         return spoilerImg
     },
 
-    guildInfo: async (guild, color) => {
+    guildInfo: async (guild, color = "#92ff9b") => {
         let guildEmbed = new Discord.RichEmbed()
             .setTitle("Servidor: "+ guild.name +" "+ guild.id)
-            .setAuthor("Owner: "+ guild.ownerID, guild.iconURL)
+            .setThumbnail(guild.iconURL)
+            .setDescription("Owner: "+ guild.owner +" "+guild.ownerID)
             .addField("Miembros: ", guild.memberCount)
             .addField("Región: " + guild.region)
             .setFooter("Creado: " + guild.createdTimestamp)
+            .setColor(color)
     }
   
 }
