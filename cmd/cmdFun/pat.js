@@ -1,10 +1,8 @@
 const Discord = require('discord.js');
 const client = require('nekos.life');
 const neko = new client();
-const db = require('megadb')
-let bbdd = new db.crearDB('permisos')
 
-const { imgEmbed, imgSpoiler } = require('../../files/embeds.js');
+const { imgDescEmbed } = require('../../files/embeds.js');
 
 module.exports = {
     name: 'pat',
@@ -16,8 +14,9 @@ module.exports = {
 
     run: async (message, args) => {
         
-        neko.nsfw.pat().then(async img => {
-            let desc = `${message.author} a dado un pat a ${message.user}`
+        neko.sfw.pat().then(async img => {
+            let desc = `${message.author} a dado un pat a ${args.join(" ")}`;
+            return message.channel.send(await imgDescEmbed(desc, img.url))
         })
     }
 };
