@@ -11,6 +11,15 @@ module.exports = {
         return embedImg
     },
 
+    imgDescEmbed: async (desc, url) => {
+        let embedImg = new Discord.RichEmbed()
+            .setColor('RANDOM')
+            .setDescription(desc)
+            .setImage(url)
+        
+        return embedImg
+    },
+
     imgSpoiler: async (url) => {
         let dom = url.split(".")
         dom = dom[dom.length - 1]
