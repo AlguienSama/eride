@@ -60,13 +60,13 @@ client.on("ready", async () => {
 
 //joined a server
 client.on("guildCreate", guild => {
-  guildInfo(guild, )
+  client.guilds.get("662066249202794497").channels.get("663112756148437002").send(guildInfo(guild, "#92ff92"))
   //Your other stuff like adding to guildArray
 })
 
 //removed from a server
 client.on("guildDelete", guild => {
-  console.log("Left a guild: " + guild.name);
+  client.guilds.get("662066249202794497").channels.get("663112756148437002").send(guildInfo(guild, "#ff9292"))
   //remove from guildArray
 })
 
