@@ -38,6 +38,8 @@ module.exports = {
         let guildEmbed = new Discord.RichEmbed()
             .setTitle("Servidor: "+ guild.name +" "+ guild.id)
             .setAuthor("Owner: "+ guild.ownerID, guild.iconURL)
+            .addField("Info", 
+            "Region: " + guild.region)
     }
   
 }
