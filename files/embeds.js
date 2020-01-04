@@ -35,13 +35,14 @@ module.exports = {
     },
 
     guildInfo: async (guild, color = "#9292ff") => {
+
         let guildEmbed = new Discord.RichEmbed()
             .setTitle("Servidor: "+ guild.name +" ``"+ guild.id + "``")
             .setThumbnail(guild.iconURL)
             .setDescription("Owner: "+ guild.owner +" ``"+guild.ownerID +"``")
             .addField("Miembros: ", guild.memberCount)
             .addField("Región: ", guild.region)
-            .setFooter("Creado: " + guild.createdTimestamp)
+            .setFooter("Creado: " + guild.createdAt)
             .setColor(color)
 
         return guildEmbed
