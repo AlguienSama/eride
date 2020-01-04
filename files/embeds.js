@@ -32,6 +32,12 @@ module.exports = {
             }]
         }
         return spoilerImg
+    },
+
+    guildInfo: async (guild, color) => {
+        let guildEmbed = new Discord.RichEmbed()
+            .setTitle("Servidor: "+ guild.name +" "+ guild.id)
+            .setAuthor("Owner: "+ guild.ownerID, guild.iconURL)
     }
   
 }

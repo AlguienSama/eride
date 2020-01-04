@@ -54,10 +54,20 @@ let blackList = new db.crearDB("blackList");
 
 client.on("ready", async () => {
   console.log("Connected as " + client.user.tag);
-
-  // console.log(client.command);
-  
 });
+
+
+//joined a server
+client.on("guildCreate", guild => {
+  console.log("Joined a new guild: " + guild.name);
+  //Your other stuff like adding to guildArray
+})
+
+//removed from a server
+client.on("guildDelete", guild => {
+  console.log("Left a guild: " + guild.name);
+  //remove from guildArray
+})
 
 
 client.on("message", async message => {
