@@ -13,11 +13,6 @@ module.exports = {
   
     run: async (message, args) => {
 
-        let helpEmbed = new Discord.RichEmbed()
-            .setAuthor(message.client.user.tag, message.client.user.displayAvatarURL)
-            .setColor("#1fff5a")
-            .setFooter("No se debe de poner los <> | []\n<> Campo obligatorio\n[] Campo opcional")
-
         // if (!args[0]){
         //     helpEmbed.setDescription("Help list | Categorias\n``help <nombre categoria>``")
         //     .addField("Fun | Misc", "Para entretenimiento")
@@ -84,9 +79,13 @@ module.exports = {
         // }
 
         if (cmdNSFW.some(m => cmd.includes(m.toLowerCase()))) {
-            let helpEmbed1 = helpEmbed
-            let helpEmbed2 = helpEmbed
-            let helpEmbed3 = helpEmbed
+            let helpEmbed1 = new Discord.RichEmbed()
+                .setAuthor(message.client.user.tag, message.client.user.displayAvatarURL)
+                .setColor("#1fff5a")
+            let helpEmbed2 = new Discord.RichEmbed()
+                .setColor("#1fff5a")
+                .setFooter("No se debe de poner los <> | []\n<> Campo obligatorio\n[] Campo opcional")
+            //let helpEmbed3 = new helpEmbed
             helpEmbed1.setDescription("Help list | Hentai NSFW\n``help <nombre comando>``")
             const commandNSFW = fs.readdirSync("/app/cmd/cmdNSFW").filter(f => f.endsWith(".js"));
             let times = 1;
@@ -104,10 +103,11 @@ module.exports = {
                     "\nUso: "+ command.usage +" "+ alias)
                 }
             }
+            message.author.send(helpEmbed1)
+            message.author.send(helpEmbed2)
         }
 
-        message.channel.send(helpEmbed1)
-        message.channel.send(helpEmbed2)
+        
         return
 
         
