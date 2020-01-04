@@ -8,7 +8,7 @@ const { imgEmbed, imgSpoiler } = require('../../files/embeds.js');
 
 module.exports = {
     name: 'boobs',
-    alias: ['oppais'],
+    alias: ['oppais', 'oppai'],
     description: 'Hentai de oppais',
     usage: 'boobs',
     permission:'none',
