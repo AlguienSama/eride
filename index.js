@@ -115,13 +115,7 @@ client.on("message", async message => {
   //cosasNazis(client, message)
   let cmd = client.command.get(command) || client.command.find(c => c.alias.includes(command));
   if (cmd && message.content.toLowerCase().startsWith(message.prefix)) {
-    // let alias = cmd.alias;
-    console.log("a")
-    // let name = cmd.name;
-    // let description = cmd.description;
-    // console.log(alias, name, description)
     if (!message.channel.nsfw && cmd.type == "nsfw") return
-    
     return cmd.run(message, args);
   }
 
