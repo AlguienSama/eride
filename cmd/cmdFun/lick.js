@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = require('nekos.life');
-const neko = new client();
+var giphy = require('giphy-api')();
 
 const { imgDescEmbed } = require('../../files/embeds.js');
 
@@ -14,9 +14,17 @@ module.exports = {
 
     run: async (message, args) => {
         
-        neko.sfw.lick().then(async img => {
+
+        giphy.random('anime lick').then(async img => {
+            console.log(img.data.image_url);
             let desc = `${message.author} ha lamido a ${args.join(" ")}`;
-            return message.channel.send(await imgDescEmbed(desc, img.url))
+            return message.channel.send(await imgDescEmbed(desc, img.data.image_url))
+            
         })
+
+        // neko.sfw.lick().then(async img => {
+        //     let desc = `${message.author} ha lamido a ${args.join(" ")}`;
+        //     return message.channel.send(await imgDescEmbed(desc, img.url))
+        // })
     }
 };
