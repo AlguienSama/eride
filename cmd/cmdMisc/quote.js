@@ -7,7 +7,7 @@ module.exports = {
     description:'Responder a un mensaje (Fase: BETA)',
     usage:'quote <message id> [channel] [text]',
     permission:'none',
-    type:'set',
+    type:'misc',
 
     run: async (message, args) => {
 
