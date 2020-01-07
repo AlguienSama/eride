@@ -8,6 +8,14 @@ const client = new Discord.Client();
 client.command = new Discord.Collection();
 
 
+const Tenor = require("tenorjs").client({
+  "Key": "3M3R4IB3WLRO",
+  "Filter": "medium", // "off", "low", "medium", "high", not case sensitive
+  "Locale": "es_ES",
+  "MediaFilter": "minimal", // either minimal or basic, not case sensitive
+  "DateFormat": "D/MM/YYYY - H:mm:ss A"
+});
+
 // Command handler
 const commandSet = fs.readdirSync("./cmd/cmdSet").filter(f => f.endsWith(".js"));
 for (const fileSet of commandSet) {
@@ -86,7 +94,8 @@ client.on("message", async message => {
   }
   
   const args = message.content.slice(message.prefix.length).split(/ +/)
-	const command = args.shift().toLowerCase()
+  const command = args.shift().toLowerCase()
+  message.Tenor = Tenor;
   
 
   // Know Prefix
