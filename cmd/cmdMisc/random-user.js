@@ -11,9 +11,15 @@ module.exports = {
 
     run: async (message, args) => {
 
-        // let role = message.guild.roles.find("name", args.slice(1).join(" ")).members.map(m => m.user)
+        let option = args.shift().toLowerCase()
 
-        // 
+        console.log(option)
+        console.log(args.join(" "));
+        
+        let role = [message.guild.roles.find("name", args.join(" ")).members.map(m => m.user)]
+        console.log(role)
+
+        message.channel.send(role[Math.floor(Math.random()*role.length)])
 
     }
 }
