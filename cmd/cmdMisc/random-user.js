@@ -5,7 +5,7 @@ module.exports = {
     name:'random-user',
     alias:['rand-user'],
     description:'Usuario aleatorio entre todos los del server, un rol, o coincidente en letras',
-    usage:'random-user [ -role nombre del rol | -letras letras coincidentes]',
+    usage:'random-user [ role nombre del rol | letras letras coincidentes]',
     permission:'none',
     type:'set',
 
@@ -16,10 +16,23 @@ module.exports = {
         console.log(option)
         console.log(args.join(" "));
         
-        let role = [message.guild.roles.find("name", args.join(" ")).members.map(m => m.user)]
-        console.log(role)
-
-        message.channel.send(role[Math.floor(Math.random()*role.length)])
+        if (option === "role") {
+            let rol = [message.guild.roles.find(role => role.name.toLowerCase() === args.join(" ")).members.map(m => m.user)]
+            //console.log(role[0].length)
+            user = rol[0]
+            console.log(user[Math.floor(Math.random() * user.length)].id)
+            message.channel.send("<@!"+user[Math.floor(Math.random()*user.length)].id+">")
+        }
+        else if (option === "nick") {
+            //a
+        }
+        else {
+            let rol = [message.guild.roles.find(role => role.name.toLowerCase() === everyone).members.map(m => m.user)]
+            //console.log(role[0].length)
+            user = rol[0]
+            console.log(user[Math.floor(Math.random() * user.length)].id)
+            message.channel.send("<@!"+user[Math.floor(Math.random()*user.length)].id+">")
+        }
 
     }
 }
