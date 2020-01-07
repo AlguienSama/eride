@@ -54,19 +54,21 @@ module.exports = {
         //     }
         // }
 
-        // else if (cmdSet.some(m => cmd.includes(m.toLowerCase()))) {
-        //     helpEmbed.setDescription("Help list | Settings\n``help <nombre comando>``")
-        //     const commandSet = fs.readdirSync("/app/cmd/cmdSet").filter(f => f.endsWith(".js"));
-        //     for (const fileSet of commandSet) {
-        //         let command = require(`/app/cmd/cmdSet/${fileSet}`);
-        //         let alias = command.alias.length != 0 ? "\nAlias: " + command.alias.join(" ") : " "
-        //         helpEmbed.addField("Command: "+ command.name, 
-        //         command.description +
-        //         "\nUso: "+ command.usage +" "+ alias)
-        //     }
-        // }
+        if (cmdSet.some(m => cmd.includes(m.toLowerCase())) || !args) {
+            helpEmbedSet = new Discord.RichEmbed()
+                .set
+                .setDescription("Help list | Settings\n``help <nombre comando>``")
+            const commandSet = fs.readdirSync("/app/cmd/cmdSet").filter(f => f.endsWith(".js"));
+            for (const fileSet of commandSet) {
+                let command = require(`/app/cmd/cmdSet/${fileSet}`);
+                let alias = command.alias.length != 0 ? "\nAlias: " + command.alias.join(" ") : " "
+                helpEmbed.addField("Command: "+ command.name, 
+                command.description +
+                "\nUso: "+ command.usage +" "+ alias)
+            }
+        }
 
-        // else if (cmdMod.some(m => cmd.includes(m.toLowerCase()))) {
+        // if (cmdMod.some(m => cmd.includes(m.toLowerCase()))) {
         //     helpEmbed.setDescription("Help list | Amor\n``help <nombre comando>``")
         //     const commandMod = fs.readdirSync("/app/cmd/cmdMod").filter(f => f.endsWith(".js"));
         //     for (const fileMod of commandMod) {
@@ -78,7 +80,7 @@ module.exports = {
         //     }
         // }
 
-        if (cmdNSFW.some(m => cmd.includes(m.toLowerCase()))) {
+        if (cmdNSFW.some(m => cmd.includes(m.toLowerCase())) || !args) {
             let helpEmbed1 = new Discord.RichEmbed()
                 .setAuthor(message.client.user.tag, message.client.user.displayAvatarURL)
                 .setColor("#1fff5a")
