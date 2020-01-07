@@ -26,7 +26,7 @@ module.exports = {
         let cmdFun = ["fun", "misc"]
         let cmdMeme = ["meme"]
         let cmdSet = ["set", "conf"]
-        let cmdMod = ["amor"]
+        let cmdMisc = ["misc", "rand"]
         let cmdNSFW = ["hentai", "nsfw"]
         
 
@@ -48,17 +48,23 @@ module.exports = {
             message.author.send(helpEmbedFun)
         }
 
-        // else if (cmdMeme.some(m => cmd.includes(m.toLowerCase()))) {
-        //     helpEmbed.setDescription("Help list | Meme\n``help <nombre comando>``")
-        //     const commandMeme = fs.readdirSync("/app/cmd/cmdMeme").filter(f => f.endsWith(".js"));
-        //     for (const fileMeme of commandMeme) {
-        //         let command = require(`/app/cmd/cmdMeme/${fileMeme}`);
-        //         let alias = command.alias.length != 0 ? "\nAlias: " + command.alias.join(" ") : " "
-        //         helpEmbed.addField("Command: "+ command.name, 
-        //         command.description +
-        //         "\nUso: "+ command.usage +" "+ alias)
-        //     }
-        // }
+        if (cmdMisc.some(m => cmd.includes(m.toLowerCase())) || !args) {
+            let helpEmbedMisc = new Discord.RichEmbed()
+                .setColor("#bdabff")
+                .setDescription("Help list | Miscelania\n``help <nombre comando>``")
+            if (args) 
+                helpEmbedSet.setFooter("No se debe de poner los <> | []\n<> Campo obligatorio\n[] Campo opcional")
+                
+            const commandMisc = fs.readdirSync("/app/cmd/cmdMisc").filter(f => f.endsWith(".js"));
+            for (const fileMisc of commandMisc) {
+                let command = require(`/app/cmd/cmdMisc/${fileMisc}`);
+                let alias = command.alias.length != 0 ? "\nAlias: " + command.alias.join(" ") : " "
+                helpEmbedMisc.addField("Command: "+ command.name, 
+                command.description +
+                "\nUso: "+ command.usage +" "+ alias)
+            }
+            message.author.send(helpEmbedMisc)
+        }
 
         if (cmdSet.some(m => cmd.includes(m.toLowerCase())) || !args) {
             helpEmbedSet = new Discord.RichEmbed()

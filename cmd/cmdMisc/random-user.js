@@ -22,17 +22,17 @@ module.exports = {
             user = rol[0]
             console.log(user[Math.floor(Math.random() * user.length)].id)
             message.channel.send("<@!"+user[Math.floor(Math.random()*user.length)].id+">")
-        }
-        else if (option === "nick") {
-            //a
-        }
-        else {
+        } else if (option === "nick") {
+            let user = [message.guild.members.find(member => member.nickname.toLowerCase().includes(args.join(" ")))]
+
+            console.log(user[Math.floor(Math.random() * user.length)].id)
+            message.channel.send("<@!"+user[Math.floor(Math.random()*user.length)].id+">")
+        } else {
             let rol = [message.guild.roles.find(role => role.name.toLowerCase() === everyone).members.map(m => m.user)]
-            //console.log(role[0].length)
+            
             user = rol[0]
             console.log(user[Math.floor(Math.random() * user.length)].id)
             message.channel.send("<@!"+user[Math.floor(Math.random()*user.length)].id+">")
         }
-
     }
 }
