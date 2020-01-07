@@ -15,7 +15,8 @@
     "fs": "^0.0.2",
     "megadb": "^3.0.0",
     "nekos.life": "^2.0.4",
-    "giphy-api": "^2.0.1"
+    "giphy-api": "^2.0.1",
+    "tenorjs": "^1.0.7"
   },
   "engines": {
     "node": "8.x"

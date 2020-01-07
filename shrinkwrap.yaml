@@ -5,6 +5,7 @@ dependencies:
   giphy-api: 2.0.1
   megadb: 3.0.0
   nekos.life: 2.0.4
+  tenorjs: 1.0.7
 packages:
   /accepts/1.3.5:
     dependencies:
@@ -46,6 +47,12 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-0ygVQE1olpn4Wk6k+odV3ROpYEg=
+  /colors/1.4.0:
+    dev: false
+    engines:
+      node: '>=0.1.90'
+    resolution:
+      integrity: sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
   /content-disposition/0.5.2:
     dev: false
     engines:
@@ -286,6 +293,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
+  /moment/2.24.0:
+    dev: false
+    resolution:
+      integrity: sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
   /ms/2.0.0:
     dev: false
     resolution:
@@ -367,6 +378,11 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-9esiElv1BrZoI3rCDuOuKCBRbuApGGaDPQfjSflGxdy4oyzqghxu6klEkkVIvBje+FF0BX9coEv8KqW6X/7njw==
+  /roi/0.18.0:
+    deprecated: 'This module is deprecated, please use other http client.'
+    dev: false
+    resolution:
+      integrity: sha512-nRUZ5fJxnU9SUAc30Pul10O4LlWqdpXh1xunb3zsR7FA/NJ4yPNzL2ViTgAB7H70YqLsfGQRghvaff8ZcV/7Ug==
   /safe-buffer/5.1.2:
     dev: false
     resolution:
@@ -427,6 +443,14 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
+  /tenorjs/1.0.7:
+    dependencies:
+      colors: 1.4.0
+      moment: 2.24.0
+      roi: 0.18.0
+    dev: false
+    resolution:
+      integrity: sha512-wMusuBJnfPmJg6N/dOXKiDThRE9NAVdqDsAGvhZraPMZ6cYBH1YcfDj3UrXCgxoeDxjXRQDuhEKcVAknRMv3qg==
   /tweetnacl/1.0.1:
     dev: false
     resolution:
@@ -480,3 +504,4 @@ specifiers:
   giphy-api: ^2.0.1
   megadb: ^3.0.0
   nekos.life: ^2.0.4
+  tenorjs: ^1.0.7
