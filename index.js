@@ -23,6 +23,13 @@ for (const fileSet of commandSet) {
   client.command.set(commandSetting.name, commandSetting);
 }
 
+const commandMisc = fs.readdirSync("./cmd/cmdMisc").filter(f => f.endsWith(".js"));
+for (const fileMisc of commandMisc) {
+  let commandMiscs = require(`./cmd/cmdMisc/${fileMisc}`);
+  client.command.set(commandMiscs.name, commandMiscs);
+}
+
+
 const commandNSFW = fs.readdirSync("./cmd/cmdNSFW").filter(f => f.endsWith(".js"));
 for (const fileNSFW of commandNSFW) {
   let commandNSFWs = require(`./cmd/cmdNSFW/${fileNSFW}`);
