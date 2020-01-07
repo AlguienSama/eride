@@ -11,7 +11,9 @@ module.exports = {
 
     run: async (message, args) => {
 
-        let option = args.shift().toLowerCase()
+        let option
+
+        args[0] ? option = args.shift().toLowerCase() : option = undefined
 
         console.log(option)
         console.log(args.join(" "));
@@ -19,7 +21,7 @@ module.exports = {
         if (option === "role") {
             let rol = [message.guild.roles.find(role => role.name.toLowerCase() === args.join(" ")).members.map(m => m.user)]
             //console.log(role[0].length)
-            user = rol[0]
+            let user = rol[0]
             console.log(user[Math.floor(Math.random() * user.length)].id)
             message.channel.send("<@!"+user[Math.floor(Math.random()*user.length)].id+">")
         } else if (option === "nick") {
@@ -27,8 +29,8 @@ module.exports = {
 
             console.log(user[Math.floor(Math.random() * user.length)].id)
             message.channel.send("<@!"+user[Math.floor(Math.random()*user.length)].id+">")
-        } else {
-            let rol = [message.guild.roles.find(role => role.name.toLowerCase() === everyone).members.map(m => m.user)]
+        } else if (option === undefined) {
+            let rol = [message.guild.members.map(m => m.user)]
             
             user = rol[0]
             console.log(user[Math.floor(Math.random() * user.length)].id)
