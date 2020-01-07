@@ -10,7 +10,7 @@ client.command = new Discord.Collection();
 
 const Tenor = require("tenorjs").client({
   "Key": "3M3R4IB3WLRO",
-  "Filter": "medium", // "off", "low", "medium", "high", not case sensitive
+  "Filter": "high", // "off", "low", "medium", "high", not case sensitive
   "Locale": "es_ES",
   "MediaFilter": "minimal", // either minimal or basic, not case sensitive
   "DateFormat": "D/MM/YYYY - H:mm:ss A"
