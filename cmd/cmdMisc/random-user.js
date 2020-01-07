@@ -11,7 +11,9 @@ module.exports = {
 
     run: async (message, args) => {
 
-        
+        // let role = message.guild.roles.find("name", args.slice(1).join(" ")).members.map(m => m.user)
+
+        // 
 
     }
 }
