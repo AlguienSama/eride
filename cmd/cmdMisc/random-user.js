@@ -24,7 +24,7 @@ module.exports = {
             let user = rol[0]
             console.log(user[Math.floor(Math.random() * user.length)].id)
             message.channel.send("<@!"+user[Math.floor(Math.random()*user.length)].id+">")
-        } else if (option === "-nick") {
+        } else if (option === "-letras") {
             let user = [message.guild.members.find(member => member.nickname.toLowerCase().includes(args.join(" ")))]
 
             console.log(user[Math.floor(Math.random() * user.length)].id)
@@ -32,7 +32,7 @@ module.exports = {
         } else if (option === undefined) {
             let rol = [message.guild.members.map(m => m.user)]
             
-            user = rol[0]
+            let user = rol[0]
             console.log(user[Math.floor(Math.random() * user.length)].id)
             message.channel.send("<@!"+user[Math.floor(Math.random()*user.length)].id+">")
         } else {
