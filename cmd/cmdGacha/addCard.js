@@ -116,6 +116,7 @@ module.exports = {
                                     if (reaction.emoji.name === "firefoxRed") {
                                         return message.channel.send("Creación de carta cancelada")
                                     } else if (reaction.emoji.name === "firefoxBlue") {
+                                        // TERMINAR 
                                         await poll.establecer(`${message.guild.id}.polls.`)
                                     }
                                 });
