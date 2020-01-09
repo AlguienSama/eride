@@ -13,9 +13,9 @@ module.exports = {
     run: async (message, args) => {
         
         message.Tenor.Search.Random("anime lick", "1").then(Results => {
-            console.log(Results)
+            //console.log(Results)
             Results.forEach(async Post => {
-                console.log(Post.url)
+                console.log(Post.itemurl)
                 let desc = `${message.author} ha lamido a ${args.join(" ")}`;
                 return message.channel.send(await imgDescEmbed(desc, Post.itemurl))
             });
