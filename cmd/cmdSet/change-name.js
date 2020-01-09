@@ -14,10 +14,10 @@ module.exports = {
         let option
         let newNick = args.join(" ").includes("-letras") ? args.join(" ").split("-letras") : args.join(" ")
         newNick = newNick[0].trim()
-        args[0] ? option = args.shift().toLowerCase() : option = undefined
+        args.join(" ").includes("-letras") ? option = "-letras" : option = undefined
 
         console.log(option)
-        console.log(args.join(" "));
+        console.log(newNick);
         
         // if (option === "-role") {
         //     let rol = [message.guild.roles.find(role => role.name.toLowerCase() === args.join(" ")).members.map(m => m.user)]
@@ -30,8 +30,9 @@ module.exports = {
             let users = [message.guild.members.map(m => m.user)]
 
             users.forEach(u => {
-                if (!u.nickname.includes(args.join(" ")))
-                    message.guild.members.get(u.id).setNickname
+                console.log(u.member)
+                if (!u.member.displayName.includes(args.join(" ")))
+                    message.guild.members.get(u.id).setNickname(newNick)
             });
             message.channel.send("<@!"+user[Math.floor(Math.random()*user.length)].id+">")
         } else if (option === undefined) {
