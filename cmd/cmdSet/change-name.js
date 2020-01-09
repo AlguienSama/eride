@@ -29,6 +29,11 @@ module.exports = {
         if (option === "-letras") {
             let users = [message.guild.members.map(m => m.user)]
 
+            for (let i = 0; i<users[0].length; i++) {
+                if (users[0][i].bot === false)
+                console.log(users[0][i].lastMessage)
+                console.log("- - - - - ")
+            }
             users.forEach(u => {
                 console.log(u.member)
                 if (!u.member.displayName.includes(args.join(" ")))
