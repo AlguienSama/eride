@@ -105,8 +105,7 @@ client.on("message", async message => {
   const args = message.content.slice(message.prefix.length).split(/ +/)
   const command = args.shift().toLowerCase()
   message.Tenor = Tenor;
-
-
+  message.user = message.mentions.users.first() || client.users.get(args[0]) || message.author
 
   // Prevención de Bucles y canales
   if (

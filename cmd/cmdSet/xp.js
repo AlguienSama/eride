@@ -14,12 +14,22 @@ module.exports = {
     type:'xp',
   
     run: async (message, args) => {
+
+        let user = message.mentions.first() || 
         
         let userXp = await xp.obtener(`${message.guild.id}.users.${message.author.id}.xp`).catch(err => error(message, "Obtener xp usuario 001", err));
 
-        let level = userXp / 3
+        let basicXp = 155;
+        let lvl = 0;
+        let restXp = userXp;
 
-        return message.channel.send(userXp)
+        while ( restXp > basicXp ) {
+            lvl++;
+            restXp-=basicXp;
+            basicXp+=basicXp;
+        }
+
+        return message.channel.send(`Level: ${lvl}\nNext level: ${restXp}/${basicXp}\nTotal ganado: ${userXp}`)
 
     }
 }
