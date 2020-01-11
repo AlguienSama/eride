@@ -16,6 +16,9 @@ module.exports = {
     run: async (message, args) => {
         
         let userXp = await xp.obtener(`${message.guild.id}.users.${message.author.id}.xp`).catch(err => error(message, "Obtener xp usuario 001", err));
+
+        let level = userXp / 3
+
         return message.channel.send(userXp)
 
     }
