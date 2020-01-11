@@ -35,7 +35,7 @@ module.exports = {
 }
 
 function sumarXP(message) {
-    let xpVal = console.log(Math.floor(Math.random()*10)+10);
+    let xpVal = Math.floor(Math.random()*10)+10;
             
     xp.sumar(`${message.guild.id}.users.${message.author.id}.xp`, xpVal)
 }

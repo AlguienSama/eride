@@ -1,15 +1,15 @@
 const Discord = require('discord.js')
 const db = require('megadb')
-let dbprefix = new db.crearDB('prefix')
+let xp = new db.crearDB('xp')
 
 const { error } = require('../../files/logs.js');
 const { admin } = require('../../files/perm.js');
 
 module.exports = {
-    name:'prefix',
-    alias:[],
-    description:'Cambiar el prefijo',
-    usage:'prefix <new prefix>',
+    name:'xp-channel',
+    alias:['xp-ch'],
+    description:'Activar / desactivar la xp en un canal',
+    usage:'xp-channel [channel] < -enable | -disable >',
     permission:'Administrador',
     type:'set',
   
