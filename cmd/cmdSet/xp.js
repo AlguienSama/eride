@@ -14,10 +14,8 @@ module.exports = {
     type:'xp',
   
     run: async (message, args) => {
-
-        let user = message.mentions.first() || 
         
-        let userXp = await xp.obtener(`${message.guild.id}.users.${message.author.id}.xp`).catch(err => error(message, "Obtener xp usuario 001", err));
+        let userXp = await xp.obtener(`${message.guild.id}.users.${message.user.id}.xp`).catch(err => error(message, "Obtener xp usuario 001", err));
 
         let basicXp = 155;
         let lvl = 0;
@@ -29,7 +27,7 @@ module.exports = {
             basicXp+=basicXp;
         }
 
-        return message.channel.send(`Level: ${lvl}\nNext level: ${restXp}/${basicXp}\nTotal ganado: ${userXp}`)
+        return message.channel.send(`User: ${message.user.username}\nLevel: ${lvl}\nNext level: ${restXp}/${basicXp}\nTotal ganado: ${userXp}`)
 
     }
 }

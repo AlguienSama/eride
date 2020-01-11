@@ -106,7 +106,7 @@ client.on("message", async message => {
   const command = args.shift().toLowerCase()
   message.Tenor = Tenor;
   message.user = message.mentions.users.first() || client.users.get(args[0]) || message.author
-
+  //console.log(message.user)
   // Prevención de Bucles y canales
   if (
     message.author == client.user ||
