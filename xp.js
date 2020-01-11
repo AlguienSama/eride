@@ -6,6 +6,7 @@ var { error, deny } = require('./files/logs.js')
 
 module.exports = {
     xp: async (message) => {
+        
         if (!xp.tiene(`${message.guild.id}`))
             await xp.establecer(`${message.guild.id}`, { slow: 0, channelsDisable: [] });
 
@@ -20,7 +21,7 @@ module.exports = {
                 sumarXP(message)
                 setTimer(message)
             }
-            
+
         }
         
     }
