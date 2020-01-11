@@ -12,7 +12,7 @@ module.exports = {
     '**Slow:** Se gana xp por 1 mensaje con una cuenta atrás de los segundos especificados (0 por defecto)',
     usage:'xp-type < segundos >',
     permission:'Administrador',
-    type:'set',
+    type:'xp',
   
     run: async (message, args) => {
         
@@ -21,6 +21,10 @@ module.exports = {
         if (!args[0])
             return message.channel.send("``xp-slow < segundos >``\nTiempo actual: **" + await xp.obtener(`${message.guild.id}.slow`) + '** segundos')
 
-        let sec = parseInt()
+        let sec = parseInt(args[0])
+
+        await xp.establecer(`${message.guild.id}.slow`, sec).then(() => {
+            return message.channel.send('Slow cambiado a **' + sec + '** segundos')
+        })
     }
 }
