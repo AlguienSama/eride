@@ -7,30 +7,22 @@ var { error, deny } = require('./files/logs.js')
 module.exports = {
     xp: async (message) => {
         if (!xp.tiene(`${message.guild.id}`))
-            await xp.establecer(`${message.guild.id}`, { config: "default", channelsDisable: [] });
+            await xp.establecer(`${message.guild.id}`, { slow: 0, channelsDisable: [] });
 
         let listChannels = await xp.obtener(`${message.guild.id}.channelsDisable`);
 
-        if (listChannels.includes(message.channel.id)) 
-            return;
+        if (!listChannels.includes(message.channel.id)) {
+            
+            if (!xp.tiene(`${message.guild.id}.users.${message.author.id}`))
+                await xp.establecer(`${message.guild.id}.users.${message.author.id}`, { xp: 0, lastMessage: 0 });
 
-        if (!xp.tiene(`${message.guild.id}.users.${message.author.id}`))
-            await xp.establecer(`${message.guild.id}.users.${message.author.id}`, { xp: 0, lastMessage: 0 });
-
-        if (await xp.obtener(`${message.guild.id}.config`) === "default") {
-
-            sumarXP(message);
-
-        } 
-        
-        else if (await xp.obtener(`${message.guild.id}.config`) === "slow") {
-
-            if (await xp.obtener(`${message.guild.id}.users.${message.author.id}.lastMessage` > message.createdAt.getTime())) 
-                return;
-
-            sumarXP(message);
-            setTimer(message);
+            if (await xp.obtener(`${message.guild.id}.users.${message.author.id}.lastMessage`) < message.createdAt.getTime()) {
+                sumarXP(message)
+                setTimer(message)
+            }
+            
         }
+        
     }
 }
 
@@ -41,7 +33,8 @@ function sumarXP(message) {
 }
 
 async function setTimer(message) {
-    let time = message.createdAt.getTime()+60000;
+    let slow = await xp.obtener(`${message.guild.id}.slow`);
+    let time = message.createdAt.getTime()+slow;
 
     await xp.establecer(`${message.guild.id}.users.${message.author.id}.lastMessage`, time);
 }

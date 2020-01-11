@@ -6,10 +6,10 @@ const { error } = require('../../files/logs.js');
 const { admin } = require('../../files/perm.js');
 
 module.exports = {
-    name:'xp-channel',
-    alias:['xp-ch'],
-    description:'Forma de ganar xp en el servidor\n**Default:** Se gana xp por cada mensaje\n'+
-    '**Slow:** Solo se gana xp por 1 mensaje durante los segundos especificados (1 minuto por defecto)',
+    name:'xp-slow',
+    alias:['xp-sl'],
+    description:'Forma de ganar xp en el servidor\n'+
+    '**Slow:** Indicar el tiempo que ',
     usage:'xp-type < segundos >',
     permission:'Administrador',
     type:'set',
@@ -19,7 +19,7 @@ module.exports = {
         admin(message)
         
         if (!args[0])
-            return message.channel.send("``xp-type < default | slow [segundos] >``\nTipo actual: " + await xp.obtener(`${message.guild.id}.config`))
+            return message.channel.send("``xp-slow < segundos >``\nTiempo actual: " + await xp.obtener(`${message.guild.id}.slow`))
 
         
     }

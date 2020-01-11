@@ -16,7 +16,8 @@
     "megadb": "^3.0.0",
     "nekos.life": "^2.0.4",
     "giphy-api": "^2.0.1",
-    "tenorjs": "^1.0.7"
+    "tenorjs": "^1.0.7",
+    "canvas": "^2.6.1"
   },
   "engines": {
     "node": "8.x"
