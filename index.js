@@ -103,7 +103,7 @@ client.on("message", async message => {
   const args = message.content.slice(message.prefix.length).split(/ +/)
   const command = args.shift().toLowerCase()
   message.Tenor = Tenor;
-  
+
 
   // Know Prefix
   if (
