@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const db = require('megadb')
 let xp = new db.crearDB('xp')
 
-var { error, deny } = require('./logs.js')
+var { error, deny } = require('./files/logs.js')
 
 module.exports = {
     xp: async (message) => {
@@ -11,7 +11,7 @@ module.exports = {
 
         let listChannels = await xp.obtener(`${message.guild.id}.channelsDisable`);
 
-        if (listChannels.tiene(message.channel.id)) 
+        if (listChannels.includes(message.channel.id)) 
             return;
 
         if (!xp.tiene(`${message.guild.id}.users.${message.author.id}`))
@@ -40,7 +40,7 @@ function sumarXP(message) {
     xp.sumar(`${message.guild.id}.users.${message.author.id}.xp`, xpVal)
 }
 
-function setTimer(message) {
+async function setTimer(message) {
     let time = message.createdAt.getTime()+60000;
 
     await xp.establecer(`${message.guild.id}.users.${message.author.id}.lastMessage`, time);

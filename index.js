@@ -62,6 +62,8 @@ const vida = require("./vida.js");
 const { error } = require("./files/logs.js")
 const { guildInfo } = require("./files/embeds.js")
 
+const { xp } = require("./xp.js")
+
 
 // Bases de Datos
 let dbprefix = new db.crearDB("prefix");
@@ -105,20 +107,6 @@ client.on("message", async message => {
   message.Tenor = Tenor;
 
 
-  // Know Prefix
-  if (
-    message.content.toLowerCase().includes(client.user.id) &&
-    message.content.toLowerCase().includes("prefix")
-  ) {
-    return message.channel.send("Mi prefijo es ``" + message.prefix + "``");
-  }
-
-  // Black List Channels
-  let datos;
-  if (blackList.tiene(`${message.guild.id}.channels`)) {
-    datos = await blackList.obtener(`${message.guild.id}.channels`).catch(err => error(message, "Obtener canales BL 001", err));
-    if (datos.includes(message.channel.id)) return
-  }
 
   // Prevención de Bucles y canales
   if (
@@ -127,7 +115,27 @@ client.on("message", async message => {
   ) {
     return;
   }
+
+      // Para la XP
+      xp(message)
+
   
+      // Black List Channels
+    let datos;
+    if (blackList.tiene(`${message.guild.id}.channels`)) {
+      datos = await blackList.obtener(`${message.guild.id}.channels`).catch(err => error(message, "Obtener canales BL 001", err));
+      if (datos.includes(message.channel.id)) return
+    }
+  
+  // Know Prefix
+  if (
+    message.content.toLowerCase().includes(client.user.id) &&
+    message.content.toLowerCase().includes("prefix")
+  ) {
+    return message.channel.send("Mi prefijo es ``" + message.prefix + "``");
+  }
+
+
   //cosasNazis(client, message)
   let cmd = client.command.get(command) || client.command.find(c => c.alias.includes(command));
   if (cmd && message.content.toLowerCase().startsWith(message.prefix)) {
