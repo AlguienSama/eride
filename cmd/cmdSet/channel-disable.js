@@ -8,7 +8,7 @@ const { admin, adminRole } = require('../../files/perm.js');
 module.exports = {
     name:'channel-disable',
     alias:['ch-di', 'deshabilitar-canal'],
-    description:'Para hacer que el bot pueda **no** hablar en el canal',
+    description:'Para hacer que el bot **no** pueda hablar en el canal',
     usage:'channel-disable [canal]',
     permission:'Administrador | Rol Autorizado',
     type:'set',
