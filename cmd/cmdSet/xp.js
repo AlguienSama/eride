@@ -48,6 +48,10 @@ module.exports = {
         ctx.fillStyle = '#ffffff';
         ctx.fillText(message.user.tag, canvas.width / 3, canvas.height / 2.8);
 
+        // Level
+        ctx.font = `20px verdana`;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(`LVL: ${l}`, canvas.width / 3, canvas.height / 2.8);
 
         // Avatar
         ctx.beginPath();
