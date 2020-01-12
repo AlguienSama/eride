@@ -33,14 +33,12 @@ module.exports = {
 
         // Rect background
         ctx.fillStyle = '#2d2f35';
-        ctx.rect(0, 0, canvas.width, canvas.height);
-        ctx.fill();
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.strokeStyle = 'rgba(10,10,10,1)';
         ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
-        // ctx.fillStyle = 'rgba(130,32,38,0.67)';
-        // ctx.rect(120, 120, canvas.width, canvas.height);
-        // ctx.fill();
+        ctx.fillStyle = 'rgba(130,32,38,0.67)';
+        ctx.fillRect(20, 20, canvas.width-40, canvas.height-40);
         
 
         // Username
@@ -51,7 +49,7 @@ module.exports = {
 
         // Avatar
         ctx.beginPath();
-        ctx.arc(125, 125, 100, 0, Math.PI*2, true);
+        ctx.arc(125, 125, 90, 0, Math.PI*2, true);
         ctx.closePath();
         ctx.clip();
 
@@ -59,7 +57,7 @@ module.exports = {
         ctx.drawImage(avatar, 25, 25, 200, 200);
 
 
-        const attachment = new Discord.Attachment(canvas.toBuffer(), 'test.png');
+        const attachment = new Discord.Attachment(canvas.toBuffer(), 'test.gif');
         await message.channel.send(attachment);
 
         return message.channel.send(`User: ${message.user.username}\nLevel: ${lvl}\nNext level: ${restXp}/${basicXp}\nTotal ganado: ${userXp}`)
