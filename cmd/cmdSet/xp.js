@@ -41,7 +41,7 @@ module.exports = {
         ctx.fillRect(20, 20, canvas.width-40, canvas.height-40);
         ctx.strokeStyle = 'rgba(10,10,10,0.80)';
         ctx.strokeRect(20, 20, canvas.width-40, canvas.height-40);
-        
+
 
         // Username
         ctx.font = applyText(canvas, message.user.tag);
@@ -54,14 +54,12 @@ module.exports = {
         ctx.fillText(`LVL: ${lvl}`, canvas.width / 1.35, canvas.height/3);
 
         // Progress Bar
-        ctx.beginPath();
-        ctx.moveTo(150, 160);
-        ctx.moveTo(550, 160);
-        ctx.moveTo(550, 190);
-        ctx.moveTo(150, 190);
-        ctx.fill('red');
-        ctx.strokeStyle = 'rgba(10,10,10,1)';
-        ctx.strokeRect(150, 550, 160, 190);
+        roundedRect(ctx, 240, 180, 400, 30, 20)
+        ctx.fillStyle = 'rgba(50,50,50,1)';
+        ctx.fill()
+
+        // Progress Level
+        roundedRect(ctx, 240, 180, 400, 30, 20)
 
         // Avatar
         ctx.beginPath();
@@ -96,3 +94,17 @@ const applyText = (canvas, text) => {
 	// Return the result to use in the actual canvas
 	return ctx.font;
 };
+
+function roundedRect(ctx,x,y,width,height,radius){
+    ctx.beginPath();
+    ctx.moveTo(x,y+radius);
+    ctx.lineTo(x,y+height-radius);
+    ctx.quadraticCurveTo(x,y+height,x+radius,y+height);
+    ctx.lineTo(x+width-radius,y+height);
+    ctx.quadraticCurveTo(x+width,y+height,x+width,y+height-radius);
+    ctx.lineTo(x+width,y+radius);
+    ctx.quadraticCurveTo(x+width,y,x+width-radius,y);
+    ctx.lineTo(x+radius,y);
+    ctx.quadraticCurveTo(x,y,x,y+radius);
+    ctx.stroke();
+  }
