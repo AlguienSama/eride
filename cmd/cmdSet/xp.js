@@ -1,4 +1,5 @@
 const Discord = require('discord.js')
+const Canvas = require('canvas')
 const db = require('megadb')
 let xp = new db.crearDB('xp')
 
@@ -26,6 +27,16 @@ module.exports = {
             restXp-=basicXp;
             basicXp+=basicXp;
         }
+
+        const canvas = Canvas.createCanvas(700, 250);
+        const ctx = canvas.getContext('2d');
+
+        const background = "#696969";
+
+        ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
+
+        const attachment = new Discord.Attachment(canvas.toBuffer(), 'test.png')
+        message.channel.send(attachment)
 
         return message.channel.send(`User: ${message.user.username}\nLevel: ${lvl}\nNext level: ${restXp}/${basicXp}\nTotal ganado: ${userXp}`)
 
