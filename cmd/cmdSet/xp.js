@@ -38,9 +38,9 @@ module.exports = {
         ctx.strokeStyle = 'rgba(10,10,10,1)';
         ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = 'rgba(130,32,38,0.67)';
-        ctx.rect(120, 120, canvas.width, canvas.height);
-        ctx.fill();
+        // ctx.fillStyle = 'rgba(130,32,38,0.67)';
+        // ctx.rect(120, 120, canvas.width, canvas.height);
+        // ctx.fill();
         
 
         // Avatar
@@ -52,6 +52,11 @@ module.exports = {
         const avatar = await Canvas.loadImage(message.user.displayAvatarURL);
         ctx.drawImage(avatar, 25, 25, 200, 200);
         
+
+        // Username
+        ctx.font = '60px sans-serif';
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText("member.displayName", canvas.width / 2.5, canvas.height / 1.8);
 
         const attachment = new Discord.Attachment(canvas.toBuffer(), 'test.png');
         await message.channel.send(attachment);
