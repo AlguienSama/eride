@@ -59,7 +59,15 @@ module.exports = {
         ctx.fill()
 
         // Progress Level
-        roundedRect(ctx, 240, 180, 400, 30, 20)
+        /*
+        basicXp = 100%
+        restXp  = x%
+        */
+        let lastXp = 100 * basicXp / restXp;
+        console.log(lastXp)
+        roundedRect(ctx, 240, 180, lastXp, 30, 20)
+        ctx.fillStyle = 'rgba(150,150,150,1)';
+        ctx.fill()
 
         // Avatar
         ctx.beginPath();
