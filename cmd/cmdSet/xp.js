@@ -28,6 +28,9 @@ module.exports = {
             basicXp+=basicXp;
         }
 
+        let restXpString = numLetter(restXp);
+        let basicXpString = numLetter(basicXp);
+
         const canvas = Canvas.createCanvas(700, 250);
         const ctx = canvas.getContext('2d');
 
@@ -67,14 +70,18 @@ module.exports = {
         x   = y
         */
         let lastXp = (100 * restXp) / basicXp;
-        console.log(lastXp)
+
         roundedRect(ctx, 240, 180, lastXp * 4, 30, 20)
         ctx.fillStyle = 'rgba(150,150,150,1)';
         ctx.fill()
 
         ctx.font = `bold 25px verdana`;
         ctx.fillStyle = '#ffffff';
-        ctx.fillText(`${restXp}/${basicXp}`, 500, 160);
+        ctx.fillText(`${restXpString}/${basicXpString}`, 500, 160);
+
+        ctx.font = `bold 25px verdana`;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(`${parseInt(lastXp)}%`, 420, 204);
 
         // Avatar
         ctx.beginPath();
@@ -87,17 +94,11 @@ module.exports = {
 
 
         const attachment = new Discord.Attachment(canvas.toBuffer(), 'level-info.png');
-        await message.channel.send(attachment);
+        return await message.channel.send(attachment);
 
-        if (restXp.length > 999999) {
-            var conv = (restXp) => String(restXp).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-            let final = conv(restXp).split(".");
-            final = final[0] + '.' + final[1].slice(0, 2) + 'M'
-        } else if (restXp.length > 999) {
-
-        }
         
-        return message.channel.send(`Next level: ${restXp}/${basicXp}\nTotal ganado: ${userXp}`)
+
+        // return message.channel.send(`Total ganado: ${userXp}`)
 
     }
 };
@@ -130,4 +131,19 @@ function roundedRect(ctx,x,y,width,height,radius){
     ctx.lineTo(x+radius,y);
     ctx.quadraticCurveTo(x,y,x,y+radius);
     ctx.stroke();
+  }
+
+  function numLetter(num) {
+    if (num > 999999) {
+        var conv = (num) => String(num).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+        let final = conv(num).split(".");
+        return num = final[0] + '.' + final[1].slice(0, 2) + 'M';
+
+    } else if (num > 999) {
+        var conv = (num) => String(num).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+        let final = conv(num).split(".");
+        return num = final[0] + '.' + final[1].slice(0, 2) + 'K';
+    }
+
+    return num;
   }
