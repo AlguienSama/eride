@@ -31,8 +31,10 @@ module.exports = {
         const canvas = Canvas.createCanvas(700, 250);
         const ctx = canvas.getContext('2d');
 
+        
+        ctx.beginPath()
         ctx.fillStyle = '#969696'
-        ctx.fill()
+        ctx.rect(0, 0, canvas.width, canvas.height)
         // const background = "#696969";
         // ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
 
