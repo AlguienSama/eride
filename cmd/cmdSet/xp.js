@@ -46,7 +46,7 @@ module.exports = {
         // Username
         ctx.font = applyText(canvas, message.user.tag);
         ctx.fillStyle = '#ffffff';
-        ctx.fillText(message.user.tag, canvas.width / 2.5, canvas.height / 1.8);
+        ctx.fillText(message.user.tag, canvas.width / 3, canvas.height / 2.8);
 
 
         // Avatar
@@ -62,7 +62,7 @@ module.exports = {
         const attachment = new Discord.Attachment(canvas.toBuffer(), 'level-info.png');
         await message.channel.send(attachment);
 
-        return message.channel.send(`User: ${message.user.username}\nLevel: ${lvl}\nNext level: ${restXp}/${basicXp}\nTotal ganado: ${userXp}`)
+        return message.channel.send(`Level: ${lvl}\nNext level: ${restXp}/${basicXp}\nTotal ganado: ${userXp}`)
 
     }
 };
@@ -71,11 +71,11 @@ const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 
 	// Declare a base size of the font
-	let fontSize = 70;
+	let fontSize = 40;
 
 	do {
 		// Assign the font to the context and decrement it so it can be measured again
-		ctx.font = `${fontSize -= 10}px sans-serif`;
+		ctx.font = `bold ${fontSize -= 10}px verdana`;
 		// Compare pixel width of the text to the canvas minus the approximate avatar size
 	} while (ctx.measureText(text).width > canvas.width - 300);
 
