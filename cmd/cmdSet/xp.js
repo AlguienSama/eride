@@ -53,6 +53,16 @@ module.exports = {
         ctx.fillStyle = '#ffffff';
         ctx.fillText(`LVL: ${lvl}`, canvas.width / 1.35, canvas.height/3);
 
+        // Progress Bar
+        ctx.beginPath();
+        ctx.moveTo(150, 160);
+        ctx.moveTo(550, 160);
+        ctx.moveTo(550, 190);
+        ctx.moveTo(150, 190);
+        ctx.fill('red');
+        ctx.strokeStyle = 'rgba(10,10,10,1)';
+        ctx.strokeRect(150, 550, 160, 190);
+
         // Avatar
         ctx.beginPath();
         ctx.arc(125, 125, 90, 0, Math.PI*2, true);
