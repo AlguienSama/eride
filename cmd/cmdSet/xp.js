@@ -31,9 +31,10 @@ module.exports = {
         const canvas = Canvas.createCanvas(700, 250);
         const ctx = canvas.getContext('2d');
 
-        const background = "#696969";
-
-        ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
+        ctx.fillStyle = '#969696'
+        ctx.fill()
+        // const background = "#696969";
+        // ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
 
         const attachment = new Discord.Attachment(canvas.toBuffer(), 'test.png')
         message.channel.send(attachment)
