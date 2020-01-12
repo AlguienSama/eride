@@ -62,12 +62,19 @@ module.exports = {
         /*
         basicXp = 100%
         restXp  = x%
+
+        400 = 100
+        x   = y
         */
-        let lastXp = 100 * basicXp / restXp;
+        let lastXp = (100 * restXp) / basicXp;
         console.log(lastXp)
-        roundedRect(ctx, 240, 180, lastXp, 30, 20)
+        roundedRect(ctx, 240, 180, lastXp * 4, 30, 20)
         ctx.fillStyle = 'rgba(150,150,150,1)';
         ctx.fill()
+
+        ctx.font = `bold 25px verdana`;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(`${restXp}/${basicXp}`, 500, 160);
 
         // Avatar
         ctx.beginPath();
