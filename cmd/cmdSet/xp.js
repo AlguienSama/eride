@@ -89,6 +89,14 @@ module.exports = {
         const attachment = new Discord.Attachment(canvas.toBuffer(), 'level-info.png');
         await message.channel.send(attachment);
 
+        if (restXp.length > 999999) {
+            var conv = (restXp) => String(restXp).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+            let final = conv(restXp).split(".");
+            final = final[0] + '.' + final[1].slice(0, 2) + 'M'
+        } else if (restXp.length > 999) {
+
+        }
+        
         return message.channel.send(`Next level: ${restXp}/${basicXp}\nTotal ganado: ${userXp}`)
 
     }
