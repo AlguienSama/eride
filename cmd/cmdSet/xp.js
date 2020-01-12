@@ -31,24 +31,27 @@ module.exports = {
         const canvas = Canvas.createCanvas(700, 250);
         const ctx = canvas.getContext('2d');
 
+        // Rect background
         ctx.fillStyle = '#2d2f35';
         ctx.rect(0, 0, canvas.width, canvas.height);
-        ctx.fill();
-
-        ctx.fillStyle = 'rgba(30,32,38,0.67)';
-        ctx.rect(20, 20, canvas.width-20, canvas.height-20);
         ctx.fill();
         ctx.strokeStyle = 'rgba(10,10,10,1)';
         ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
+        ctx.fillStyle = 'rgba(130,32,38,0.67)';
+        ctx.rect(120, 120, canvas.width, canvas.height);
+        ctx.fill();
+        
+
+        // Avatar
         ctx.beginPath();
-        ctx.arc(30, 30, 190, 0, Math.PI*2, true);
+        ctx.arc(125, 125, 100, 0, Math.PI*2, true);
         ctx.closePath();
         ctx.clip();
 
-        const avatar = await Ca
-        // const background = "#696969";
-        // ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
+        const avatar = await Canvas.loadImage(message.user.displayAvatarURL);
+        ctx.drawImage(avatar, 25, 25, 200, 200);
+        
 
         const attachment = new Discord.Attachment(canvas.toBuffer(), 'test.png');
         await message.channel.send(attachment);
