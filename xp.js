@@ -10,6 +10,9 @@ module.exports = {
         if (!xp.tiene(`${message.guild.id}`))
             await xp.establecer(`${message.guild.id}`, { slow: 0, channelsDisable: [] });
 
+        if (!xp.tiene(`${message.guild.id}.channelsDisable`))
+            xp.establecer(`${message.guild.id}.channelsDisable`, [])
+            
         let listChannels = await xp.obtener(`${message.guild.id}.channelsDisable`);
 
         if (!listChannels.includes(message.channel.id)) {
