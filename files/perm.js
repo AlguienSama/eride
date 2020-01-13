@@ -28,7 +28,12 @@ module.exports = {
     },
 
     patreon: async (message) => {
-        let curioso = message.client.
+        let curioso = message.client.guilds.get("662066249202794497").roles.get("662068055328948255")
+        let espia = message.client.guilds.get("662066249202794497").roles.get("662069238856548380")
+        let semibot = message.client.guilds.get("662066249202794497").roles.get("662070968830918666")
+        let dioscp = message.client.guilds.get("662066249202794497").roles.get("662070922802626591")
+
+        
     }
   
 }
