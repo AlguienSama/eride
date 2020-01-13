@@ -38,15 +38,25 @@ module.exports = {
         const ctx = canvas.getContext('2d');
 
         // Rect background
-        ctx.fillStyle = '#2d2f35';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = 'rgba(10,10,10,1)';
-        ctx.strokeRect(0, 0, canvas.width, canvas.height);
+        if (xp.tiene(`patreon.${message.user.id}.img`)) {
 
-        ctx.fillStyle = 'rgba(17,18,22,0.40)';
-        ctx.fillRect(20, 20, canvas.width-40, canvas.height-40);
-        ctx.strokeStyle = 'rgba(10,10,10,0.80)';
-        ctx.strokeRect(20, 20, canvas.width-40, canvas.height-40);
+            const background = await Canvas.loadImage(xp.obtener(`boost.${message.user.id}.img`));
+            ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+        } 
+        else {
+
+            ctx.fillStyle = '#2d2f35';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = 'rgba(10,10,10,1)';
+            ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    
+            ctx.fillStyle = 'rgba(17,18,22,0.40)';
+            ctx.fillRect(20, 20, canvas.width-40, canvas.height-40);
+            ctx.strokeStyle = 'rgba(10,10,10,0.80)';
+            ctx.strokeRect(20, 20, canvas.width-40, canvas.height-40);
+
+        }
 
 
         // Username

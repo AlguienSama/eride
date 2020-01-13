@@ -25,6 +25,10 @@ module.exports = {
         let rolID = message.guild.roles.find("name", "everyone")
         if (!message.member.roles.has(rolID)) return false
         else return true
+    },
+
+    patreon: async (message) => {
+        let curioso = message.client.
     }
   
 }
