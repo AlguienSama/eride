@@ -18,10 +18,8 @@ module.exports = {
         admin(message)
         
         if (!args[0])
-            return message.channel.send("Debes introducir el nuevo prefijo\n``prefix <new prefix>``")
+            return message.channel.send("Debes introducir el canal\n``xp-channel [channel] < -enable | -disable >``")
 
-        let pr = args.join(' ')
-        dbprefix.establecer(`${message.guild.id}`, pr)
-        return message.channel.send(`Prefijo cambiado correctamente a \`\`${pr}\`\``)
+        let args = args.join(" ").split(" -")
     }
 }
