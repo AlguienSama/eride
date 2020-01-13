@@ -20,7 +20,7 @@ module.exports = {
         if (!args[0])
             return message.channel.send("Comando mal introducido: ``xp-img < url >``")
 
-        xp.establecer(`patreon.${message.user.id}.img`)
+        //xp.establecer(`patreon.${message.user.id}.img`)
         
     }
 }
