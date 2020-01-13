@@ -124,9 +124,9 @@ const applyText = (canvas, text) => {
 
 	do {
 		// Assign the font to the context and decrement it so it can be measured again
-		ctx.font = `bold ${fontSize -= 10}px verdana`;
+		ctx.font = `bold ${fontSize -= 5}px verdana`;
 		// Compare pixel width of the text to the canvas minus the approximate avatar size
-	} while (ctx.measureText(text).width > canvas.width - 270);
+	} while (ctx.measureText(text).width > canvas.width - 325);
 
 	// Return the result to use in the actual canvas
 	return ctx.font;
