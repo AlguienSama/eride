@@ -87,6 +87,15 @@ client.on("guildDelete", async guild => {
   //remove from guildArray
 })
 
+// Join member server
+client.on("guildMemberAdd", async member => {
+  client.guilds.get("662066249202794497").channels.get("662066249202794505").send(`Bienvenido ${member}!`)
+})
+
+// Join member server
+client.on("guildMemberRemove", async member => {
+  client.guilds.get("662066249202794497").channels.get("662074776835325954").send(`${member} c fue a la puta`)
+})
 
 client.on("message", async message => {
   if (message.guild === undefined) return;
