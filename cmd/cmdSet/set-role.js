@@ -35,11 +35,10 @@ module.exports = {
                     member.addRole(role.id);
                     totalUsers++;
                 }
-            }).then(() => {
-                return message.channel.send(`${role.name} agregado correctamente a ${totalUsers} usuarios!`)
-            }).catch((err) => {
-                console.log(err)
-            });
+            })
+            
+            await message.channel.send(`${role.name} agregado correctamente a ${totalUsers} usuarios!`)
+
         }
     }
 }
