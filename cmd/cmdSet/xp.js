@@ -40,7 +40,7 @@ module.exports = {
         // Rect background
         if (xp.tiene(`patreon.${message.user.id}.img`)) {
 
-            const background = await Canvas.loadImage(xp.obtener(`patreon.${message.user.id}.img`).catch(err => console.log(err)));
+            const background = await Canvas.loadImage(await xp.obtener(`patreon.${message.user.id}.img`).catch(err => console.log(err))).catch(err => console.log(err));
             ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
         } 
@@ -50,13 +50,13 @@ module.exports = {
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.strokeStyle = 'rgba(10,10,10,1)';
             ctx.strokeRect(0, 0, canvas.width, canvas.height);
-    
-            ctx.fillStyle = 'rgba(17,18,22,0.40)';
-            ctx.fillRect(20, 20, canvas.width-40, canvas.height-40);
-            ctx.strokeStyle = 'rgba(10,10,10,0.80)';
-            ctx.strokeRect(20, 20, canvas.width-40, canvas.height-40);
 
         }
+
+        ctx.fillStyle = 'rgba(17,18,22,0.80)';
+        ctx.fillRect(20, 20, canvas.width-40, canvas.height-40);
+        ctx.strokeStyle = 'rgba(10,10,10,0.80)';
+        ctx.strokeRect(20, 20, canvas.width-40, canvas.height-40);
 
 
         // Username
