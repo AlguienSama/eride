@@ -34,10 +34,22 @@ module.exports = {
         let dioscp = message.client.guilds.get("662066249202794497").roles.get("662070922802626591")
 
         
-        if (message.member.roles.some(r => ["662068055328948255", "662069238856548380", "662070968830918666", "662070922802626591"].includes(r.id))) {
-            return true;
+        if (!message.member.roles.some(r => ["662068055328948255", "662069238856548380", "662070968830918666", "662070922802626591"].includes(r.id))) {
+            return deny(message);
         }
-        return deny(message)
+    },
+
+    patreonB: async (message) => {
+        let curioso = message.client.guilds.get("662066249202794497").roles.get("662068055328948255")
+        let espia = message.client.guilds.get("662066249202794497").roles.get("662069238856548380")
+        let semibot = message.client.guilds.get("662066249202794497").roles.get("662070968830918666")
+        let dioscp = message.client.guilds.get("662066249202794497").roles.get("662070922802626591")
+
+        
+        if (message.member.roles.some(r => ["662068055328948255", "662069238856548380", "662070968830918666", "662070922802626591"].includes(r.id))) {
+            return true; 
+        }
+        return false;
     }
   
 }
