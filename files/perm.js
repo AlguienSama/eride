@@ -34,11 +34,10 @@ module.exports = {
         let dioscp = message.client.guilds.get("662066249202794497").roles.get("662070922802626591")
 
         
-        if (message.member.roles.some(r => [curioso, "662069238856548380", "662070968830918666", "662070922802626591"].includes(r.id))) {
-            console.log(true)
+        if (message.member.roles.some(r => ["662068055328948255", "662069238856548380", "662070968830918666", "662070922802626591"].includes(r.id))) {
             return true;
         }
-        console.log(false)
+        return deny(message)
     }
   
 }

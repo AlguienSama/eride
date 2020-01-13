@@ -15,7 +15,8 @@ module.exports = {
   
     run: async (message, args) => {
         
-        patreon(message)
+        if (!patreon(message)) 
+            return
         
         if (!args[0])
             return message.channel.send("Comando mal introducido: ``xp-img < url >``")
