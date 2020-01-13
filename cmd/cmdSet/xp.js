@@ -40,7 +40,7 @@ module.exports = {
         // Rect background
         if (xp.tiene(`patreon.${message.user.id}.img`)) {
 
-            const background = await Canvas.loadImage(xp.obtener(`boost.${message.user.id}.img`));
+            const background = await Canvas.loadImage(xp.obtener(`patreon.${message.user.id}.img`).catch(err => console.log(err)));
             ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
         } 
