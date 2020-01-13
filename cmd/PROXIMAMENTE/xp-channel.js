@@ -29,10 +29,13 @@ module.exports = {
         args[0].trim().startsWith("-") ? canal = message.mentions.channels.first() || message.guild.channels.get(args[0]) : canal = message.channel;
 
         if (!args[1] || args[1] == "-disable") {
-            if (listChannels.tiene())
+            if (listChannels.includes(canal.id))
+                return message.channel.send("Ya estaba deshactivado en " + canal)
             xp.push(`${message.guild.id}.channelsDisable`, canal.id)
         }
         else if (args[1] == "-enable") {
+            if (!listChannels.includes(canal.id))
+                return message.channel.send("Ya estaba activado en " + canal)
             xp.extract(`${message.guild.id}.channelsDisable`, canal.id)
         }
     }

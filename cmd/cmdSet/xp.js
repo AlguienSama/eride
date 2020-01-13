@@ -16,6 +16,9 @@ module.exports = {
 
     run: async (message, args) => {
 
+        if (!xp.tiene(`${message.guild.id}.users.${message.user.id}`))
+            message.user = message.author
+
         let userXp = await xp.obtener(`${message.guild.id}.users.${message.user.id}.xp`).catch(err => error(message, "Obtener xp usuario 001", err));
 
         let basicXp = 155;

@@ -13,8 +13,8 @@ module.exports = {
       .addField("Error", code + '\n' +err)
       .addField("Context", message.content)
       .setTimestamp()
-    message.channel.send(embedError)
-    client.guilds.get("594672292873764876").channels.get("665709194015670291").send(embedError)
+    //message.channel.send(embedError)
+    await message.client.guilds.get("662066249202794497").channels.get("665709194015670291").send(embedError)
   },
 
   deny: async (message)  => {
