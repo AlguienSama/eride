@@ -143,6 +143,7 @@ client.on("message", async message => {
     return message.channel.send("Mi prefijo es ``" + message.prefix + "``");
   }
 
+  //console.log(message.channel.permissionsFor(message.member))
 
   //cosasNazis(client, message)
   let cmd = client.command.get(command) || client.command.find(c => c.alias.includes(command));
