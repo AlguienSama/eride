@@ -143,6 +143,7 @@ client.on("message", async message => {
     return message.channel.send("Mi prefijo es ``" + message.prefix + "``");
   }
 
+  //message.channel.fetchMessage("666757352174649384").then(msg => msg.delete())
   //console.log(message.channel.permissionsFor(message.member))
 
   //cosasNazis(client, message)
