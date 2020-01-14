@@ -26,7 +26,7 @@ module.exports = {
         }
 
         giphy.random(args.join(" ")).then(async img => {
-            console.log(img.data.image_url);
+            console.log(img.data.image_url).catch(err => message.channel.send(err));
             return message.channel.send(await imgEmbed(img.data.image_url))
             
         })
