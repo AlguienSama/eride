@@ -1,46 +1,43 @@
-const Discord = require('discord.js')
-const db = require('megadb')
-let bbdd = new db.crearDB('permisos')
+const Discord = require('discord.js');
+const db = require('megadb');
+let bbdd = new db.crearDB('permisos');
 
-const { error } = require('../../files/logs.js');
-const { admin, adminRole, adminB, adminRoleB } = require('../../files/perm.js');
+const {success, fail} = require("../../files/embeds");
+const {error, deny} = require('../../files/logs.js');
+const {admin_adminRole} = require('../../files/perm.js');
 
 module.exports = {
-    name:'nsfw-set',
-    alias:[],
-    description:'Configurar los comandos nsfw\n**off** : Deshabilitar comandos nsfw\n**spoiler** : Las imagenes salen en formato spoiler\n**default** : Salen de forma normal',
-    usage:'nsfw-set < off | spoiler | default >',
-    permission:'Administrador | Rol Autorizado',
-    type:'set',
+    name: 'nsfw-set',
+    alias: [],
+    description: 'Configurar los comandos nsfw\n**off** : Deshabilitar comandos nsfw\n**spoiler** : Las imagenes salen en formato spoiler\n**default** : Salen de forma normal',
+    usage: 'nsfw-set < off | spoiler | default >',
+    permission: 'Administrador | Rol Autorizado',
+    type: 'set',
 
     run: async (message, args) => {
-        
-        if (await !adminB(message) && await !adminRoleB(message)) {
-            if (!adminB(message))
-                return admin(message)
-            else (!adminRoleB(message))
-                return adminRole(message)
-        }
+
+        if (!await admin_adminRole(message))
+            return deny(message);
 
         let perm;
         switch (args[0]) {
             case "off":
-                bbdd.establecer(`${message.guild.id}.nsfw`, "off");
+                await bbdd.establecer(`${message.guild.id}.nsfw`, "off").catch(err => error(message, "Establecer nsfw 001", err));
                 perm = "off";
                 break;
             case "spoiler":
-                bbdd.establecer(`${message.guild.id}.nsfw`, "spoiler");
+                await bbdd.establecer(`${message.guild.id}.nsfw`, "spoiler").catch(err => error(message, "Establecer nsfw 002", err));
                 perm = "spoiler";
                 break;
             case "default":
-                bbdd.eliminar(`${message.guild.id}.nsfw`);
+                await bbdd.eliminar(`${message.guild.id}.nsfw`).catch(err => error(message, "Establecer nsfw 003", err));
                 perm = "default";
                 break;
             default:
-                return message.channel.send("Opción no válida")
+                return fail(message, "Opción no válida")
         }
 
-        return message.channel.send("Permisos cambiados a **"+ perm + "**")
+        return success(message, "Permisos cambiados a **" + perm + "**")
 
     }
-}
+};

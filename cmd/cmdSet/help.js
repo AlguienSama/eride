@@ -1,16 +1,16 @@
-const Discord = require('discord.js')
+import * as Discrd from "discord.js";
+
+const Discord = require('discord.js');
 const fs = require("fs");
 
-var { deny } = require('../../files/logs.js')
-
 module.exports = {
-    name:'help',
-    alias:[],
-    description:'Ver ayuda',
-    usage:'``help [categoria]``',
-    permission:'none',
-    type:'set',
-  
+    name: 'help',
+    alias: [],
+    description: 'Ver ayuda',
+    usage: '``help [categoria]``',
+    permission: 'none',
+    type: 'set',
+
     run: async (message, args) => {
 
         // if (!args[0]){
@@ -22,111 +22,95 @@ module.exports = {
         //     return message.channel.send(helpEmbed)
         // }
 
-        let cmd = args.join(" ").toLowerCase()
-        let cmdFun = ["fun", "misc"]
-        let cmdMeme = ["meme"]
-        let cmdSet = ["set", "conf"]
-        let cmdMisc = ["misc", "rand"]
-        let cmdNSFW = ["hentai", "nsfw"]
-        
+        let cmd = args.join(" ").toLowerCase();
+        let cmdFun = ["fun"];
+        let cmdSet = ["set", "conf"];
+        let cmdMisc = ["misc", "rand"];
+        let cmdNSFW = ["hentai", "nsfw"];
+
 
         if (cmdFun.some(m => cmd.includes(m.toLowerCase())) || !args) {
-            helpEmbedFun = new Discrd.RichEmbed()
+            let helpEmbedFun = new Discrd.RichEmbed()
                 .setColor('#87f9f4')
-                .setDescription("Help list | Fun\n``help <nombre comando>``")
-            if (args) 
-                helpEmbedSet.setFooter("No se debe de poner los <> | []\n<> Campo obligatorio\n[] Campo opcional")
+                .setDescription("Help list | Fun\n``help <nombre comando>``");
+            if (args)
+                helpEmbedFun.setFooter("No se debe de poner los <> | []\n<> Campo obligatorio\n[] Campo opcional");
 
             const commandFun = fs.readdirSync("/app/cmd/cmdFun").filter(f => f.endsWith(".js"));
-            for (const fileFun of commandFun) {                
+            for (const fileFun of commandFun) {
                 let command = require(`/app/cmd/cmdFun/${fileFun}`);
-                let alias = command.alias.length != 0 ? "\nAlias: " + command.alias.join(" ") : " "
-                helpEmbed.addField("Command: "+ command.name, 
-                command.description +
-                "\nUso: "+ command.usage +" "+ alias)
+                let alias = command.alias.length !== 0 ? "\nAlias: " + command.alias.join(" ") : " ";
+
+                helpEmbedFun.addField("Command: " + command.name,
+                    command.description +
+                    "\nUso: " + command.usage + " " + alias)
             }
-            message.author.send(helpEmbedFun)
+
+            await message.author.send(helpEmbedFun)
         }
 
         if (cmdMisc.some(m => cmd.includes(m.toLowerCase())) || !args) {
             let helpEmbedMisc = new Discord.RichEmbed()
                 .setColor("#bdabff")
-                .setDescription("Help list | Miscelania\n``help <nombre comando>``")
-            if (args) 
-                helpEmbedSet.setFooter("No se debe de poner los <> | []\n<> Campo obligatorio\n[] Campo opcional")
-                
+                .setDescription("Help list | Miscelania\n``help <nombre comando>``");
+            if (args)
+                helpEmbedMisc.setFooter("No se debe de poner los <> | []\n<> Campo obligatorio\n[] Campo opcional");
+
             const commandMisc = fs.readdirSync("/app/cmd/cmdMisc").filter(f => f.endsWith(".js"));
             for (const fileMisc of commandMisc) {
                 let command = require(`/app/cmd/cmdMisc/${fileMisc}`);
-                let alias = command.alias.length != 0 ? "\nAlias: " + command.alias.join(" ") : " "
-                helpEmbedMisc.addField("Command: "+ command.name, 
-                command.description +
-                "\nUso: "+ command.usage +" "+ alias)
+                let alias = command.alias.length !== 0 ? "\nAlias: " + command.alias.join(" ") : " ";
+                helpEmbedMisc.addField("Command: " + command.name,
+                    command.description +
+                    "\nUso: " + command.usage + " " + alias)
             }
-            message.author.send(helpEmbedMisc)
+            await message.author.send(helpEmbedMisc)
         }
 
         if (cmdSet.some(m => cmd.includes(m.toLowerCase())) || !args) {
-            helpEmbedSet = new Discord.RichEmbed()
+            let helpEmbedSet = new Discord.RichEmbed()
                 .setColor('#ffc441')
-                .setDescription("Help list | Settings\n``help <nombre comando>``")
-            if (args) 
-                helpEmbedSet.setFooter("No se debe de poner los <> | []\n<> Campo obligatorio\n[] Campo opcional")
-            
-                const commandSet = fs.readdirSync("/app/cmd/cmdSet").filter(f => f.endsWith(".js"));
+                .setDescription("Help list | Settings\n``help <nombre comando>``");
+            if (args)
+                helpEmbedSet.setFooter("No se debe de poner los <> | []\n<> Campo obligatorio\n[] Campo opcional");
+
+            const commandSet = fs.readdirSync("/app/cmd/cmdSet").filter(f => f.endsWith(".js"));
             for (const fileSet of commandSet) {
                 let command = require(`/app/cmd/cmdSet/${fileSet}`);
-                let alias = command.alias.length != 0 ? "\nAlias: " + command.alias.join(" ") : " "
-                helpEmbed.addField("Command: "+ command.name, 
-                command.description +
-                "\nUso: "+ command.usage +" "+ alias)
+                let alias = command.alias.length !== 0 ? "\nAlias: " + command.alias.join(" ") : " ";
+                helpEmbedSet.addField("Command: " + command.name,
+                    command.description +
+                    "\nUso: " + command.usage + " " + alias)
             }
-            message.author.send(helpEmbedSet)
+            await message.author.send(helpEmbedSet)
         }
-
-        // if (cmdMod.some(m => cmd.includes(m.toLowerCase()))) {
-        //     helpEmbed.setDescription("Help list | Amor\n``help <nombre comando>``")
-        //     const commandMod = fs.readdirSync("/app/cmd/cmdMod").filter(f => f.endsWith(".js"));
-        //     for (const fileMod of commandMod) {
-        //         let command = require(`/app/cmd/cmdMod/${fileMod}`);
-        //         let alias = command.alias.length != 0 ? "\nAlias: " + command.alias.join(" ") : " "
-        //         helpEmbed.addField("Command: "+ command.name, 
-        //         command.description +
-        //         "\nUso: "+ command.usage +" "+ alias)
-        //     }
-        // }
 
         if (cmdNSFW.some(m => cmd.includes(m.toLowerCase())) || !args) {
             let helpEmbed1 = new Discord.RichEmbed()
-                .setColor("#1fff5a")
+                .setColor("#1fff5a");
             let helpEmbed2 = new Discord.RichEmbed()
                 .setColor("#1fff5a")
-                .setFooter("No se debe de poner los <> | []\n<> Campo obligatorio\n[] Campo opcional")
+                .setFooter("No se debe de poner los <> | []\n<> Campo obligatorio\n[] Campo opcional");
             //let helpEmbed3 = new helpEmbed
-            helpEmbed1.setDescription("Help list | Hentai NSFW\n``help <nombre comando>``")
+            helpEmbed1.setDescription("Help list | Hentai NSFW\n``help <nombre comando>``");
             const commandNSFW = fs.readdirSync("/app/cmd/cmdNSFW").filter(f => f.endsWith(".js"));
             let times = 1;
-            for (const fileNSFW of commandNSFW) {       
-                times++;         
+            for (const fileNSFW of commandNSFW) {
+                times++;
                 let command = require(`/app/cmd/cmdNSFW/${fileNSFW}`);
-                let alias = command.alias.length != 0 ? "\nAlias: " + command.alias.join(" ") : " "
+                let alias = command.alias.length !== 0 ? "\nAlias: " + command.alias.join(" ") : " ";
                 if (times < 20) {
-                    helpEmbed1.addField("Command: "+ command.name, 
-                    command.description +
-                    "\nUso: "+ command.usage +" "+ alias)
+                    helpEmbed1.addField("Command: " + command.name,
+                        command.description +
+                        "\nUso: " + command.usage + " " + alias)
                 } else if (times < 40) {
-                    helpEmbed2.addField("Command: "+ command.name, 
-                    command.description +
-                    "\nUso: "+ command.usage +" "+ alias)
+                    helpEmbed2.addField("Command: " + command.name,
+                        command.description +
+                        "\nUso: " + command.usage + " " + alias)
                 }
             }
-            message.author.send(helpEmbed1)
-            message.author.send(helpEmbed2)
+            await message.author.send(helpEmbed1);
+            await message.author.send(helpEmbed2)
         }
-
-        
-        return
-
-        
     }
-}
+};

@@ -1,20 +1,15 @@
-const Discord = require('discord.js')
-const client = new Discord.Client()
-const db = require('megadb')
-let game = new db.crearDB('games')
-
-const {error, deny} = require('../../files/logs.js');
+const Discord = require('discord.js');
 
 module.exports = {
-    name:'snow-help',
-    alias:['sn-he'],
-    description:'Información sobre el juego snow',
-    usage:'snow-help',
-    permission:'none',
-    type:'snow-game',
-  
+    name: 'snow-help',
+    alias: ['sn-he'],
+    description: 'Información sobre el juego snow',
+    usage: 'snow-help',
+    permission: 'none',
+    type: 'snow-game',
+
     run: async (message, args) => {
-        
+
         let fightEmbed = new Discord.RichEmbed()
             .setTitle("❄️ Pelea de bolas de nieve ❄️")
             .setColor("#d0d0ff")
