@@ -1,6 +1,6 @@
-const Discord = require('discord.js')
-const db = require('megadb')
-let xp = new db.crearDB('xp')
+const Discord = require('discord.js');
+const db = require('megadb');
+let xp = new db.crearDB('xp');
 
 const { error } = require('../../files/logs.js');
 const { patreon, patreonB } = require('../../files/perm.js');
@@ -15,13 +15,12 @@ module.exports = {
   
     run: async (message, args) => {
         
-        await patreonB(message).then(async val => {
-            if (!val) {
-                console.log("a")
+        await patreonB(message).then(async pat => {
+            if (!pat) {
                 return await patreon(message)
             } else {
                 if (!args[0])
-                    return message.channel.send("Comando mal introducido: ``xp-img < url >``\nLa url debe terminar en .png .jpg o similares")
+                    return message.channel.send("Comando mal introducido: ``xp-img < url >``\nLa url debe terminar en .png .jpg o similares");
 
                 xp.establecer(`patreon.${message.user.id}.img`, args[0]).then(() => {
                     return message.channel.send("Imagen agregada correctamente")
@@ -30,6 +29,5 @@ module.exports = {
                 });
             }
         })
-        
     }
-}
+};

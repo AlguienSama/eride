@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
 const db = require('megadb');
 let game = new db.crearDB('games');
 
-const {error, deny} = require('../../files/logs.js');
+const {success, fail} = require('../../files/embeds.js');
+const {error} = require('../../files/logs.js');
 
 class Player {
     newPlayer() {
@@ -47,26 +47,26 @@ class Player {
 }
 
 module.exports = {
-    name:'snow-accept',
-    alias:['sn-ac'],
-    description:'Aceptar una pelea',
-    usage:'snow-accept',
-    permission:'none',
-    type:'snow-game',
+    name: 'snow-accept',
+    alias: ['sn-ac'],
+    description: 'Aceptar una pelea',
+    usage: 'snow-accept',
+    permission: 'none',
+    type: 'snow-game',
 
     run: async (message) => {
 
         if (!game.tiene(`${message.channel.id}`))
-            return message.channel.send("Debes de iniciar una pelea antes");
-        
-        if (game.tiene(`${message.channel.id}.retado`) && await game.obtener(`${message.channel.id}.retado`) !== message.author.id)
-            return message.channel.send("Tu no eres el usuario retado");
-        
-        if (await game.obtener(`${message.channel.id}.player1.id`) === message.author.id)
-            return message.channel.send("No puedes pelear contra ti mismo");
+            return fail(message,"Debes de iniciar una pelea antes");
 
-        game.establecer(`${message.channel.id}.player2.id`, message.author.id).catch(err => console.log(err));
-        game.establecer(`${message.channel.id}.player2.name`, message.member.displayName).catch(err => console.log(err));
+        if (game.tiene(`${message.channel.id}.retado`) && await game.obtener(`${message.channel.id}.retado`) !== message.author.id)
+            return fail(message,"Tu no eres el usuario retado");
+
+        if (await game.obtener(`${message.channel.id}.player1.id`) === message.author.id)
+            return fail(message,"No puedes pelear contra ti mismo");
+
+        game.establecer(`${message.channel.id}.player2.id`, message.author.id).catch(err => error(message, "Establecer ID player2 snow game 001", err));
+        game.establecer(`${message.channel.id}.player2.name`, message.member.displayName).catch(err => error(message, "Establecer Name player2 snow game 001", err));
 
         await startGame(message)
 
@@ -80,15 +80,15 @@ async function startGame(message) {
     player1.newPlayer();
     player2.newPlayer();
 
-    player1.name = await game.obtener(`${message.channel.id}.player1.name`).catch(err => console.log(err));
-    player1.id = await game.obtener(`${message.channel.id}.player1.id`).catch(err => console.log(err));
-    player2.name = await game.obtener(`${message.channel.id}.player2.name`).catch(err => console.log(err));
-    player2.id = await game.obtener(`${message.channel.id}.player2.id`).catch(err => console.log(err));
+    player1.name = await game.obtener(`${message.channel.id}.player1.name`).catch(err => error(message, "Snow Game establecer player1 002", err));
+    player1.id = await game.obtener(`${message.channel.id}.player1.id`).catch(err => error(message, "Snow Game establecer player1 003", err));
+    player2.name = await game.obtener(`${message.channel.id}.player2.name`).catch(err => error(message, "Snow Game establecer player2 002", err));
+    player2.id = await game.obtener(`${message.channel.id}.player2.id`).catch(err => error(message, "Snow Game establecer player2 003", err));
 
 
     const filter = m => m.author.id === player1.id || m.author.id === player2.id;
 
-    message.channel.send(`❄️ <@${player1.id}> ❄️ vs ❄️ <@${player2.id}> ❄️\nPreparense, la pelea está a punto de empezar`).then(() => {
+    success(message,`❄️ <@${player1.id}> ❄️ vs ❄️ <@${player2.id}> ❄️\nPreparense, la pelea está a punto de empezar`).then(() => {
         let ronda = setInterval(async () => {
             if (player1.getVida() <= 0 || player2.getVida() <= 0) {
                 let finEmbed = new Discord.RichEmbed()
@@ -216,7 +216,7 @@ function doAction(player1, player2, message) {
     }
 
     if (player1.getVida() > 0 && player2.getVida() > 0)
-        sendEmbed(player1, player2, message)
+        sendEmbed(player1, player2, message);
 }
 
 function esquivarAtacar(player1, player2) {
@@ -282,8 +282,6 @@ function esquivar(player1, player2) {
 
 
 async function sendEmbed(player1, player2, message) {
-    console.log(player1);
-    console.log(player2);
     let fightEmbed = new Discord.RichEmbed()
         .setTitle("Pelea de bolas de nieve")
         .setColor("#d0d0ff")
