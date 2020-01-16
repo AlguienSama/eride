@@ -98,7 +98,6 @@ client.on("guildMemberRemove", async member => {
 
 client.on("message", async message => {
     if (message.guild === undefined) return;
-  return
     //if (message.author.id === client.user.id) return;
 
     // Configuración del prefijo y comandos
