@@ -7,7 +7,7 @@ const { admin } = require('../../files/perm.js');
 
 module.exports = {
     name:'xp-slow',
-    alias:['xp-sl'],
+    alias:['xp-sl', 'xp-cd'],
     description:'Forma de ganar xp en el servidor\n'+
     '**Slow:** Se gana xp por 1 mensaje con una cuenta atrás de los segundos especificados (0 por defecto)',
     usage:'xp-type < segundos >',
