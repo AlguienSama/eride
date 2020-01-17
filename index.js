@@ -99,7 +99,7 @@ client.on("guildMemberRemove", async member => {
 client.on("message", async message => {
     if (message.guild === undefined) return;
     //if (message.author.id === client.user.id) return;
-
+    return;
     // Configuración del prefijo y comandos
 
     if (dbprefix.tiene(`${message.guild.id}`)) {
