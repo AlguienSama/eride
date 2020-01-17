@@ -1,4 +1,3 @@
-
 const Discord = require('discord.js');
 const fs = require("fs");
 
@@ -29,9 +28,7 @@ module.exports = {
 
 
         if (cmdFun.some(m => cmd.includes(m.toLowerCase())) || !args) {
-          
             let helpEmbedFun = new Discord.RichEmbed()
-        
                 .setColor('#87f9f4')
                 .setDescription("Help list | Fun\n``help <nombre comando>``");
             if (args)
