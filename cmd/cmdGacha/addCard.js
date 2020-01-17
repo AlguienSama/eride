@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+/*const Discord = require('discord.js');
 const client = new Discord.Client();
 const db = require('megadb');
 let poll = new db.crearDB('gachas');
@@ -131,4 +131,4 @@ module.exports = {
         });
 
     }
-};
+};*/

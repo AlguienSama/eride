@@ -40,4 +40,4 @@ module.exports = {
         return success(message, "Permisos cambiados a **" + perm + "**")
 
     }
-};
+};//
