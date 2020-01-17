@@ -1,14 +1,7 @@
-<<<<<<< HEAD
-const Discord = require('discord.js');
-const fs = require("fs");
-
-=======
-import * as Discrd from "discord.js";
 
 const Discord = require('discord.js');
 const fs = require("fs");
 
->>>>>>> b3265980505fb63cbe6d22b0bc31c070861a8a8e
 module.exports = {
     name: 'help',
     alias: [],
@@ -36,11 +29,9 @@ module.exports = {
 
 
         if (cmdFun.some(m => cmd.includes(m.toLowerCase())) || !args) {
-<<<<<<< HEAD
+          
             let helpEmbedFun = new Discord.RichEmbed()
-=======
-            let helpEmbedFun = new Discrd.RichEmbed()
->>>>>>> b3265980505fb63cbe6d22b0bc31c070861a8a8e
+        
                 .setColor('#87f9f4')
                 .setDescription("Help list | Fun\n``help <nombre comando>``");
             if (args)
