@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 
+const {fail} = require("../../files/embeds.js");
+
 module.exports = {
     name: 'quote',
     alias: [],
@@ -88,6 +90,8 @@ module.exports = {
             quoteEmbed2.setFooter(`#${message.channel.name}`);
 
             message.channel.send(quoteEmbed2);
+        }).catch(() => {
+            fail(message, "Mensaje no encontrado en " + canal)
         })
 
     }

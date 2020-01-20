@@ -61,6 +61,7 @@ require("./vida.js");
 const {error} = require("./files/logs.js");
 const {success, guildInfo} = require("./files/embeds.js");
 
+// const guildMember = require("./events/guildMember.js");
 const {xp} = require("./xp.js");
 
 
