@@ -63,7 +63,9 @@ const {success, guildInfo} = require("./files/embeds.js");
 
 // const guildMember = require("./events/guildMember.js");
 const {xp} = require("./xp.js");
+const {piedritas} = require("./piedritas.js");
 
+const config = require("./.env.json");
 
 // Bases de Datos
 let dbprefix = new db.crearDB("prefix");
@@ -97,17 +99,18 @@ client.on("guildMemberRemove", async member => {
     client.guilds.get("662066249202794497").channels.get("662074776835325954").send(`${member} c fue a la puta`)
 });
 
+
 client.on("message", async message => {
     if (message.guild === undefined) return;
-    //if (message.author.id === client.user.id) return;
-    return;
+    if (message.author.id === client.user.id) return;
+    //if (message.channel.id !== "665657856149684235") return;
     // Configuración del prefijo y comandos
 
     if (dbprefix.tiene(`${message.guild.id}`)) {
         message.prefix = await dbprefix.obtener(`${message.guild.id}`).catch(err => error(message, "Obtener prefijo DB 001", err));
         // console.log('Prefix DB: '+prefix)
     } else {
-        message.prefix = process.env.PREFIX;
+        message.prefix = process.env.PREFIX || config.prefix;
         // console.log('Prefix base: '+prefix)
     }
 
@@ -125,8 +128,8 @@ client.on("message", async message => {
     }
 
     // Para la XP
-    await xp(message);
-
+    // await xp(message);
+    await piedritas(message, args);
 
     // Black List Channels
     let datos;
@@ -148,11 +151,10 @@ client.on("message", async message => {
     let cmd = client.command.get(command) || client.command.find(c => c.alias.includes(command));
     if (cmd && message.content.toLowerCase().startsWith(message.prefix)) {
         if (!message.channel.nsfw && cmd.type === "nsfw") return;
-        return cmd.run(message);
+        return cmd.run(message, args);
     }
 
 });
 
 // Connect token
-let bot_token = process.env.TOKEN;
-client.login(bot_token);
+client.login(config.token);

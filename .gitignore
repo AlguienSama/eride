@@ -1,3 +1,6 @@
 node_modules/
 .env
+.env.json
 mega_databases/
+package.json
+package-lock.json

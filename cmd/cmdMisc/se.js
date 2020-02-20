@@ -12,6 +12,12 @@ module.exports = {
     type: 'misc',
 
     run: async (message, args) => {
+        // /<[_a-zA-Z0-9]*:[_a-zA-Z0-9]*>/gi
+        // /<a:[_a-zA-Z0-9]*:[_a-zA-Z0-9]*>/
+        if (message.content.match(/<a:[_a-zA-Z0-9]*:[_a-zA-Z0-9]*>/gi))
+            console.log(true);
+        else
+            console.log(false);
         const emojis = getEmojis(message);
         console.log(emojis);
     }
